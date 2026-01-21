@@ -95,6 +95,12 @@
             color: var(--color-accent);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
         .nav-links {
             display: flex;
             gap: 0;
@@ -115,6 +121,35 @@
         .nav-link:hover {
             background: var(--color-fg);
             color: var(--color-bg);
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            border-left: var(--border-width) solid var(--color-fg);
+        }
+
+        .lang-btn {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--color-fg);
+            color: var(--color-bg);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: var(--color-surface);
         }
 
         /* Hero */
@@ -306,7 +341,6 @@
             padding: 2rem;
             position: relative;
             transition: all 0.15s ease;
-            cursor: pointer;
         }
 
         .file-card::before {
@@ -336,6 +370,19 @@
             color: var(--color-fg);
         }
 
+        .file-card:hover .file-download {
+            background: var(--color-bg);
+            color: var(--color-fg);
+            border-color: var(--color-bg);
+        }
+
+        .file-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
         .file-icon {
             width: 48px;
             height: 48px;
@@ -344,8 +391,30 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
             transition: all 0.15s ease;
+        }
+
+        .file-download {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0.75rem;
+            border: var(--border-width) solid var(--color-fg);
+            background: transparent;
+            color: var(--color-fg);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all 0.15s ease;
+        }
+
+        .file-download:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
         }
 
         .file-name {
@@ -680,6 +749,10 @@
             .footer-links {
                 flex-wrap: wrap;
             }
+            .file-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
         }
 
         /* Reveal Animation */
@@ -700,41 +773,47 @@
 
     <nav class="nav">
         <a href="#" class="nav-logo">CMDS<span>_</span>SYSTEM</a>
-        <div class="nav-links">
-            <a href="#files" class="nav-link">Files</a>
-            <a href="#architecture" class="nav-link">Architecture</a>
-            <a href="#process" class="nav-link">Process</a>
-            <a href="#download" class="nav-link">Download</a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#files" class="nav-link" data-i18n="nav.files">Files</a>
+                <a href="#architecture" class="nav-link" data-i18n="nav.architecture">Architecture</a>
+                <a href="#process" class="nav-link" data-i18n="nav.process">Process</a>
+                <a href="#download" class="nav-link" data-i18n="nav.download">Download</a>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ko">KO</button>
+            </div>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-badge">Knowledge Architecture v2.1</div>
+        <div class="hero-badge" data-i18n="hero.badge">Knowledge Architecture v2.1</div>
         <h1 class="hero-title">
             <span class="outline">CMDS</span><br>
             SYSTEM<br>
             <span class="accent">FILES</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
             5 Core System Files that power the CMDSPACE Personal Knowledge Management ecosystem. 
             For AI Agents and Human Users.
         </p>
         <div class="hero-stats">
             <div class="stat-item">
                 <div class="stat-value" data-target="5">5</div>
-                <div class="stat-label">Core Files</div>
+                <div class="stat-label" data-i18n="stats.files">Core Files</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value" data-target="9">9</div>
-                <div class="stat-label">Categories</div>
+                <div class="stat-label" data-i18n="stats.categories">Categories</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value" data-target="91">91</div>
-                <div class="stat-label">Subcategories</div>
+                <div class="stat-label" data-i18n="stats.subcategories">Subcategories</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value">5K+</div>
-                <div class="stat-label">Notes</div>
+                <div class="stat-label" data-i18n="stats.notes">Notes</div>
             </div>
         </div>
     </section>
@@ -765,39 +844,54 @@
             <div class="section-number">01</div>
             <div>
                 <h2 class="section-title">CORE <span class="highlight">FILES</span></h2>
-                <p class="section-desc">5 system files that provide complete guidance for AI agents and human users working with the CMDS vault.</p>
+                <p class="section-desc" data-i18n="section.files.desc">5 system files that provide complete guidance for AI agents and human users working with the CMDS vault.</p>
             </div>
         </div>
 
         <div class="files-grid">
             <div class="file-card reveal" data-index="01">
-                <div class="file-icon">📋</div>
+                <div class="file-header">
+                    <div class="file-icon">📋</div>
+                    <a href="files/CLAUDE.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
+                </div>
                 <div class="file-name">CLAUDE.md</div>
-                <div class="file-desc">Technical implementation guide for Claude Code. File operations, commands, vault rules.</div>
+                <div class="file-desc" data-i18n="file.claude.desc">Technical implementation guide for Claude Code. File operations, commands, vault rules.</div>
                 <span class="file-badge ai">AI Agent</span>
             </div>
             <div class="file-card reveal" data-index="02">
-                <div class="file-icon">🤖</div>
+                <div class="file-header">
+                    <div class="file-icon">🤖</div>
+                    <a href="files/AGENTS.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
+                </div>
                 <div class="file-name">AGENTS.md</div>
-                <div class="file-desc">General guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf.</div>
+                <div class="file-desc" data-i18n="file.agents.desc">General guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf.</div>
                 <span class="file-badge ai">AI Agent</span>
             </div>
             <div class="file-card reveal" data-index="03">
-                <div class="file-icon">📖</div>
+                <div class="file-header">
+                    <div class="file-icon">📖</div>
+                    <a href="files/CMDS.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
+                </div>
                 <div class="file-name">CMDS.md</div>
-                <div class="file-desc">System philosophy & user context. WHY & WHAT - Purpose, workflows, 9 categories.</div>
+                <div class="file-desc" data-i18n="file.cmds.desc">System philosophy & user context. WHY & WHAT - Purpose, workflows, 9 categories.</div>
                 <span class="file-badge ai">AI Agent</span>
             </div>
             <div class="file-card reveal" data-index="04">
-                <div class="file-icon">📐</div>
+                <div class="file-header">
+                    <div class="file-icon">📐</div>
+                    <a href="files/CMDS-Guide.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
+                </div>
                 <div class="file-name">CMDS Guide.md</div>
-                <div class="file-desc">Operational standards. Properties templates, naming conventions, folder structure.</div>
+                <div class="file-desc" data-i18n="file.guide.desc">Operational standards. Properties templates, naming conventions, folder structure.</div>
                 <span class="file-badge human">Human</span>
             </div>
             <div class="file-card reveal" data-index="05">
-                <div class="file-icon">🏛</div>
+                <div class="file-header">
+                    <div class="file-icon">🏛</div>
+                    <a href="files/CMDS-Head-Quarter.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
+                </div>
                 <div class="file-name">CMDS Head Quarter.md</div>
-                <div class="file-desc">Navigation hub. Quick access to all 91 subcategories and ChatGPT GPT links.</div>
+                <div class="file-desc" data-i18n="file.hq.desc">Navigation hub. Quick access to all 91 subcategories and ChatGPT GPT links.</div>
                 <span class="file-badge human">Human</span>
             </div>
         </div>
@@ -808,7 +902,7 @@
             <div class="section-number">02</div>
             <div>
                 <h2 class="section-title">CMDS <span class="highlight">ARCHITECTURE</span></h2>
-                <p class="section-desc">9 major categories (100-900 series) organizing all knowledge into distinct stages of the knowledge lifecycle.</p>
+                <p class="section-desc" data-i18n="section.arch.desc">9 major categories (100-900 series) organizing all knowledge into distinct stages of the knowledge lifecycle.</p>
             </div>
         </div>
 
@@ -816,51 +910,51 @@
             <div class="category-card reveal">
                 <div class="category-number">100</div>
                 <div class="category-name">📖 Themes</div>
-                <div class="category-purpose">Discovery & Connection</div>
+                <div class="category-purpose" data-i18n="cat.100.purpose">Discovery & Connection</div>
                 <div class="category-items">
-                    <span class="category-item">Interests</span>
-                    <span class="category-item">Topics</span>
-                    <span class="category-item">Variables</span>
-                    <span class="category-item">Terminologies</span>
+                    <span class="category-item" data-i18n="cat.100.item1">Interests</span>
+                    <span class="category-item" data-i18n="cat.100.item2">Topics</span>
+                    <span class="category-item" data-i18n="cat.100.item3">Variables</span>
+                    <span class="category-item" data-i18n="cat.100.item4">Terminologies</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">200</div>
                 <div class="category-name">📖 Literature</div>
-                <div class="category-purpose">Integration & Theory</div>
+                <div class="category-purpose" data-i18n="cat.200.purpose">Integration & Theory</div>
                 <div class="category-items">
-                    <span class="category-item">Concepts</span>
-                    <span class="category-item">Frameworks</span>
-                    <span class="category-item">Theories</span>
-                    <span class="category-item">Books</span>
+                    <span class="category-item" data-i18n="cat.200.item1">Concepts</span>
+                    <span class="category-item" data-i18n="cat.200.item2">Frameworks</span>
+                    <span class="category-item" data-i18n="cat.200.item3">Theories</span>
+                    <span class="category-item" data-i18n="cat.200.item4">Books</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">300</div>
                 <div class="category-name">📖 Data</div>
-                <div class="category-purpose">Collection & Management</div>
+                <div class="category-purpose" data-i18n="cat.300.purpose">Collection & Management</div>
                 <div class="category-items">
-                    <span class="category-item">Surveys</span>
-                    <span class="category-item">Databases</span>
-                    <span class="category-item">Panel Data</span>
+                    <span class="category-item" data-i18n="cat.300.item1">Surveys</span>
+                    <span class="category-item" data-i18n="cat.300.item2">Databases</span>
+                    <span class="category-item" data-i18n="cat.300.item3">Panel Data</span>
                     <span class="category-item">LMS</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">400</div>
                 <div class="category-name">📖 Methodologies</div>
-                <div class="category-purpose">Analysis & Implementation</div>
+                <div class="category-purpose" data-i18n="cat.400.purpose">Analysis & Implementation</div>
                 <div class="category-items">
-                    <span class="category-item">Research Methods</span>
-                    <span class="category-item">Statistics</span>
-                    <span class="category-item">Machine Learning</span>
-                    <span class="category-item">Prompts</span>
+                    <span class="category-item" data-i18n="cat.400.item1">Research Methods</span>
+                    <span class="category-item" data-i18n="cat.400.item2">Statistics</span>
+                    <span class="category-item" data-i18n="cat.400.item3">Machine Learning</span>
+                    <span class="category-item" data-i18n="cat.400.item4">Prompts</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">500</div>
                 <div class="category-name">📖 Products</div>
-                <div class="category-purpose">Tools & Platforms</div>
+                <div class="category-purpose" data-i18n="cat.500.purpose">Tools & Platforms</div>
                 <div class="category-items">
                     <span class="category-item">Obsidian</span>
                     <span class="category-item">ChatGPT</span>
@@ -871,43 +965,43 @@
             <div class="category-card reveal">
                 <div class="category-number">600</div>
                 <div class="category-name">📖 Specialties</div>
-                <div class="category-purpose">Expertise & Application</div>
+                <div class="category-purpose" data-i18n="cat.600.purpose">Expertise & Application</div>
                 <div class="category-items">
-                    <span class="category-item">Knowledge Mgmt</span>
-                    <span class="category-item">Second Brain</span>
-                    <span class="category-item">Gen AI</span>
-                    <span class="category-item">Productivity</span>
+                    <span class="category-item" data-i18n="cat.600.item1">Knowledge Mgmt</span>
+                    <span class="category-item" data-i18n="cat.600.item2">Second Brain</span>
+                    <span class="category-item" data-i18n="cat.600.item3">Gen AI</span>
+                    <span class="category-item" data-i18n="cat.600.item4">Productivity</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">700</div>
                 <div class="category-name">📖 Creatives</div>
-                <div class="category-purpose">Expression & Content</div>
+                <div class="category-purpose" data-i18n="cat.700.purpose">Expression & Content</div>
                 <div class="category-items">
                     <span class="category-item">YouTube</span>
                     <span class="category-item">SNS</span>
-                    <span class="category-item">Music</span>
-                    <span class="category-item">Digital Art</span>
+                    <span class="category-item" data-i18n="cat.700.item3">Music</span>
+                    <span class="category-item" data-i18n="cat.700.item4">Digital Art</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">800</div>
                 <div class="category-name">📖 Outputs</div>
-                <div class="category-purpose">Publication & Delivery</div>
+                <div class="category-purpose" data-i18n="cat.800.purpose">Publication & Delivery</div>
                 <div class="category-items">
                     <span class="category-item">PhD</span>
-                    <span class="category-item">Articles</span>
-                    <span class="category-item">Lectures</span>
-                    <span class="category-item">Consulting</span>
+                    <span class="category-item" data-i18n="cat.800.item2">Articles</span>
+                    <span class="category-item" data-i18n="cat.800.item3">Lectures</span>
+                    <span class="category-item" data-i18n="cat.800.item4">Consulting</span>
                 </div>
             </div>
             <div class="category-card reveal">
                 <div class="category-number">900</div>
                 <div class="category-name">📖 Divisions</div>
-                <div class="category-purpose">Operations & Management</div>
+                <div class="category-purpose" data-i18n="cat.900.purpose">Operations & Management</div>
                 <div class="category-items">
-                    <span class="category-item">9 Professional</span>
-                    <span class="category-item">Divisions</span>
+                    <span class="category-item" data-i18n="cat.900.item1">9 Professional</span>
+                    <span class="category-item" data-i18n="cat.900.item2">Divisions</span>
                 </div>
             </div>
         </div>
@@ -918,7 +1012,7 @@
             <div class="section-number">03</div>
             <div>
                 <h2 class="section-title">CMDS <span class="highlight">PROCESS</span></h2>
-                <p class="section-desc">The knowledge lifecycle that guides information through four distinct stages.</p>
+                <p class="section-desc" data-i18n="section.process.desc">The knowledge lifecycle that guides information through four distinct stages.</p>
             </div>
         </div>
 
@@ -926,25 +1020,25 @@
             <div class="process-step reveal">
                 <div class="process-icon">🔗</div>
                 <div class="process-name">Connect</div>
-                <div class="process-desc">Discover ideas by connecting interests and topics</div>
+                <div class="process-desc" data-i18n="process.connect.desc">Discover ideas by connecting interests and topics</div>
                 <div class="process-categories">100 Themes</div>
             </div>
             <div class="process-step reveal">
                 <div class="process-icon">🔀</div>
                 <div class="process-name">Merge</div>
-                <div class="process-desc">Build theoretical foundations by integrating knowledge</div>
+                <div class="process-desc" data-i18n="process.merge.desc">Build theoretical foundations by integrating knowledge</div>
                 <div class="process-categories">200 Literature</div>
             </div>
             <div class="process-step reveal">
                 <div class="process-icon">🛠</div>
                 <div class="process-name">Develop</div>
-                <div class="process-desc">Collect data and apply methodologies</div>
+                <div class="process-desc" data-i18n="process.develop.desc">Collect data and apply methodologies</div>
                 <div class="process-categories">300-600</div>
             </div>
             <div class="process-step reveal">
                 <div class="process-icon">📤</div>
                 <div class="process-name">Share</div>
-                <div class="process-desc">Disseminate creative work and outputs</div>
+                <div class="process-desc" data-i18n="process.share.desc">Disseminate creative work and outputs</div>
                 <div class="process-categories">700-800</div>
             </div>
         </div>
@@ -955,10 +1049,10 @@
             GET THE<br>
             <span class="outline">FILES</span>
         </h2>
-        <p class="cta-desc reveal">Download the complete CMDS System Files package and start building your knowledge architecture.</p>
+        <p class="cta-desc reveal" data-i18n="cta.desc">Download the complete CMDS System Files package and start building your knowledge architecture.</p>
         <div class="cta-buttons reveal">
-            <a href="https://github.com/yohankoo/cmds-system-files" class="btn btn-primary" target="_blank">GitHub Repository</a>
-            <a href="#files" class="btn btn-secondary">View Documentation</a>
+            <a href="https://github.com/johnfkoo951/cmds-system-files" class="btn btn-primary" target="_blank" data-i18n="cta.github">GitHub Repository</a>
+            <a href="files/CMDS-System-Files.zip" download class="btn btn-secondary" data-i18n="cta.zip">Download All (ZIP)</a>
         </div>
     </section>
 
@@ -966,7 +1060,7 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="footer-logo">CMD<span>SPACE</span></div>
-                <p class="footer-desc">Personal Knowledge Management System. Connect → Merge → Develop → Share.</p>
+                <p class="footer-desc" data-i18n="footer.desc">Personal Knowledge Management System. Connect → Merge → Develop → Share.</p>
             </div>
             <div class="footer-links">
                 <a href="https://litt.ly/cmds" class="footer-link" target="_blank">Profile</a>
@@ -979,11 +1073,177 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-copyright">© 2026 CMDSPACE // BRUTALIST EDITION v2.0</div>
-            <div class="footer-ip">본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다.</div>
+            <div class="footer-ip" data-i18n="footer.ip">본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다.</div>
         </div>
     </footer>
 
     <script>
+        // i18n Translations
+        const translations = {
+            en: {
+                "nav.files": "Files",
+                "nav.architecture": "Architecture",
+                "nav.process": "Process",
+                "nav.download": "Download",
+                "hero.badge": "Knowledge Architecture v2.1",
+                "hero.subtitle": "5 Core System Files that power the CMDSPACE Personal Knowledge Management ecosystem. For AI Agents and Human Users.",
+                "stats.files": "Core Files",
+                "stats.categories": "Categories",
+                "stats.subcategories": "Subcategories",
+                "stats.notes": "Notes",
+                "section.files.desc": "5 system files that provide complete guidance for AI agents and human users working with the CMDS vault.",
+                "btn.download": "Download",
+                "file.claude.desc": "Technical implementation guide for Claude Code. File operations, commands, vault rules.",
+                "file.agents.desc": "General guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf.",
+                "file.cmds.desc": "System philosophy & user context. WHY & WHAT - Purpose, workflows, 9 categories.",
+                "file.guide.desc": "Operational standards. Properties templates, naming conventions, folder structure.",
+                "file.hq.desc": "Navigation hub. Quick access to all 91 subcategories and ChatGPT GPT links.",
+                "section.arch.desc": "9 major categories (100-900 series) organizing all knowledge into distinct stages of the knowledge lifecycle.",
+                "cat.100.purpose": "Discovery & Connection",
+                "cat.100.item1": "Interests",
+                "cat.100.item2": "Topics",
+                "cat.100.item3": "Variables",
+                "cat.100.item4": "Terminologies",
+                "cat.200.purpose": "Integration & Theory",
+                "cat.200.item1": "Concepts",
+                "cat.200.item2": "Frameworks",
+                "cat.200.item3": "Theories",
+                "cat.200.item4": "Books",
+                "cat.300.purpose": "Collection & Management",
+                "cat.300.item1": "Surveys",
+                "cat.300.item2": "Databases",
+                "cat.300.item3": "Panel Data",
+                "cat.400.purpose": "Analysis & Implementation",
+                "cat.400.item1": "Research Methods",
+                "cat.400.item2": "Statistics",
+                "cat.400.item3": "Machine Learning",
+                "cat.400.item4": "Prompts",
+                "cat.500.purpose": "Tools & Platforms",
+                "cat.600.purpose": "Expertise & Application",
+                "cat.600.item1": "Knowledge Mgmt",
+                "cat.600.item2": "Second Brain",
+                "cat.600.item3": "Gen AI",
+                "cat.600.item4": "Productivity",
+                "cat.700.purpose": "Expression & Content",
+                "cat.700.item3": "Music",
+                "cat.700.item4": "Digital Art",
+                "cat.800.purpose": "Publication & Delivery",
+                "cat.800.item2": "Articles",
+                "cat.800.item3": "Lectures",
+                "cat.800.item4": "Consulting",
+                "cat.900.purpose": "Operations & Management",
+                "cat.900.item1": "9 Professional",
+                "cat.900.item2": "Divisions",
+                "section.process.desc": "The knowledge lifecycle that guides information through four distinct stages.",
+                "process.connect.desc": "Discover ideas by connecting interests and topics",
+                "process.merge.desc": "Build theoretical foundations by integrating knowledge",
+                "process.develop.desc": "Collect data and apply methodologies",
+                "process.share.desc": "Disseminate creative work and outputs",
+                "cta.desc": "Download the complete CMDS System Files package and start building your knowledge architecture.",
+                "cta.github": "GitHub Repository",
+                "cta.zip": "Download All (ZIP)",
+                "footer.desc": "Personal Knowledge Management System. Connect → Merge → Develop → Share.",
+                "footer.ip": "All intellectual property rights belong to CMDSPACE."
+            },
+            ko: {
+                "nav.files": "파일",
+                "nav.architecture": "아키텍처",
+                "nav.process": "프로세스",
+                "nav.download": "다운로드",
+                "hero.badge": "지식 아키텍처 v2.1",
+                "hero.subtitle": "CMDSPACE 개인 지식 관리 생태계를 구동하는 5개의 핵심 시스템 파일. AI 에이전트와 인간 사용자를 위한 가이드.",
+                "stats.files": "핵심 파일",
+                "stats.categories": "카테고리",
+                "stats.subcategories": "서브카테고리",
+                "stats.notes": "노트",
+                "section.files.desc": "CMDS 볼트에서 작업하는 AI 에이전트와 인간 사용자를 위한 완전한 가이드를 제공하는 5개의 시스템 파일.",
+                "btn.download": "다운로드",
+                "file.claude.desc": "Claude Code를 위한 기술 구현 가이드. 파일 작업, 명령어, 볼트 규칙.",
+                "file.agents.desc": "다른 AI 코딩 에이전트를 위한 일반 가이드. Gemini CLI, Codex, Cursor, Windsurf.",
+                "file.cmds.desc": "시스템 철학 & 사용자 컨텍스트. WHY & WHAT - 목적, 워크플로우, 9개 카테고리.",
+                "file.guide.desc": "운영 표준. 프로퍼티 템플릿, 명명 규칙, 폴더 구조.",
+                "file.hq.desc": "내비게이션 허브. 91개 서브카테고리와 ChatGPT GPT 링크에 대한 빠른 접근.",
+                "section.arch.desc": "지식 라이프사이클의 단계별로 모든 지식을 구성하는 9개의 주요 카테고리 (100-900 시리즈).",
+                "cat.100.purpose": "발견 & 연결",
+                "cat.100.item1": "관심사",
+                "cat.100.item2": "토픽",
+                "cat.100.item3": "변수",
+                "cat.100.item4": "용어",
+                "cat.200.purpose": "통합 & 이론",
+                "cat.200.item1": "개념",
+                "cat.200.item2": "프레임워크",
+                "cat.200.item3": "이론",
+                "cat.200.item4": "책",
+                "cat.300.purpose": "수집 & 관리",
+                "cat.300.item1": "설문조사",
+                "cat.300.item2": "데이터베이스",
+                "cat.300.item3": "패널 데이터",
+                "cat.400.purpose": "분석 & 구현",
+                "cat.400.item1": "연구 방법",
+                "cat.400.item2": "통계",
+                "cat.400.item3": "머신러닝",
+                "cat.400.item4": "프롬프트",
+                "cat.500.purpose": "도구 & 플랫폼",
+                "cat.600.purpose": "전문성 & 응용",
+                "cat.600.item1": "지식 관리",
+                "cat.600.item2": "세컨드 브레인",
+                "cat.600.item3": "생성형 AI",
+                "cat.600.item4": "생산성",
+                "cat.700.purpose": "표현 & 콘텐츠",
+                "cat.700.item3": "음악",
+                "cat.700.item4": "디지털 아트",
+                "cat.800.purpose": "출판 & 전달",
+                "cat.800.item2": "아티클",
+                "cat.800.item3": "강의",
+                "cat.800.item4": "컨설팅",
+                "cat.900.purpose": "운영 & 관리",
+                "cat.900.item1": "9개 전문",
+                "cat.900.item2": "디비전",
+                "section.process.desc": "정보를 4가지 단계로 안내하는 지식 라이프사이클.",
+                "process.connect.desc": "관심사와 토픽을 연결하여 아이디어 발견",
+                "process.merge.desc": "지식을 통합하여 이론적 기반 구축",
+                "process.develop.desc": "데이터 수집 및 방법론 적용",
+                "process.share.desc": "창작물과 결과물 배포",
+                "cta.desc": "CMDS 시스템 파일 전체 패키지를 다운로드하고 지식 아키텍처를 구축하세요.",
+                "cta.github": "GitHub 저장소",
+                "cta.zip": "전체 다운로드 (ZIP)",
+                "footer.desc": "개인 지식 관리 시스템. Connect → Merge → Develop → Share.",
+                "footer.ip": "본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다."
+            }
+        };
+
+        // Language Switcher
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('cmds-lang', lang);
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('cmds-lang') || 'en';
+            setLanguage(savedLang);
+            
+            // Language toggle event
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+            });
+        });
+
+        // Reveal animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -994,6 +1254,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        // Counter animation
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
