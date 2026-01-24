@@ -444,6 +444,49 @@
         .file-badge.ai { border-color: var(--color-accent); color: var(--color-accent); }
         .file-badge.human { border-color: var(--color-purple); color: var(--color-purple); }
 
+        /* Why Grid */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .why-card {
+            border: var(--border-width) solid var(--color-fg);
+            margin-right: calc(var(--border-width) * -1);
+            margin-bottom: calc(var(--border-width) * -1);
+            padding: 2.5rem;
+            transition: all 0.15s ease;
+        }
+
+        .why-card:hover {
+            background: var(--color-surface);
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .why-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .why-desc {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Categories */
         .categories-grid {
             display: grid;
@@ -775,6 +818,7 @@
         <a href="#" class="nav-logo">CMDS<span>_</span>SYSTEM</a>
         <div class="nav-right">
             <div class="nav-links">
+                <a href="#why" class="nav-link" data-i18n="nav.why">Why</a>
                 <a href="#files" class="nav-link" data-i18n="nav.files">Files</a>
                 <a href="#architecture" class="nav-link" data-i18n="nav.architecture">Architecture</a>
                 <a href="#process" class="nav-link" data-i18n="nav.process">Process</a>
@@ -838,6 +882,40 @@
             <span>Second Brain ◆</span>
         </div>
     </div>
+
+    <!-- Why This Structure Section -->
+    <section class="section" id="why">
+        <div class="section-header reveal">
+            <div class="section-number">00</div>
+            <div>
+                <h2 class="section-title">WHY <span class="highlight">THIS STRUCTURE</span></h2>
+                <p class="section-desc" data-i18n="section.why.desc">In the AI era, your knowledge system needs clear documentation for both humans and AI agents to work together effectively.</p>
+            </div>
+        </div>
+
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <div class="why-icon">🤖</div>
+                <h3 class="why-title" data-i18n="why.ai.title">AI Agents Need Context</h3>
+                <p class="why-desc" data-i18n="why.ai.desc">When you use AI tools like Claude Code, ChatGPT, or Cursor, they don't know your folder structure, naming conventions, or workflows. These system files give AI the context it needs to help you effectively without breaking your existing patterns.</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon">🧠</div>
+                <h3 class="why-title" data-i18n="why.human.title">Humans Need Reference</h3>
+                <p class="why-desc" data-i18n="why.human.desc">Even the creator of a knowledge system can forget conventions over time. These files serve as living documentation - a single source of truth for how your system works, what goes where, and why decisions were made.</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon">🔄</div>
+                <h3 class="why-title" data-i18n="why.sync.title">Human-AI Collaboration</h3>
+                <p class="why-desc" data-i18n="why.sync.desc">The 5-file structure creates a bridge between human understanding and AI capabilities. AI documents (CLAUDE.md, AGENTS.md, CMDS.md) are loaded into AI context windows, while human documents (Guide, HQ) provide quick reference for daily use.</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon">📈</div>
+                <h3 class="why-title" data-i18n="why.scale.title">Systems Scale Better</h3>
+                <p class="why-desc" data-i18n="why.scale.desc">A 5,000+ note knowledge base without documentation becomes chaos. With clear system files, you can onboard new AI tools, maintain consistency across years of notes, and evolve your system without losing its foundation.</p>
+            </div>
+        </div>
+    </section>
 
     <section class="section" id="files">
         <div class="section-header reveal">
@@ -1081,6 +1159,7 @@
         // i18n Translations
         const translations = {
             en: {
+                "nav.why": "Why",
                 "nav.files": "Files",
                 "nav.architecture": "Architecture",
                 "nav.process": "Process",
@@ -1143,9 +1222,19 @@
                 "cta.github": "GitHub Repository",
                 "cta.zip": "Download All (ZIP)",
                 "footer.desc": "Personal Knowledge Management System. Connect → Merge → Develop → Share.",
-                "footer.ip": "All intellectual property rights belong to CMDSPACE."
+                "footer.ip": "All intellectual property rights belong to CMDSPACE.",
+                "section.why.desc": "In the AI era, your knowledge system needs clear documentation for both humans and AI agents to work together effectively.",
+                "why.ai.title": "AI Agents Need Context",
+                "why.ai.desc": "When you use AI tools like Claude Code, ChatGPT, or Cursor, they don't know your folder structure, naming conventions, or workflows. These system files give AI the context it needs to help you effectively without breaking your existing patterns.",
+                "why.human.title": "Humans Need Reference",
+                "why.human.desc": "Even the creator of a knowledge system can forget conventions over time. These files serve as living documentation - a single source of truth for how your system works, what goes where, and why decisions were made.",
+                "why.sync.title": "Human-AI Collaboration",
+                "why.sync.desc": "The 5-file structure creates a bridge between human understanding and AI capabilities. AI documents (CLAUDE.md, AGENTS.md, CMDS.md) are loaded into AI context windows, while human documents (Guide, HQ) provide quick reference for daily use.",
+                "why.scale.title": "Systems Scale Better",
+                "why.scale.desc": "A 5,000+ note knowledge base without documentation becomes chaos. With clear system files, you can maintain consistency across years of notes, and evolve your system without losing its foundation."
             },
             ko: {
+                "nav.why": "왜?",
                 "nav.files": "파일",
                 "nav.architecture": "아키텍처",
                 "nav.process": "프로세스",
@@ -1208,7 +1297,16 @@
                 "cta.github": "GitHub 저장소",
                 "cta.zip": "전체 다운로드 (ZIP)",
                 "footer.desc": "개인 지식 관리 시스템. Connect → Merge → Develop → Share.",
-                "footer.ip": "본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다."
+                "footer.ip": "본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다.",
+                "section.why.desc": "AI 시대에는 인간과 AI 에이전트가 효과적으로 협업할 수 있도록 명확한 시스템 문서가 필요합니다.",
+                "why.ai.title": "AI 에이전트에게는 맥락이 필요합니다",
+                "why.ai.desc": "Claude Code, ChatGPT, Cursor 같은 AI 도구를 사용할 때, AI는 당신의 폴더 구조, 명명 규칙, 워크플로우를 모릅니다. 이 시스템 파일들은 AI가 기존 패턴을 깨뜨리지 않고 효과적으로 도울 수 있는 맥락을 제공합니다.",
+                "why.human.title": "인간에게도 참조 문서가 필요합니다",
+                "why.human.desc": "지식 시스템을 만든 사람도 시간이 지나면 규칙을 잊을 수 있습니다. 이 파일들은 살아있는 문서로서 - 시스템이 어떻게 작동하는지, 무엇이 어디에 있는지, 왜 그렇게 결정했는지에 대한 단일 진실의 원천 역할을 합니다.",
+                "why.sync.title": "인간-AI 협업",
+                "why.sync.desc": "5개 파일 구조는 인간의 이해와 AI 능력 사이의 다리를 만듭니다. AI 문서(CLAUDE.md, AGENTS.md, CMDS.md)는 AI 컨텍스트 윈도우에 로드되고, 인간 문서(Guide, HQ)는 일상적인 빠른 참조를 제공합니다.",
+                "why.scale.title": "시스템은 더 잘 확장됩니다",
+                "why.scale.desc": "문서화 없는 5,000개 이상의 노트 지식 베이스는 혼란이 됩니다. 명확한 시스템 파일이 있으면 수년간의 노트에서 일관성을 유지하고, 기반을 잃지 않으면서 시스템을 발전시킬 수 있습니다."
             }
         };
 
