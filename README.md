@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-**https://system.cmdspace.work**
+**https://files.cmdspace.work**
 
 ## Overview
 
@@ -58,8 +58,8 @@ Connect → Merge → Develop → Share
 
 ## Download
 
-- [Download All (ZIP)](https://system.cmdspace.work/files/CMDS-System-Files.zip)
-- [Individual Files](https://system.cmdspace.work/#files)
+- [Download All (ZIP)](https://files.cmdspace.work/files/CMDS-System-Files.zip)
+- [Individual Files](https://files.cmdspace.work/#files)
 
 ## Links
 
