@@ -1,10 +1,12 @@
 ---
 date created: 2026-01-02T16:30
-date modified: 2026-01-02T17:06
+date modified: 2026-01-24T00:35
 tags:
   - CMDS
   - system
 ---
+> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/AGENTS_backup.md`
+
 # AGENTS.md
 
 This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Windsurf, etc.) when working with this Obsidian vault.
@@ -19,7 +21,7 @@ This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Wind
 
 ## Project Overview
 
-This is an Obsidian vault for the **CMDSPACE** knowledge management system created by Yohan Koo. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
+This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by 구요한 (Yohan Koo). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
 
 **Vault Scale**: 5,300+ notes, 120+ plugins, 90+ templates
 
@@ -32,7 +34,7 @@ This is an Obsidian vault for the **CMDSPACE** knowledge management system creat
 | **AGENTS.md** (this file) | Technical guide for AI coding agents | Gemini CLI, Codex, etc. |
 | **CLAUDE.md** | Claude Code specific instructions | Claude Code only |
 | **CMDS.md** | System philosophy & user context | All LLM assistants |
-| **🏛 CMDS Head Quarter.md** | Navigation hub | User |
+| **🏛 CMDS Head Quarter.md** | Navigation hub | User (구요한) |
 | **🏛 CMDS Guide.md** | Standards & templates | User + AI |
 
 ---
@@ -51,13 +53,13 @@ This is an Obsidian vault for the **CMDSPACE** knowledge management system creat
 ```yaml
 # ✅ Correct
 author:
-  - "[[Yohan Koo]]"
-organization: "[[Company Name]]"
+  - "[[구요한]]"
+organization: "[[SK Innovation]]"
 CMDS: "[[📚 620 Generative AI]]"
 
 # ❌ Wrong
 author:
-  - [[Yohan Koo]]
+  - [[구요한]]
 ```
 
 ### 3. Required Properties (6 fields)
@@ -68,7 +70,7 @@ Every note must include:
 type:           # Note type (note, meeting, people, etc.)
 aliases: []     # Alternative names
 author:
-  - "[[Yohan Koo]]"
+  - "[[구요한]]"
 date created:   # YYYY-MM-DD or YYYY-MM-DDTHH:mm
 date modified:  # YYYY-MM-DD or YYYY-MM-DDTHH:mm
 tags: []        # Relevant tags
@@ -81,7 +83,26 @@ Always use ISO 8601: `YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`
 
 ### 5. Code Output Location
 
-All code-related outputs should be saved in: `00. Inbox/03. Claude Code/`
+All code-related outputs should be saved in: `00. Inbox/03. AI Agent/`
+
+### 6. Multi-File Project Folder Rule
+
+When creating projects with multiple related files (e.g., website with HTML/CSS/JS, lecture materials with multiple notes):
+1. **FIRST** create an intermediate folder with descriptive name
+2. **THEN** create all related files inside that folder
+3. Folder naming: `YYYY-MM-DD-project-name/` (e.g., `2026-01-18-한림대-강의/`)
+
+Example structure:
+```
+00. Inbox/03. AI Agent/
+└── 2026-01-18-project-name/
+    ├── index.html
+    ├── styles.css
+    ├── script.js
+    └── README.md
+```
+
+**Never** scatter related project files directly in `03. AI Agent/` root.
 
 ---
 
@@ -89,20 +110,23 @@ All code-related outputs should be saved in: `00. Inbox/03. Claude Code/`
 
 ```
 00. Inbox/                      # Temporary storage
-├── 01. Daily Notes/            # Daily journal
-├── 03. Claude Code/            # Code outputs (PRIMARY)
+├── 01. Daily Notes/            # Daily journal (01-1. Planners, 01-2. Weekly Notes)
+├── 02. Clippings/              # Web clippings (02-1. Literature Notes)
+├── 03. AI Agent/               # Code outputs (PRIMARY)
 ├── 04. Excalidraw/             # Diagrams
 ├── 05. Canvas/                 # Canvas notes
-├── 06. GenAI Chats/            # AI conversation logs
-└── 07. Clippings/              # Web clippings
+├── 06. Automation/             # Automation (Make.com, n8n, STT)
+├── 07. App Sync/               # External apps (Claude, Antigravity, Bear Notes)
+├── 08. Unlisted/               # Unlisted items
+└── 09. Legacy/                 # Legacy content
 
 10. CMDS Process/               # Connect→Merge→Develop→Share
 20. Literature Notes/           # Reading notes
 30. Permanent Notes/            # Evergreen content
 40. Docs/                       # Technical documentation
 50. Assets/                     # Media files
-60. Preferences/                # User preferences
-70. Collections/                # People, Meetings, Curriculum
+60. Collections/                # Entity management (People, Meetings, Preferences)
+70. Outputs/                    # Final deliverables (Published, Presentations, Courses, Curriculum, Projects)
 80. References/                 # Reference materials
 90. Settings/                   # Templates, System Prompts
 ```
@@ -149,8 +173,8 @@ All code-related outputs should be saved in: `00. Inbox/03. Claude Code/`
 
 - Include date: `YYYY-MM-DD-description.ext`
 - Examples:
-  - `2026-01-02-data-analysis.py`
-  - `2026-01-02-meeting-summary.md`
+	- `2026-01-02-data-analysis.py`
+	- `2026-01-02-meeting-summary.md`
 
 ---
 
@@ -161,8 +185,7 @@ All code-related outputs should be saved in: `00. Inbox/03. Claude Code/`
 - `meeting` - Meeting minutes
 - `people` - People profiles
 - `curriculum` - Course curriculum
-- `moc` - Map of Content
-- `CMDS` - CMDS index pages
+- `CMDS` - CMDS index pages (replaces traditional MOC concept)
 - `documentation` - Technical docs
 
 ---

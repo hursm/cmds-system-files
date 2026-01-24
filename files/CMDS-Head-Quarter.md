@@ -3,16 +3,19 @@ type: CMDS
 aliases:
   - CMDS HQ
 author:
-  - "[[Yohan Koo]]"
+  - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-01-02T15:19
+date modified: 2026-01-24T00:12
 tags:
   - CMDS
+share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
+share_updated: 2025-08-25T11:43:35+09:00
 ---
+> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/CMDS-Head-Quarter_backup.md`
+
 Links:: [[🏛 CMDS Head Quarter]] | [[🏛 CMDS Guide]]
 References:: [[🏛 000 YHN Home]]
-
-## CMDS Categories
+## CMDS
 - #### [[📖 100 Themes]]
 	- [[📚 101 Interests]]
 	- [[📚 102 Topics]]
@@ -27,6 +30,8 @@ References:: [[🏛 000 YHN Home]]
 	- [[📚 210 Literature Reviews]]
 	- [[📚 220 Personal Insights]]
 	- [[📚 240 Books]]
+	- [[📚 290 Bible]]
+	- [[📚 291 Sermon]]
 - #### [[📖 300 Data]]
     - [[📚 301 Scale Development and Validation]]
     - [[📚 302 Questionnaires]]
@@ -107,31 +112,25 @@ References:: [[🏛 000 YHN Home]]
 	- [[📚 907 Technology & Development Division]]
 	- [[📚 908 Events & Community Engagement Division]]
 	- [[📚 909 Consulting & Professional Services Division]]
-
 ## CMDS Process
-#### What is CMDS Process?
-- **Connect**: Discover ideas by connecting interests and topics
-- **Merge**: Build theoretical foundations by integrating related literature and knowledge
-- **Develop**: Develop ideas by collecting data and applying methodologies
-- **Share**: Share and disseminate creative work and outputs
-
+#### CMDS Process란? 
+- **Connect**: 관심사와 주제를 연결하여 아이디어를 발굴하는 단계
+- **Merge**: 관련 문헌과 지식을 통합하여 이론적 기반을 구축하는 단계
+- **Develop**: 데이터를 수집하고 방법론을 적용하여 아이디어를 개발하는 단계
+- **Share**: 창의적인 작업과 결과물을 공유하고 확산하는 단계
 #### Connect
 - [[📖 100 Themes]]
-
 #### Merge
 - [[📖 200 Literature]]
-
 #### Develop
 - [[📖 300 Data]]
 - [[📖 400 Methodologies]]
 - [[📖 500 Products]]
 - [[📖 600 Specialties]]
-
 #### Share
 - [[📖 700 Creatives]]
 - [[📖 800 Outputs]]
 - [[📖 900 Divisions]]
-
 ## Workbench
 - ChatGPT
 	- [🏛️ CMDS GPT-5 Pro_2025.08](https://chatgpt.com/c/6896e4e3-a108-8328-b450-51882d4cc06a)
