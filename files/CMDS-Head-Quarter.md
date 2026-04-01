@@ -2,16 +2,23 @@
 type: CMDS
 aliases:
   - CMDS HQ
+  - Head Quarter
+description: CMDS 볼트의 중앙 네비게이션 허브. 9개 카테고리(100-900)의 91개 서브카테고리 링크, CMDS Process 요약, 볼트 폴더 구조(00-90), 작업 환경 정보를 제공한다.
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-10-23T01:59
-date modified: 2026-01-24T00:12
+date modified: 2026-03-15T21:32
 tags:
   - CMDS
-share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
-share_updated: 2025-08-25T11:43:35+09:00
+  - system
+audience: User ({your-name})
+scope: navigation
+index: "[[🏛 CMDS Guide]]"
+status: completed
+share_link: {share-link}
+share_updated: {share-date}
 ---
-> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
 
 Links:: [[🏛 CMDS Head Quarter]] | [[🏛 CMDS Guide]]
 References:: [[🏛 000 YHN Home]]
@@ -113,27 +120,43 @@ References:: [[🏛 000 YHN Home]]
 	- [[📚 908 Events & Community Engagement Division]]
 	- [[📚 909 Consulting & Professional Services Division]]
 ## CMDS Process
-#### CMDS Process란? 
+#### CMDS Process란?
 - **Connect**: 관심사와 주제를 연결하여 아이디어를 발굴하는 단계
 - **Merge**: 관련 문헌과 지식을 통합하여 이론적 기반을 구축하는 단계
 - **Develop**: 데이터를 수집하고 방법론을 적용하여 아이디어를 개발하는 단계
 - **Share**: 창의적인 작업과 결과물을 공유하고 확산하는 단계
 #### Connect
-- [[📖 100 Themes]]
+- [[📖 100 Themes]] — 관심사, 주제, 변수, 용어 정의
 #### Merge
-- [[📖 200 Literature]]
+- [[📖 200 Literature]] — 개념, 프레임워크, 이론, 문헌리뷰, 도서, 성경/설교
 #### Develop
-- [[📖 300 Data]]
-- [[📖 400 Methodologies]]
-- [[📖 500 Products]]
-- [[📖 600 Specialties]]
+- [[📖 300 Data]] — 척도개발, 설문, 패널데이터, DB, LMS
+- [[📖 400 Methodologies]] — 연구방법, 통계, ML/DL, 코드/프롬프트/스크립트
+- [[📖 500 Products]] — Obsidian, ChatGPT, Claude, Gemini, Midjourney, n8n
+- [[📖 600 Specialties]] — KM, Second Brain, Gen AI, 생산성, 교육, 영성
 #### Share
-- [[📖 700 Creatives]]
-- [[📖 800 Outputs]]
-- [[📖 900 Divisions]]
-## Workbench
-- ChatGPT
-	- [🏛️ CMDS GPT-5 Pro_2025.08](https://chatgpt.com/c/6896e4e3-a108-8328-b450-51882d4cc06a)
-	- [🏛️ CMDS o3-pro_2025.08](https://chatgpt.com/c/6896e513-ffa4-8325-9509-82bd7ce1cf8e)
-	- [🏛️ CMDS GPT-5 Thinking_2025.08](https://chatgpt.com/c/6896e613-e4cc-8329-9de2-c972d165d60d)
-	- [🏛️ CMDS o3_2025.08](https://chatgpt.com/c/6896e4e4-e2d8-832d-b7df-25caf582a661)
+- [[📖 700 Creatives]] — YouTube, SNS, 음악, 재즈, 이미지, 디지털아트
+- [[📖 800 Outputs]] — PhD, 논문, 강의, 컨설팅, 프로젝트, 커뮤니티
+- [[📖 900 Divisions]] — 9개 운영 부문 (KM, 교육, 컨설팅 등)
+## Vault Folders
+> [!tip] 폴더 구조 (00-90)
+> CMDS 카테고리(100-900)와 별도로, 볼트의 물리적 폴더 구조입니다.
+
+- `00. Inbox/` — 임시 저장 (Daily Notes, Clippings, AI Agent, Canvas, Automation)
+- `10. CMDS Process/` — Connect→Merge→Develop→Share 워크플로우
+- `20. Literature Notes/` — 문헌 노트, 리뷰, 설교, 용어
+- `30. Permanent Notes/` — 에세이, 가이드라인 (Evergreen)
+- `40. Docs/` — 기술 문서, 오디오, 트랜스크립트, API 정보
+- `50. Assets/` — 브랜드, 프롬프트, 워크플로우, 웹 클리퍼
+- `60. Collections/` — People, Organization, Meetings, Spirituality, Preferences
+- `70. Outputs/` — Published, Presentations, Courses, Projects, Consulting
+- `80. References/` — Attachment, 웹 아티클, Zotero, 도서
+- `90. Settings/` — Templates, System Prompts, Fonts, Index
+## Working Environments
+> [!info] Obsidian Sync (공식 클라우드)
+> 두 대의 Mac이 **Obsidian Sync**로 동기화됩니다. 모든 하위 경로와 파일이 동일하게 유지됩니다.
+
+| 환경 | 기기 | AI 코드 출력 폴더 |
+|------|------|--------------------|
+| Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` |
+| Secondary | Mac Studio | `03-2. Claude Code (Studio)` / `03-4. OpenClaw (Studio)` |

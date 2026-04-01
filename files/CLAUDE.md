@@ -1,11 +1,24 @@
 ---
+type: documentation
+aliases:
+  - Claude Code Guide
+  - CC System File
+description: Claude Code 전용 기술 구현 가이드. 파일 생성/편집 규칙, YAML/MD 인덴트 규칙, 볼트 명령어, 코드 출력 경로를 정의한다.
+author:
+  - "[[{your-name}]]"
 date created: 2025-09-27T17:53
-date modified: 2026-01-24T10:19
+date modified: 2026-03-15T21:17
 tags:
   - CMDS
   - system
+audience: Claude Code
+scope: technical-implementation
+CMDS: "[[📚 501 Obsidian]]"
+index: "[[🏛 CMDS Head Quarter]]"
+version: "2.1"
+status: completed
 ---
-> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/CLAUDE_backup.md`
+> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md`
 
 # CLAUDE.md
 
@@ -19,31 +32,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an Obsidian vault for the CMDSPACE knowledge management system created by Yohan Koo. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) and follows the CMDS Process: Connect → Merge → Develop → Share.
+This is an Obsidian vault for the CMDSPACE knowledge management system created by {Your Name}. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) and follows the CMDS Process: Connect → Merge → Develop → Share.
 
 ## 💻 Working Environments
 
 This vault is accessed from two different Mac environments:
 
 ### Primary Environment (MacBook Pro) ✅
-**Base Path**: `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP`
+**Base Path**: `{vault-path}`
 
 **System**: MacBook Pro (16-inch)
 **Status**: Primary (Most Frequently Used)
 **Usage**: Main development and knowledge management workstation
 
 ### Secondary Environment (Mac Studio)
-**Base Path**: `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org`
+**Base Path**: `{vault-path-secondary}`
 
 **System**: Mac Studio
 **Status**: Secondary
 **Usage**: Desktop workstation for heavy processing tasks
 
+### Vault Sync
+- Two machines are synced via **Obsidian Sync** (official Obsidian cloud server)
+- The vault structure and all files/subfolders remain identical across both environments
+- Sync is automatic and continuous — changes on one machine propagate to the other
+
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above
 - When switching between environments, Claude Code will automatically use the appropriate base path
-- The vault structure and CMDS system remain identical across both environments
-- Cloud sync ensures consistency between the two locations
+- AI coding outputs are separated by environment subfolder (`03-1` ~ `03-4`) to track which machine/agent created each file
 
 ## ⚠️ CRITICAL RULES - READ FIRST
 
@@ -63,7 +80,7 @@ type: note
 aliases:
   - Example Alias
 author:
-  - "[[Yohan Koo]]"
+  - "[[{Your Name}]]"
 tags:
   - AI
   - knowledge-management
@@ -77,7 +94,7 @@ type: note
 aliases:
 	- Example Alias    # ← TAB used - WRONG!
 author:
-	- "[[Yohan Koo]]"  # ← TAB used - WRONG!
+	- "[[{Your Name}]]"  # ← TAB used - WRONG!
 ---
 ```
 
@@ -98,7 +115,8 @@ author:
 ### Other Critical Rules:
 1. **Wikilinks in YAML must be quoted**: `"[[link]]"` not `[[link]]`
 2. **Date format**: Always `YYYY-MM-DD` (ISO 8601)
-3. **Code output location**: ALL code → `00. Inbox/03. AI Agent/`
+3. **Code output location**: ALL code → `00. Inbox/03. AI Agent/` (environment-specific subfolder)
+   - MacBook Pro: `03-1. Claude Code (MBP)/` | Mac Studio: `03-2. Claude Code (Studio)/`
 4. **Array format**: Use hyphen + space for arrays (author, tags, aliases)
 
 ---
@@ -177,9 +195,14 @@ This vault has **5 core system files** that work together to provide complete gu
 	- `01. Daily Notes/` - Daily journal entries (01-1. Planners, 01-2. Weekly Notes)
 	- `02. Clippings/` - Web clippings (02-1. Literature Notes)
 	- `03. AI Agent/` - **PRIMARY WORKING DIRECTORY** for all AI coding outputs
+		- `03-1. Claude Code (MBP)/` - Claude Code outputs on MacBook Pro
+		- `03-2. Claude Code (Studio)/` - Claude Code outputs on Mac Studio
+		- `03-3. OpenClaw (MBP)/` - OpenClaw outputs on MacBook Pro
+		- `03-4. OpenClaw (Studio)/` - OpenClaw outputs on Mac Studio
 	- `04. Excalidraw/` - Visual diagrams and drawings
 	- `05. Canvas/` - Canvas notes
 	- `06. Automation/` - Automation workflows (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
+	- `06. GenAI Chats/` - GenAI 대화 기록
 	- `07. App Sync/` - External app sync (07-1. Claude, 07-2. Antigravity, 07-3. Bear Notes)
 	- `08. Unlisted/` - Unlisted items
 	- `09. Legacy/` - Legacy and archived content
@@ -203,10 +226,12 @@ This vault has **5 core system files** that work together to provide complete gu
 - [ ] **Arrays use proper format**: hyphen + space + value
   ```yaml
   author:
-    - "[[Yohan Koo]]"    # ← Correct
+    - "[[{Your Name}]]"    # ← Correct
   ```
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
-- [ ] **File saved in correct location**: Code → `00. Inbox/03. AI Agent/`
+- [ ] **File saved in correct location**: Code → `00. Inbox/03. AI Agent/{environment subfolder}/`
+  - MBP + Claude Code → `03-1. Claude Code (MBP)/`
+  - Studio + Claude Code → `03-2. Claude Code (Studio)/`
 - [ ] **Filename follows convention**: `YYYY-MM-DD-description.ext`
 
 **Common mistakes to avoid:**
@@ -222,28 +247,31 @@ This vault has **5 core system files** that work together to provide complete gu
 > ⚠️ **INDENTATION**: See "CRITICAL RULES" section above for YAML (2 spaces) vs Markdown (TAB) rules.
 
 ### Working Directory
-**ALL code-related outputs MUST be saved in:** `00. Inbox/03. AI Agent/`
+**ALL code-related outputs MUST be saved in:** `00. Inbox/03. AI Agent/` under the appropriate **environment subfolder**.
 
-### Subdirectory Structure
+### Environment-Specific Subfolders
 ```
 00. Inbox/03. AI Agent/
-├── scripts/           # Standalone scripts
-├── projects/          # Multi-file projects
-├── templates/         # Reusable templates
-├── experiments/       # Experimental code
-└── outputs/          # Generated results
+├── 03-1. Claude Code (MBP)/     # Claude Code on MacBook Pro ← PRIMARY
+├── 03-2. Claude Code (Studio)/  # Claude Code on Mac Studio
+├── 03-3. OpenClaw (MBP)/        # OpenClaw on MacBook Pro
+└── 03-4. OpenClaw (Studio)/     # OpenClaw on Mac Studio
 ```
+
+**Auto-detection**: Determine subfolder by checking:
+- **Agent**: Claude Code → `03-1` or `03-2` | OpenClaw → `03-3` or `03-4`
+- **Machine**: MacBook Pro (`{home-path}/Local Obsidian_MBP/`) → MBP | Mac Studio (`{home-path}/Obsidian_Local/`) → Studio
 
 ### Multi-File Project Folder Rule
 
 When creating projects with multiple related files (e.g., website with HTML/CSS/JS, lecture materials with multiple notes):
-1. **FIRST** create an intermediate folder with descriptive name
+1. **FIRST** create an intermediate folder with descriptive name inside the environment subfolder
 2. **THEN** create all related files inside that folder
 3. Folder naming: `YYYY-MM-DD-project-name/` (e.g., `2026-01-18-한림대-강의/`)
 
 Example structure:
 ```
-00. Inbox/03. AI Agent/
+00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/
 └── 2026-01-18-project-name/
     ├── index.html
     ├── styles.css
@@ -251,7 +279,7 @@ Example structure:
     └── README.md
 ```
 
-**Never** scatter related project files directly in `03. AI Agent/` root.
+**Never** scatter related project files directly in `03. AI Agent/` root or environment subfolder root.
 
 ### File Naming Convention
 - Include date: `YYYY-MM-DD-description.ext`
@@ -301,7 +329,7 @@ Most common types in the vault:
 Examples in this vault:
 - `[[🏛 CMDS Head Quarter]]` - Links to main hub
 - `[[📚 620 Generative AI]]` - Links to CMDS category
-- `[[Yohan Koo]]` - Links to people note
+- `[[{Your Name}]]` - Links to people note
 - `[[🏷 Meeting Notes]]` - Links to index page
 
 ### Markdown Files
@@ -366,6 +394,73 @@ The vault uses emoji prefixes systematically:
 - Obsidian Webhook integration
 - Various API integrations (OpenAI, Anthropic, Google)
 
+## Obsidian CLI (v1.12+)
+
+> **📖 Full Reference**: [[Obsidian CLI]] | **📘 실전 가이드**: [[Obsidian CLI 사용 가이드 (CMDS)]]
+
+Obsidian CLI는 터미널에서 Obsidian을 직접 제어하는 명령줄 인터페이스입니다.
+**Claude Code에서 `obsidian` 명령을 Bash 도구로 호출하여 Obsidian 네이티브 기능을 활용할 수 있습니다.**
+
+### 요구사항
+- Obsidian 1.12+ (Early Access, Catalyst 필요)
+- Settings → General → CLI 활성화
+- Obsidian 앱 실행 중이어야 함
+
+### Claude Code에서 사용 시 주의사항
+- `obsidian` 명령은 Bash 도구로 호출
+- 볼트 타겟팅: `obsidian vault=CMDSPACE_Local_MBP <command>`
+- 파일 타겟팅: `file=<name>` (wikilink 방식) 또는 `path=<경로>` (볼트 루트 기준)
+- 출력 복사: `--copy` 플래그
+
+### 자주 쓰는 CLI 명령 (Quick Reference)
+
+```bash
+# --- 읽기/검색 ---
+obsidian read file=<name>                          # 파일 내용 읽기
+obsidian search query="<text>" format=json          # 볼트 검색
+obsidian tags all counts sort=count                 # 태그 통계
+obsidian properties all counts sort=count           # 프로퍼티 통계
+obsidian backlinks file=<name> counts               # 백링크 조회
+obsidian outline file=<name> format=tree            # 목차 조회
+obsidian tasks daily todo                           # 오늘 미완료 태스크
+
+# --- 생성/편집 ---
+obsidian create name=<name> template=<template> silent  # 템플릿으로 노트 생성
+obsidian append file=<name> content="<text>"            # 내용 추가
+obsidian prepend file=<name> content="<text>"           # frontmatter 뒤에 삽입
+obsidian daily:append content="- [ ] <task>" silent     # 데일리 노트에 태스크 추가
+obsidian property:set name=<key> value=<val> file=<name> # 프로퍼티 설정
+obsidian property:remove name=<key> file=<name>          # 프로퍼티 제거
+
+# --- 분석 ---
+obsidian vault info=files                           # 볼트 파일 수
+obsidian orphans total                              # 고아 노트 수
+obsidian unresolved verbose                         # 미해결 링크
+obsidian deadends total                             # 아웃링크 없는 노트 수
+
+# --- 플러그인 ---
+obsidian plugins filter=community versions          # 커뮤니티 플러그인 목록
+obsidian plugin:reload id=<plugin-id>               # 플러그인 리로드
+
+# --- 개발자 ---
+obsidian eval code="<javascript>"                   # JS 실행 (app.vault 등 접근)
+obsidian dev:screenshot path=<filename>             # 스크린샷
+obsidian dev:console level=error                    # 콘솔 에러 확인
+```
+
+### CLI vs 파일 직접 조작 가이드
+
+| 작업 | CLI 사용 | 파일 직접 조작 |
+|------|---------|-------------|
+| 프로퍼티 수정 | `property:set` ✅ (안전) | Edit 도구 (YAML 직접 편집) |
+| 내용 추가 | `append`/`prepend` ✅ | Edit/Write 도구 |
+| 노트 생성 (템플릿) | `create template=` ✅✅ | Write 도구 (수동 복제) |
+| 검색 | `search` ✅ (Obsidian 인덱스) | Grep 도구 (파일 시스템) |
+| 백링크/링크 분석 | `backlinks`/`orphans` ✅✅ | 불가능 |
+| Obsidian API 접근 | `eval` ✅✅ | 불가능 |
+
+---
+
 ## Vault Commands
 
 ### Note Creation with Proper Metadata
@@ -375,7 +470,7 @@ cat > "00. Inbox/$(date +%Y-%m-%d)-new-note.md" << 'EOF'
 type: note
 aliases: []
 author:
-  - "[[Yohan Koo]]"
+  - "[[{Your Name}]]"
 date created: $(date +%Y-%m-%d)
 date modified: $(date +%Y-%m-%d)
 tags: []
@@ -402,15 +497,15 @@ find . -name "*.md" -mtime -7 -type f | head -20
 
 ## Critical Workflow Rules
 
-1. **Code Output Location**: ALL code MUST go to `00. Inbox/03. AI Agent/`
+1. **Code Output Location**: ALL code MUST go to `00. Inbox/03. AI Agent/{environment subfolder}/`
 2. **Required Properties**: Every note needs 6 fields: type, aliases, author, date created, date modified, tags
 3. **Properties v2.0 Standards**:
 	- Dates: ISO 8601 (YYYY-MM-DD)
-	- Author: `[[Yohan Koo]]` wikilink format
+	- Author: `[[{Your Name}]]` wikilink format
 	- Status: Use standard 5 values only
 	- CamelCase: myRate, totalPage
 4. **CMDS Hierarchy**: 🏛 (top) → 📖 (100-900) → 📚 (N01-N99) → no icon (details)
-5. **Vault Scale**: 5,344+ notes with established patterns - respect existing conventions
+5. **Vault Scale**: 7,660+ notes with established patterns - respect existing conventions
 
 ## Key Obsidian Plugins
 

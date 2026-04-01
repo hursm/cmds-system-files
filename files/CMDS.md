@@ -1,12 +1,28 @@
 ---
+type: documentation
+aliases:
+  - CMDS Context Guide
+  - System Philosophy
+description: CMDS 시스템의 철학, 사용자 컨텍스트, 9개 카테고리(100-900) 설명, CMDS 프로세스(Connect→Merge→Develop→Share) 워크플로우를 제공하는 모든 LLM 어시스턴트용 컨텍스트 가이드.
+author:
+  - "[[{your-name}]]"
 date created: 2025-10-22T21:52
-date modified: 2026-01-24T00:35
+date modified: 2026-03-15T21:38
+tags:
+  - CMDS
+  - system
+audience: All LLM assistants
+scope: context-philosophy
+CMDS: "[[📚 601 Knowledge Management]]"
+index: "[[🏛 CMDS Head Quarter]]"
+version: "2.0"
+status: completed
 ---
-> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/CMDS_backup.md`
+> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
 
 # CMDS.md
 
-This file provides LLM assistants with essential context about the CMDS (커맨드스페이스) Personal Knowledge Management system created by 구요한(Yohan Koo). Use this document to understand the user's knowledge management philosophy, workflow, and context.
+This file provides LLM assistants with essential context about the CMDS (커맨드스페이스) Personal Knowledge Management system created by {your-name}({Your Name}). Use this document to understand the user's knowledge management philosophy, workflow, and context.
 
 ---
 
@@ -35,7 +51,7 @@ This vault has **5 core system files** that complement each other. You are curre
 
 **Start here (CMDS.md) when**:
 - First time working with this vault
-- Need to understand user's (구요한) work context
+- Need to understand user's ({your-name}) work context
 - Want to know the PURPOSE of each category (100-900)
 - Learning about CMDS Process (Connect → Merge → Develop → Share)
 
@@ -70,6 +86,22 @@ Are you trying to...
 
 ---
 
+## Working Environments & Sync
+
+This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cloud server).
+
+| 환경 | 기기 | Base Path |
+|------|------|-----------|
+| Primary | MacBook Pro (16-inch) | `{vault-path}` |
+| Secondary | Mac Studio | `{vault-path-secondary}` |
+
+- All subfolders and files are kept identical across both machines
+- AI coding agent outputs are separated by environment subfolders under `00. Inbox/03. AI Agent/`:
+	- `03-1. Claude Code (MBP)` / `03-2. Claude Code (Studio)` — Claude Code
+	- `03-3. OpenClaw (MBP)` / `03-4. OpenClaw (Studio)` — OpenClaw
+
+---
+
 ## What is CMDS?
 
 **CMDS (커맨드스페이스)** is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian, designed to transform raw information into actionable knowledge and creative outputs. It's not just a filing system—it's a living ecosystem where ideas connect, merge, develop, and share.
@@ -84,10 +116,10 @@ Are you trying to...
 
 ---
 
-## The User: 구요한 (Yohan Koo)
+## The User: {your-name} ({Your Name})
 
 ### Professional Identity
-- **PhD Candidate** in Educational Technology/Knowledge Management
+- **PhD ABD** (All But Dissertation) in Educational Technology/Knowledge Management
 - **Knowledge Management Specialist**: Second Brain, Zettelkasten, PKM systems
 - **Generative AI Expert**: ChatGPT, Claude, prompt engineering, AI education
 - **Educator**: University lecturer, workshop facilitator, curriculum developer
@@ -95,7 +127,7 @@ Are you trying to...
 - **Creative Professional**: YouTube creator, music producer, digital artist
 
 ### Work Context
-구요한 operates **9 professional divisions** (📖 900 Divisions):
+{your-name} operates **9 professional divisions** (📖 900 Divisions):
 1. **Knowledge Management & Research** (901)
 2. **Editorial & Content Creation** (902)
 3. **Education & Training** (903)
@@ -112,7 +144,7 @@ Are you trying to...
 - Consulting with corporations on AI transformation and knowledge management
 - Creating educational content (YouTube, articles, courses)
 - Managing multiple projects simultaneously across different domains
-- Building and maintaining a 5,344+ note knowledge base
+- Building and maintaining a 7,660+ note knowledge base
 
 ---
 
@@ -211,7 +243,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 - 📚 680 Educations — Educational theory and practice
 - 📚 690 Spirituality — Faith and spiritual growth
 
-**Role in Workflow**: This is where 구요한 develops and maintains professional expertise. It's a combination of theory (200), methods (400), and practical experience.
+**Role in Workflow**: This is where {your-name} develops and maintains professional expertise. It's a combination of theory (200), methods (400), and practical experience.
 
 ### 📖 700 Creatives — Expression & Content
 **Purpose**: Create and distribute creative content across multiple platforms
@@ -247,7 +279,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 **Role in Workflow**: This is the ultimate destination—where all prior work (Connect, Merge, Develop) culminates in tangible outputs that serve others.
 
 ### 📖 900 Divisions — Operations & Management
-**Purpose**: Organize and manage the operational structure of 구요한's professional activities
+**Purpose**: Organize and manage the operational structure of {your-name}'s professional activities
 **Contains**:
 - 📚 901 Knowledge Management & Research Division
 - 📚 902 Editorial & Content Creation Division
@@ -259,7 +291,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 - 📚 908 Events & Community Engagement Division
 - 📚 909 Consulting & Professional Services Division
 
-**Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in 구요한's professional life.
+**Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in {your-name}'s professional life.
 
 ---
 
@@ -346,7 +378,7 @@ Every note in CMDS contains structured metadata that enables powerful queries an
 type:           # Note category (see types below)
 aliases: []     # Alternative names
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created:   # YYYY-MM-DD
 date modified:  # YYYY-MM-DD
 tags: []        # Topical tags
@@ -355,8 +387,10 @@ tags: []        # Topical tags
 
 ### Common Note Types
 **Content Types**:
-- `note` — General knowledge notes (142+)
-- `terminology` — Term definitions (101+)
+- `note` — General knowledge notes (459+)
+- `terminology` — Term definitions (130+)
+- `research-pipeline` — Research pipeline documents (124+)
+- `manuscript` — Manuscripts and drafts (66+)
 - `books` — Book notes and reviews
 - `article` — Articles and essays
 - `research-review` — Literature reviews
@@ -364,12 +398,14 @@ tags: []        # Topical tags
 
 **Structural Types**:
 - `CMDS` — Category index pages (replaces traditional MOC concept)
+- `moc` — Map of Content (85+)
+- `api` — API documentation (97+)
 - `index` — Collection pages
 
 **Activity Types**:
-- `meeting` — Meeting minutes (80+)
-- `people` — People profiles (59+)
-- `curriculum` — Course curricula (36+)
+- `meeting` — Meeting minutes (160+)
+- `people` — People profiles (93+)
+- `curriculum` — Course curricula (82+)
 - `project` — Project documentation
 
 ### Status Values
@@ -414,19 +450,28 @@ tags: []        # Topical tags
 4. **Create** in appropriate platform (YouTube, article, etc.)
 5. **Publish** and document in [[📚 701 YouTube]] or [[📚 802 Articles]]
 
+### Development Workflow
+1. **Plan** feature or tool → Design in [[📚 630 Development]]
+2. **Build** with Claude Code → Output to `00. Inbox/03. AI Agent/`
+3. **Test** and iterate → Reference [[📚 491 Codes]] or [[📚 493 Scripts]]
+4. **Deploy** → Document in [[📚 806 Webpages]] or [[📚 830 Projects]]
+5. **Maintain** → Track in skills, plugins, or automation workflows
+
 ---
 
 ## AI Integration in CMDS
 
 ### AI Tools Used Daily
-- **ChatGPT** (Custom GPTs): CMDS GPT-5 Pro, o3-pro, GPT-5 Thinking, o3
-- **Claude** (via Claude Code): Code generation, analysis, writing assistance
-- **Midjourney/Stable Diffusion**: Visual content creation
+- **Claude Code**: Code generation, skill/plugin development, vault automation, writing assistance
+- **ChatGPT** (Custom GPTs): Knowledge work, reasoning, analysis
+- **Gemini CLI**: Cross-validation, web search integration
+- **HeyGen**: AI avatar video creation
+- **ElevenLabs**: Text-to-speech, audio generation
 - **n8n**: Workflow automation
 - **Obsidian AI Plugins**: Copilot, Smart Connections
 
 ### Custom AI Assistants
-구요한 maintains custom GPT assistants linked in [[🏛 CMDS Head Quarter]]:
+{your-name} maintains custom GPT assistants in ChatGPT (named after model versions, not the models themselves):
 - **CMDS GPT-5 Pro** — Primary assistant for knowledge work
 - **CMDS o3-pro** — Advanced reasoning and analysis
 - **CMDS GPT-5 Thinking** — Deep thinking and problem-solving
@@ -445,10 +490,15 @@ tags: []        # Topical tags
 **Purpose**: Temporary storage for new inputs before they're processed into the CMDS system
 - `01. Daily Notes/` — Daily reflections and logs (with 01-1. Planners, 01-2. Weekly Notes)
 - `02. Clippings/` — Web clippings (with 02-1. Literature Notes)
-- `03. AI Agent/` — **PRIMARY WORKING DIRECTORY** for all AI coding outputs (Claude Code, etc.)
+- `03. AI Agent/` — **PRIMARY WORKING DIRECTORY** for all AI coding outputs
+	- `03-1. Claude Code (MBP)/` — Claude Code outputs on MacBook Pro
+	- `03-2. Claude Code (Studio)/` — Claude Code outputs on Mac Studio
+	- `03-3. OpenClaw (MBP)/` — OpenClaw outputs on MacBook Pro
+	- `03-4. OpenClaw (Studio)/` — OpenClaw outputs on Mac Studio
 - `04. Excalidraw/` — Visual diagrams
 - `05. Canvas/` — Canvas notes
 - `06. Automation/` — Automation workflows (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
+- `06. GenAI Chats/` — GenAI conversation logs
 - `07. App Sync/` — External app sync (07-1. Claude, 07-2. Antigravity, 07-3. Bear Notes)
 - `08. Unlisted/` — Unlisted items
 - `09. Legacy/` — Legacy and archived content
@@ -472,9 +522,24 @@ Fully developed, timeless notes that represent mature knowledge
 **Purpose**: Central repository for technical documents and guides
 - `41. Official Docs/` — Official documentation, API guides, product manuals
 - `42. AI Generated/` — AI-generated technical documents and tutorials
-- `43. My Docs/` — User-created technical documents and specifications
+- `43. Audio Files/` — Audio files
+- `44. Transcripts/` — Transcripts
+- `45. Partner Made/` — Partner-created documents
+- `46. My Docs/` — User-created technical documents and specifications
+- `47. CMDS Docs/` — CMDS system documentation (backups, share copies)
+- `49. API Information/` — API information and references
 
 **Workflow**: Reference materials for development, implementation guides, and technical knowledge. Distinct from 80. References (academic/research focus) - this is practical, implementation-focused documentation.
+
+### 50. Assets/ — Reusable Resources
+**Purpose**: Reusable resources, templates, and media assets
+- `51. Brand/` — Brand assets and identity
+- `51. Prompt/` — Prompt assets
+- `51. Prompt and Syntax/` — Prompts and syntax resources
+- `52. Workflow/` — Workflow templates and automation assets
+- `59. Obsidian Web Clipper/` — Web clipper templates
+
+**Workflow**: Shared resources referenced across multiple projects and notes. Prompts, workflows, and brand assets that are reused rather than project-specific.
 
 ### 60. Collections/ — Entity Management
 - `61. People/` — People database
@@ -483,15 +548,13 @@ Fully developed, timeless notes that represent mature knowledge
 - `64. Spirituality/` — Spiritual content (Bible, sermons)
 - `67. Bases/` — Database structures
 - `68. Kanban Board/` — Kanban boards
-- `69. Preferences/` — User preferences (Alcohol, Coffee, etc.)
+- `68-1. Portal/` — Portal pages
+- `69. Preferences/` — User preferences (Alcohol, Sleep, Jazz)
 
 ### 70. Outputs/ — Final Deliverables
 - `71. Published/` — Published content
 - `72. Presentations/` — Presentation materials
 - `73. Courses/` — Course content
-	- `73-1. Curriculum/` — Course materials (from 60. Collections)
-	- `73-2. Class/` — Class management (from 60. Collections)
-	- `임원 AI 교육 모듈/` — Executive AI training modules
 - `74. Projects/` — Project documentation
 - `75. Consulting/` — Consulting deliverables
 - `79. Portfolio/` — Portfolio pages
@@ -504,6 +567,7 @@ Fully developed, timeless notes that represent mature knowledge
 - `85. References (Book)/` — Book references
 - `86. Omnivore/` — Omnivore articles
 - `86. References (Book, Yes24)/` — Yes24 books
+- `89. Omnivore/` — Omnivore additional
 
 ### 90. Settings/ — System Configuration
 - `91. Templates/` — Note templates
@@ -539,7 +603,7 @@ Fully developed, timeless notes that represent mature knowledge
 - 📎 — Web Clips (captured from web)
 - 🏷 — Index pages (collections)
 - 📦 — Reviews (analyzed content)
-- 🔖 — Personal outputs (구요한's original ideas)
+- 🔖 — Personal outputs ({your-name}'s original ideas)
 - 📜 — Others' outputs (curated external content)
 - 📈 — Code and syntax (technical content)
 - 🎹 — Music (compositions, theory)
@@ -549,7 +613,7 @@ Fully developed, timeless notes that represent mature knowledge
 
 ## Understanding User Intent
 
-When 구요한 asks you to work with the vault, understand the context:
+When {your-name} asks you to work with the vault, understand the context:
 
 ### Research Context
 If discussing research topics:
@@ -615,14 +679,14 @@ Look for relevant notes in:
 
 ---
 
-## Vault Statistics (as of 2025-01-09)
+## Vault Statistics (as of 2026-03-15)
 
-- **Total Notes**: 5,344+
+- **Total Notes**: 7,660+
 - **CMDS Categories**: 9 main (100-900) + 91 sub-categories
 - **Templates**: 94 note templates
 - **Obsidian Plugins**: 120+
-- **Note Types**: 142+ `note`, 101+ `terminology`, 80+ `meeting`, 59+ `people`, 60+ `CMDS`
-- **Years Active**: 2+ years of continuous knowledge accumulation
+- **Note Types**: 459+ `note`, 160+ `meeting`, 130+ `terminology`, 124+ `research-pipeline`, 97+ `api`, 93+ `people`, 85+ `moc`, 82+ `curriculum`, 66+ `manuscript`
+- **Years Active**: 3+ years of continuous knowledge accumulation
 
 This is a **mature, established system** with well-defined patterns. Respect existing conventions and structures.
 
@@ -656,6 +720,6 @@ This is a **mature, established system** with well-defined patterns. Respect exi
 
 ---
 
-**Remember**: CMDS is not just a filing system—it's a **thinking environment** where 구요한 develops ideas, conducts research, creates content, and serves others. When working with this vault, you're not just organizing files; you're supporting a knowledge worker's entire professional ecosystem.
+**Remember**: CMDS is not just a filing system—it's a **thinking environment** where {your-name} develops ideas, conducts research, creates content, and serves others. When working with this vault, you're not just organizing files; you're supporting a knowledge worker's entire professional ecosystem.
 
 **For technical implementation details, file operations, and coding guidelines, see [[CLAUDE.md]].**

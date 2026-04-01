@@ -1,19 +1,29 @@
 ---
 type: CMDS
 aliases:
+  - CMDS Guide
   - guide
+description: CMDS 볼트의 운영 표준 가이드. 필수 Properties 6개, 표준 Type 목록, 파일명 규칙, 폴더 구조, 인용 스타일, 템플릿 예시를 정의한다.
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-09-15T23:39
-date modified: 2026-01-24T00:12
-tags: [index, NoteClass, maps, SystemPrompt, guideline, 설명서, 커맨드스페이스, v2, 태그는자유로워야지, example, operation, service]
+date modified: 2026-03-15T19:34
+tags: [CMDS, system, guideline, 태그는자유로워야지, index, NoteClass, maps, example, operation, service]
+audience: User + AI
+scope: operational-standards
 links:
   - "[[🏛 CMDS Head Quarter|CMDS HQ]]"
+index: "[[🏛 CMDS Head Quarter]]"
+version: "2.1"
+status: completed
+share: true
+share_link: {share-link}
+share_expires: {share-date}
 ---
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 >
 > 📌 **Version 2.1** - Properties 표준화 및 체계 개선판
 
@@ -25,7 +35,7 @@ links:
 type:           # 노트 유형 (아래 표준 type 참조)
 aliases: []     # 별칭 (배열 형식)
 author:
-  - "[[구요한]]"  # 작성자 (wikilink 형식)
+  - "[[{your-name}]]"  # 작성자 (wikilink 형식)
 date created:   # 생성일 (YYYY-MM-DDTHH:mm:ss)
 date modified:  # 수정일 (YYYY-MM-DDTHH:mm:ss)
 tags: []        # 태그 (배열 형식)
@@ -41,7 +51,7 @@ tags: []        # 태그 (배열 형식)
 > ⚠️ **통일 규칙**: 모든 날짜는 ISO 8601 형식 (YYYY-MM-DD) 사용
 
 #### 작성자 및 관계
-- `author: [[구요한]]` - 항상 wikilink 형식 사용
+- `author: [[{your-name}]]` - 항상 wikilink 형식 사용
 - `attendees: []` - 참석자 목록 (wikilink 배열)
 - `organization: [[조직명]]` - 조직 (wikilink)
 
@@ -91,6 +101,9 @@ tags: []        # 태그 (배열 형식)
 #### 콘텐츠 타입
 - `books` - 도서
 - `research-review` - 연구 리뷰
+- `research-pipeline` - 연구 파이프라인
+- `api` - API 문서
+- `moc` - Map of Content
 - `idea` - 아이디어
 - `resource` - 리소스
 - `product` - 제품/서비스
@@ -188,9 +201,14 @@ tags: []        # 태그 (배열 형식)
 ├── 01. Daily Notes/            # 데일리 노트 (01-1. Planners, 01-2. Weekly Notes)
 ├── 02. Clippings/              # 웹 클리핑 (02-1. Literature Notes)
 ├── 03. AI Agent/               # ⭐ AI 코드 작업 전용 (PRIMARY)
+│   ├── 03-1. Claude Code (MBP)/    # Claude Code — MacBook Pro
+│   ├── 03-2. Claude Code (Studio)/ # Claude Code — Mac Studio
+│   ├── 03-3. OpenClaw (MBP)/       # OpenClaw — MacBook Pro
+│   └── 03-4. OpenClaw (Studio)/    # OpenClaw — Mac Studio
 ├── 04. Excalidraw/             # 다이어그램
 ├── 05. Canvas/                 # Canvas 노트
 ├── 06. Automation/             # 자동화 (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
+├── 06. GenAI Chats/            # GenAI 대화 기록
 ├── 07. App Sync/               # 외부 앱 연동 (07-1. Claude, 07-2. Antigravity, 07-3. Bear Notes)
 ├── 08. Unlisted/               # 미분류
 └── 09. Legacy/                 # 레거시 컨텐츠
@@ -219,30 +237,36 @@ tags: []        # 태그 (배열 형식)
 ├── 41. Official Docs/          # 공식 문서, API 가이드, 제품 매뉴얼
 ├── 42. AI Generated/           # AI 생성 기술 문서
 ├── 43. Audio Files/            # 오디오 파일
-├── 43. My Docs/                # 사용자 작성 기술 문서
 ├── 44. Transcripts/            # 트랜스크립트
-└── 45. Partner Made/           # 파트너 제작 문서
+├── 45. Partner Made/           # 파트너 제작 문서
+├── 46. My Docs/                # 사용자 작성 기술 문서
+├── 47. CMDS Docs/              # CMDS 시스템 관련 문서
+└── 49. API Information/        # API 정보 및 레퍼런스
 
 50. Assets/                     # 미디어 및 자산
+├── 51. Brand/                  # 브랜드 자산
 ├── 51. Prompt/                 # 프롬프트 자산
+├── 51. Prompt and Syntax/      # 프롬프트 및 문법
 ├── 52. Workflow/               # 워크플로우 자산
 └── 59. Obsidian Web Clipper/   # 웹 클리퍼 템플릿
 
-60. Preferences/                # 개인 선호 및 라이프스타일
-├── 61. Alcohol/                # 주류 노트
-├── 62. Sleep/                  # 수면 기록
-└── 63. Jazz/                   # 재즈 음악
+60. Collections/                # 엔티티 관리 컬렉션
+├── 61. People/                 # 인물 데이터베이스
+├── 62. Organization/           # 조직/기관
+├── 63. Meetings/               # 회의록
+├── 64. Spirituality/           # 영성 콘텐츠 (성경, 설교)
+├── 67. Bases/                  # 데이터베이스 구조
+├── 68. Kanban Board/           # 칸반 보드
+├── 68-1. Portal/               # 포털 페이지
+└── 69. Preferences/            # 개인 선호 (Alcohol, Sleep, Jazz)
 
-70. Collections/                # Resources 컬렉션
-├── 71. People/                 # 인물 데이터베이스
-├── 72. Organization/           # 조직/기관
-├── 74. Meetings/               # 회의록
-├── 75. Spirituality/           # 영성 콘텐츠 (성경, 설교)
-├── 76. Curriculum/             # 강의 커리큘럼
-├── 77. Class/                  # 수업 관리
-├── 78. Bases/                  # 데이터베이스 구조
-├── 78. Kanban Board/           # 칸반 보드
-└── 79. Portal/                 # 포털 페이지
+70. Outputs/                    # 최종 산출물
+├── 71. Published/              # 발행 콘텐츠
+├── 72. Presentations/          # 발표 자료
+├── 73. Courses/                # 교육 과정
+├── 74. Projects/               # 프로젝트 문서
+├── 75. Consulting/             # 컨설팅 산출물
+└── 79. Portfolio/              # 포트폴리오
 
 80. References/                 # 참고 자료 및 출처
 ├── 81. Attachment/             # 첨부 파일
@@ -252,7 +276,7 @@ tags: []        # 태그 (배열 형식)
 ├── 85. References (Book)/      # 도서 참고자료
 ├── 86. Omnivore/               # Omnivore 아티클
 ├── 86. References (Book, Yes24)/ # Yes24 도서
-└── 89. Omnivore/               # Omnivore 추가 폴더
+└── 89. Omnivore/               # Omnivore 추가
 
 90. Settings/                   # 시스템 설정 및 관리
 ├── 91. Templates/              # 노트 템플릿
@@ -263,6 +287,7 @@ tags: []        # 태그 (배열 형식)
 ├── 96. Index/                  # 인덱스 파일
 ├── 97. File Class/             # 파일 분류
 ├── 98. Format/                 # 포맷 정의
+├── 99. Format/                 # 포맷 (추가)
 └── 99. Others/                 # 기타 설정
 ```
 ## Properties Template Examples
@@ -272,7 +297,7 @@ tags: []        # 태그 (배열 형식)
 type: note
 aliases: []
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-01-09T14:30
 date modified: 2025-01-09T14:30
 tags: []
@@ -287,7 +312,7 @@ status:
 type: meeting
 aliases: []
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-01-09T09:00
 date: 2025-01-09
 attendees:
@@ -306,7 +331,7 @@ tags: [meeting]
 type: research-review
 aliases: []
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-01-09T16:45
 title: 
 source: 
@@ -325,7 +350,7 @@ tags: [research]
 type: books
 aliases: []
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-01-09T11:20
 title: 
 subtitle: 
@@ -346,7 +371,7 @@ tags: [📚Book]
 type: people
 aliases: []
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created: 2025-01-09T10:15
 email: 
 mobile: 
@@ -369,9 +394,20 @@ tags: [people]
 #### 명언
 > [!QUOTE]
 > "2주 뒤에 뵙겠습니다."
-> — 구요한(Yohan Koo)
+> — {your-name}({Your Name})
 ## Sync Settings
-### Obsidian Sync
+### Obsidian Sync (공식 클라우드)
+두 대의 Mac이 **Obsidian Sync**(공식 Obsidian 클라우드 서버)로 동기화됩니다.
+
+| 환경 | 기기 | Base Path |
+|------|------|-----------|
+| Primary | MacBook Pro (16-inch) | `{vault-path}` |
+| Secondary | Mac Studio | `{vault-path-secondary}` |
+
+- 모든 하위 경로와 파일이 동일하게 유지됩니다
+- AI 코드 출력은 환경별 하위 폴더(`03-1` ~ `03-4`)로 구분하여 출처를 추적합니다
+
+### Sync Config 경로
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History

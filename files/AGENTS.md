@@ -1,11 +1,24 @@
 ---
+type: documentation
+aliases:
+  - AI Agents Guide
+  - Gemini Codex Guide
+description: Gemini CLI, Codex, Cursor 등 비-Claude AI 코딩 에이전트를 위한 기술 가이드. CLAUDE.md의 간소화 버전으로, 포터블하고 범용적인 규칙을 제공한다.
+author:
+  - "[[{your-name}]]"
 date created: 2026-01-02T16:30
-date modified: 2026-01-24T00:35
+date modified: 2026-03-15T19:00
 tags:
   - CMDS
   - system
+audience: Gemini CLI, Codex, Cursor, Windsurf
+scope: technical-implementation
+CMDS: "[[📚 501 Obsidian]]"
+index: "[[🏛 CMDS Head Quarter]]"
+version: "1.0"
+status: completed
 ---
-> **🔄 Last Updated: 2026-01-24** | Backup: `00. Inbox/03. AI Agent/cmds-system-files/AGENTS_backup.md`
+> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md`
 
 # AGENTS.md
 
@@ -21,9 +34,17 @@ This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Wind
 
 ## Project Overview
 
-This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by 구요한 (Yohan Koo). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
+This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by {your-name} ({Your Name}). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
 
-**Vault Scale**: 5,300+ notes, 120+ plugins, 90+ templates
+**Vault Scale**: 7,660+ notes, 120+ plugins, 90+ templates
+
+### Working Environments & Sync
+Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All subfolders and files are kept identical.
+
+| Environment | Machine | Base Path |
+|-------------|---------|-----------|
+| Primary | MacBook Pro (16-inch) | `{vault-path}` |
+| Secondary | Mac Studio | `{vault-path-secondary}` |
 
 ---
 
@@ -34,7 +55,7 @@ This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge
 | **AGENTS.md** (this file) | Technical guide for AI coding agents | Gemini CLI, Codex, etc. |
 | **CLAUDE.md** | Claude Code specific instructions | Claude Code only |
 | **CMDS.md** | System philosophy & user context | All LLM assistants |
-| **🏛 CMDS Head Quarter.md** | Navigation hub | User (구요한) |
+| **🏛 CMDS Head Quarter.md** | Navigation hub | User ({your-name}) |
 | **🏛 CMDS Guide.md** | Standards & templates | User + AI |
 
 ---
@@ -53,13 +74,13 @@ This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge
 ```yaml
 # ✅ Correct
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 organization: "[[SK Innovation]]"
 CMDS: "[[📚 620 Generative AI]]"
 
 # ❌ Wrong
 author:
-  - [[구요한]]
+  - [[{your-name}]]
 ```
 
 ### 3. Required Properties (6 fields)
@@ -70,7 +91,7 @@ Every note must include:
 type:           # Note type (note, meeting, people, etc.)
 aliases: []     # Alternative names
 author:
-  - "[[구요한]]"
+  - "[[{your-name}]]"
 date created:   # YYYY-MM-DD or YYYY-MM-DDTHH:mm
 date modified:  # YYYY-MM-DD or YYYY-MM-DDTHH:mm
 tags: []        # Relevant tags
@@ -83,18 +104,29 @@ Always use ISO 8601: `YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`
 
 ### 5. Code Output Location
 
-All code-related outputs should be saved in: `00. Inbox/03. AI Agent/`
+All code-related outputs should be saved in: `00. Inbox/03. AI Agent/` under the appropriate **environment subfolder**:
+
+| Subfolder | Agent | Machine |
+|-----------|-------|---------|
+| `03-1. Claude Code (MBP)/` | Claude Code | MacBook Pro |
+| `03-2. Claude Code (Studio)/` | Claude Code | Mac Studio |
+| `03-3. OpenClaw (MBP)/` | OpenClaw | MacBook Pro |
+| `03-4. OpenClaw (Studio)/` | OpenClaw | Mac Studio |
+
+**Auto-detection**: Check the base path to determine machine:
+- `{home-path}/Local Obsidian_MBP/` → MBP
+- `{home-path}/Obsidian_Local/` → Studio
 
 ### 6. Multi-File Project Folder Rule
 
 When creating projects with multiple related files (e.g., website with HTML/CSS/JS, lecture materials with multiple notes):
-1. **FIRST** create an intermediate folder with descriptive name
+1. **FIRST** create an intermediate folder with descriptive name inside the environment subfolder
 2. **THEN** create all related files inside that folder
 3. Folder naming: `YYYY-MM-DD-project-name/` (e.g., `2026-01-18-한림대-강의/`)
 
 Example structure:
 ```
-00. Inbox/03. AI Agent/
+00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/
 └── 2026-01-18-project-name/
     ├── index.html
     ├── styles.css
@@ -102,7 +134,7 @@ Example structure:
     └── README.md
 ```
 
-**Never** scatter related project files directly in `03. AI Agent/` root.
+**Never** scatter related project files directly in `03. AI Agent/` root or environment subfolder root.
 
 ---
 
@@ -113,9 +145,14 @@ Example structure:
 ├── 01. Daily Notes/            # Daily journal (01-1. Planners, 01-2. Weekly Notes)
 ├── 02. Clippings/              # Web clippings (02-1. Literature Notes)
 ├── 03. AI Agent/               # Code outputs (PRIMARY)
+│   ├── 03-1. Claude Code (MBP)/    # Claude Code on MacBook Pro
+│   ├── 03-2. Claude Code (Studio)/ # Claude Code on Mac Studio
+│   ├── 03-3. OpenClaw (MBP)/       # OpenClaw on MacBook Pro
+│   └── 03-4. OpenClaw (Studio)/    # OpenClaw on Mac Studio
 ├── 04. Excalidraw/             # Diagrams
 ├── 05. Canvas/                 # Canvas notes
 ├── 06. Automation/             # Automation (Make.com, n8n, STT)
+├── 06. GenAI Chats/            # GenAI conversation logs
 ├── 07. App Sync/               # External apps (Claude, Antigravity, Bear Notes)
 ├── 08. Unlisted/               # Unlisted items
 └── 09. Legacy/                 # Legacy content
