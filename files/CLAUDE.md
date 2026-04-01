@@ -370,7 +370,7 @@ find . -name "*.md" -mtime -7 -type f | head -20
 	- Status: Use standard 5 values only
 	- CamelCase: myRate, totalPage (⚠️ `rating` 사용 금지 → 반드시 `myRate`)
 4. **CMDS Hierarchy**: 🏛 (top) → 📖 (100-900) → 📚 (N01-N99) → no icon (details)
-5. **Vault Scale**: 7,660+ notes with established patterns - respect existing conventions
+5. **Vault Scale**: 10,000+ notes with established patterns - respect existing conventions
 
 ## Key Obsidian Plugins
 

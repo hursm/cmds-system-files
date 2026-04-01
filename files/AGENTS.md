@@ -50,7 +50,7 @@ This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Wind
 
 This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by {your-name} ({Your Name}). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
 
-**Vault Scale**: 7,660+ notes, 120+ plugins, 90+ templates
+**Vault Scale**: 10,000+ notes, 120+ plugins, 90+ templates
 
 ### Working Environments & Sync
 Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All subfolders and files are kept identical.

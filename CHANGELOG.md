@@ -104,7 +104,7 @@ CMDS: "[[📚 501 Obsidian]]"
 ## v2.0 — 2026-03-15 (Full Review)
 
 ### 변경 사항
-- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 7,660+)
+- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 10,000+)
 - CLAUDE.md: 백업 경로 오타 수정, GenAI Chats 추가
 - CMDS.md: PhD Candidate → PhD ABD, AI Tools 갱신, 50. Assets 섹션 추가
 - 🏛 CMDS Head Quarter: CMDS Process 설명 추가, Vault Folders 섹션 추가
