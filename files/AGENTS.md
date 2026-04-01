@@ -7,28 +7,42 @@ description: Gemini CLI, Codex, Cursor 등 비-Claude AI 코딩 에이전트를 
 author:
   - "[[{your-name}]]"
 date created: 2026-01-02T16:30
-date modified: 2026-03-15T19:00
+date modified: 2026-04-01T11:30
 tags:
   - CMDS
   - system
 audience: Gemini CLI, Codex, Cursor, Windsurf
 scope: technical-implementation
+precedence: 2
+memory-type: feedback
+required-for:
+  - code-generation
+  - file-creation
+  - file-editing
+optional-for:
+  - search
+  - analysis
+token-estimate: 3200
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "1.0"
+version: "2.0"
 status: completed
+changelog:
+  - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
+  - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md`
+> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md`
 
 # AGENTS.md
 
 This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Windsurf, etc.) when working with this Obsidian vault.
 
 > **📌 Related System Files (5 Core Files)**
-> - @CLAUDE.md → [[CLAUDE.md]] - Claude Code specific instructions
-> - @CMDS.md → [[CMDS.md]] - System philosophy & user context (for ALL LLMs)
-> - @🏛 CMDS Head Quarter → [[🏛 CMDS Head Quarter]] - Navigation hub (for User)
-> - @🏛 CMDS Guide → [[🏛 CMDS Guide]] - Standards & templates (for User + AI)
+> - @CLAUDE.md → [[CLAUDE.md]] - Claude Code specific instructions (precedence: 1)
+> - @AGENTS.md → [[AGENTS.md]] - This file (precedence: 2)
+> - @CMDS.md → [[CMDS.md]] - System philosophy & user context (precedence: 3)
+> - @🏛 CMDS Guide → [[🏛 CMDS Guide]] - Standards & templates (precedence: 4)
+> - @🏛 CMDS Head Quarter → [[🏛 CMDS Head Quarter]] - Navigation hub (precedence: 5)
 
 ---
 
@@ -44,152 +58,40 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 | Environment | Machine | Base Path |
 |-------------|---------|-----------|
 | Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-secondary}` |
+| Secondary | Mac Studio | `{vault-path-studio}` |
 
 ---
 
-## System Documentation
-
-| File | Purpose | Audience |
-|------|---------|----------|
-| **AGENTS.md** (this file) | Technical guide for AI coding agents | Gemini CLI, Codex, etc. |
-| **CLAUDE.md** | Claude Code specific instructions | Claude Code only |
-| **CMDS.md** | System philosophy & user context | All LLM assistants |
-| **🏛 CMDS Head Quarter.md** | Navigation hub | User ({your-name}) |
-| **🏛 CMDS Guide.md** | Standards & templates | User + AI |
-
----
+<!-- STATIC: 아래 규칙은 거의 변경되지 않습니다 -->
 
 ## Critical Rules
 
-### 1. Indentation Rules (YAML vs Markdown)
+> 공통 규칙은 `.claude/rules/` 에 정의되어 있습니다. 아래는 AI 에이전트가 반드시 따라야 할 핵심 규칙입니다.
 
-| Section | Indentation | Example |
-|---------|-------------|---------|
-| **YAML frontmatter** | **2 SPACES** | `··- "[[link]]"` |
-| **Markdown body** | **TAB** | `→- List item` |
+@.claude/rules/indentation-rules.md
 
-### 2. Wikilinks in YAML Must Be Quoted
+@.claude/rules/frontmatter-standard.md
 
-```yaml
-# ✅ Correct
-author:
-  - "[[{your-name}]]"
-organization: "[[SK Innovation]]"
-CMDS: "[[📚 620 Generative AI]]"
+@.claude/rules/wikilink-rules.md
 
-# ❌ Wrong
-author:
-  - [[{your-name}]]
-```
-
-### 3. Required Properties (6 fields)
-
-Every note must include:
-```yaml
----
-type:           # Note type (note, meeting, people, etc.)
-aliases: []     # Alternative names
-author:
-  - "[[{your-name}]]"
-date created:   # YYYY-MM-DD or YYYY-MM-DDTHH:mm
-date modified:  # YYYY-MM-DD or YYYY-MM-DDTHH:mm
-tags: []        # Relevant tags
----
-```
-
-### 4. Date Format
-
-Always use ISO 8601: `YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`
-
-### 5. Code Output Location
-
-All code-related outputs should be saved in: `00. Inbox/03. AI Agent/` under the appropriate **environment subfolder**:
-
-| Subfolder | Agent | Machine |
-|-----------|-------|---------|
-| `03-1. Claude Code (MBP)/` | Claude Code | MacBook Pro |
-| `03-2. Claude Code (Studio)/` | Claude Code | Mac Studio |
-| `03-3. OpenClaw (MBP)/` | OpenClaw | MacBook Pro |
-| `03-4. OpenClaw (Studio)/` | OpenClaw | Mac Studio |
-
-**Auto-detection**: Check the base path to determine machine:
-- `{home-path}/Local Obsidian_MBP/` → MBP
-- `{home-path}/Obsidian_Local/` → Studio
-
-### 6. Multi-File Project Folder Rule
-
-When creating projects with multiple related files (e.g., website with HTML/CSS/JS, lecture materials with multiple notes):
-1. **FIRST** create an intermediate folder with descriptive name inside the environment subfolder
-2. **THEN** create all related files inside that folder
-3. Folder naming: `YYYY-MM-DD-project-name/` (e.g., `2026-01-18-한림대-강의/`)
-
-Example structure:
-```
-00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/
-└── 2026-01-18-project-name/
-    ├── index.html
-    ├── styles.css
-    ├── script.js
-    └── README.md
-```
-
-**Never** scatter related project files directly in `03. AI Agent/` root or environment subfolder root.
+@.claude/rules/file-creation-rules.md
 
 ---
 
-## Directory Structure
+## Essential (Post-Compact)
 
-```
-00. Inbox/                      # Temporary storage
-├── 01. Daily Notes/            # Daily journal (01-1. Planners, 01-2. Weekly Notes)
-├── 02. Clippings/              # Web clippings (02-1. Literature Notes)
-├── 03. AI Agent/               # Code outputs (PRIMARY)
-│   ├── 03-1. Claude Code (MBP)/    # Claude Code on MacBook Pro
-│   ├── 03-2. Claude Code (Studio)/ # Claude Code on Mac Studio
-│   ├── 03-3. OpenClaw (MBP)/       # OpenClaw on MacBook Pro
-│   └── 03-4. OpenClaw (Studio)/    # OpenClaw on Mac Studio
-├── 04. Excalidraw/             # Diagrams
-├── 05. Canvas/                 # Canvas notes
-├── 06. Automation/             # Automation (Make.com, n8n, STT)
-├── 06. GenAI Chats/            # GenAI conversation logs
-├── 07. App Sync/               # External apps (Claude, Antigravity, Bear Notes)
-├── 08. Unlisted/               # Unlisted items
-└── 09. Legacy/                 # Legacy content
-
-10. CMDS Process/               # Connect→Merge→Develop→Share
-20. Literature Notes/           # Reading notes
-30. Permanent Notes/            # Evergreen content
-40. Docs/                       # Technical documentation
-50. Assets/                     # Media files
-60. Collections/                # Entity management (People, Meetings, Preferences)
-70. Outputs/                    # Final deliverables (Published, Presentations, Courses, Curriculum, Projects)
-80. References/                 # Reference materials
-90. Settings/                   # Templates, System Prompts
-```
+> 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 규칙:
+> 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
+> 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
+> 3. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
+> 4. **필수 프로퍼티 6개**: type, aliases, author, date created, date modified, tags
+> 5. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
 
 ---
 
-## CMDS Categories (100-900)
+## Directory Structure & CMDS Categories
 
-| Category | Name | Purpose |
-|----------|------|---------|
-| 📖 100 | Themes | Interests, topics, variables, terminologies |
-| 📖 200 | Literature | Concepts, frameworks, theories, reviews |
-| 📖 300 | Data | Data management, surveys, databases |
-| 📖 400 | Methodologies | Research methods, statistics, ML, codes |
-| 📖 500 | Products | Tools (Obsidian, ChatGPT, Claude, etc.) |
-| 📖 600 | Specialties | KM, Second Brain, Gen AI, productivity |
-| 📖 700 | Creatives | YouTube, SNS, music, digital art |
-| 📖 800 | Outputs | PhD, articles, lectures, consulting |
-| 📖 900 | Divisions | 9 operational divisions |
-
-### Hierarchy System
-
-- 🏛 - Home/Guide (top level)
-- 📖 - 1st level CMDS (100-900 series)
-- 📚 - 2nd level CMDS (N01-N99)
-- (No icon) - 3rd level (detailed topics)
+@.claude/rules/directory-structure.md
 
 ---
 
@@ -206,14 +108,7 @@ Example structure:
 
 ---
 
-## File Naming Convention
-
-- Include date: `YYYY-MM-DD-description.ext`
-- Examples:
-	- `2026-01-02-data-analysis.py`
-	- `2026-01-02-meeting-summary.md`
-
----
+<!-- DYNAMIC: 아래 내용은 주기적으로 갱신됩니다 -->
 
 ## Common Note Types
 
@@ -222,10 +117,9 @@ Example structure:
 - `meeting` - Meeting minutes
 - `people` - People profiles
 - `curriculum` - Course curriculum
+- `channel` - YouTube/Blog/Newsletter 채널 프로필
 - `CMDS` - CMDS index pages (replaces traditional MOC concept)
 - `documentation` - Technical docs
-
----
 
 ## Status Values
 
@@ -235,8 +129,6 @@ Standard status values (5 options):
 - `inProgress` - Work in progress
 - `completed` - Finished
 - `archived` - Historical reference
-
----
 
 ## File Prefixes
 
@@ -248,8 +140,6 @@ Standard status values (5 options):
 - 📈 - Code/Syntax
 - 🎹 - Music
 - 📘 - Books/Reference
-
----
 
 ## Templates
 
@@ -267,8 +157,8 @@ Templates are in `90. Settings/91. Templates/`. Key templates:
 
 1. **Use wikilinks `[[]]`** for internal references, NOT markdown links
 2. **Respect existing patterns** - This is a mature vault with established conventions
-3. **Check CMDS.md** for user context and workflow patterns
-4. **Check 🏛 CMDS Guide.md** for detailed standards and templates
+3. **Check [[CMDS.md]]** for user context and workflow patterns
+4. **Check [[🏛 CMDS Guide]]** for detailed standards and templates
 
 ---
 

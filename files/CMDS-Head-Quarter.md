@@ -7,18 +7,30 @@ description: CMDS 볼트의 중앙 네비게이션 허브. 9개 카테고리(100
 author:
   - "[[{your-name}]]"
 date created: 2025-10-23T01:59
-date modified: 2026-03-15T21:32
+date modified: 2026-04-01T11:30
 tags:
   - CMDS
   - system
 audience: User ({your-name})
 scope: navigation
+precedence: 5
+memory-type: reference
+required-for:
+  - navigation
+optional-for:
+  - context-understanding
+  - code-generation
+token-estimate: 1800
 index: "[[🏛 CMDS Guide]]"
+version: "1.1"
 status: completed
+changelog:
+  - "1.1 (2026-04-01): precedence/memory-type/token-estimate 추가"
+  - "1.0 (2026-03-15): CMDS Process 설명 추가, Vault Folders 섹션 추가"
 share_link: {share-link}
-share_updated: {share-date}
+share_updated: 2025-08-25T11:43:35+09:00
 ---
-> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
 
 Links:: [[🏛 CMDS Head Quarter]] | [[🏛 CMDS Guide]]
 References:: [[🏛 000 YHN Home]]

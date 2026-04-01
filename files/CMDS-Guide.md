@@ -7,18 +7,36 @@ description: CMDS 볼트의 운영 표준 가이드. 필수 Properties 6개, 표
 author:
   - "[[{your-name}]]"
 date created: 2025-09-15T23:39
-date modified: 2026-03-15T19:34
-tags: [CMDS, system, guideline, 태그는자유로워야지, index, NoteClass, maps, example, operation, service]
+date modified: 2026-04-01T11:30
+tags:
+  - CMDS
+  - system
+  - guideline
+  - index
+  - NoteClass
+  - operation
 audience: User + AI
 scope: operational-standards
+precedence: 4
+memory-type: reference
+required-for:
+  - file-creation
+  - standards-compliance
+optional-for:
+  - search
+  - analysis
+token-estimate: 4800
 links:
   - "[[🏛 CMDS Head Quarter|CMDS HQ]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.1"
+version: "2.2"
 status: completed
+changelog:
+  - "2.2 (2026-04-01): precedence/memory-type/token-estimate 추가, tags 정리"
+  - "2.1 (2026-03-15): 폴더 구조 현행화, 새 type 추가"
 share: true
-share_link: {share-link}
-share_expires: {share-date}
+share_link: https://canny-buffalo-436.convex.site/note/bq2eal9k.html
+share_expires: 2026-01-29T11:02:12.926Z
 ---
 
 # CMDS Guide
@@ -383,6 +401,73 @@ status:
 tags: [people]
 ---
 ```
+## Property 네이밍 규칙 (Naming Convention)
+
+CMDS 볼트에서 YAML 프로퍼티 이름을 지을 때 따르는 규칙입니다.
+
+### camelCase (카멜케이스) — 복합 단어 프로퍼티의 기본 규칙
+
+두 단어 이상을 조합할 때, **첫 단어는 소문자**, **이후 단어의 첫 글자만 대문자**로 쓰는 방식입니다. 낙타(camel)의 등처럼 중간이 올라가는 모양이라 카멜케이스라고 부릅니다.
+
+```yaml
+# ✅ camelCase (CMDS 표준)
+myRate: 5
+totalPage: 320
+startReadDate: 2026-03-30
+channelUrl: "https://youtube.com/@example"
+updateFrequency: weekly
+
+# ❌ 잘못된 예시
+my_rate: 5        # snake_case — 사용 금지
+my-rate: 5        # kebab-case — YAML에서 문제 가능
+MyRate: 5         # PascalCase — 사용 금지
+```
+
+### snake_case (스네이크케이스) — 레거시 호환
+
+단어 사이를 밑줄(`_`)로 연결하는 방식입니다. 뱀(snake)처럼 바닥에 붙어 있는 모양입니다. CMDS에서는 **기존에 이미 대량으로 사용 중인 프로퍼티**에 한해 유지합니다.
+
+```yaml
+# ⚠️ snake_case (레거시 유지 — 신규 사용 금지)
+source_url: "https://example.com"   # 250+ 파일에서 사용 중
+publish_date: 2026-01-15            # 138+ 파일에서 사용 중
+recommended_by:                      # Book Base 생태계 호환
+  - "[[이남정]]"
+```
+
+### 단일 단어 — 그대로 소문자
+
+한 단어로 된 프로퍼티는 그냥 소문자입니다.
+
+```yaml
+type: note
+platform: YouTube
+language: Korean
+status: completed
+```
+
+### Obsidian 기본값 — 공백 허용
+
+Obsidian이 자동 생성하는 프로퍼티는 공백 형태를 유지합니다.
+
+```yaml
+date created: 2026-03-30
+date modified: 2026-03-30
+```
+
+### 요약 표
+
+| 패턴 | 사용 시점 | 예시 |
+|------|----------|------|
+| **camelCase** | 새로운 복합 단어 프로퍼티 (기본) | `myRate`, `totalPage`, `channelUrl` |
+| **snake_case** | 기존 대량 사용 중인 레거시만 유지 | `source_url`, `publish_date`, `recommended_by` |
+| **소문자** | 단일 단어 프로퍼티 | `type`, `platform`, `status` |
+| **공백** | Obsidian 기본값 | `date created`, `date modified` |
+
+> **원칙**: 새 프로퍼티를 만들 때는 반드시 **camelCase**를 사용하세요. `rating` 대신 `myRate`, `channel_url` 대신 `channelUrl`입니다.
+
+---
+
 ## Note-taking Guidelines
 ### Citation Style
 #### 책 인용
@@ -402,7 +487,7 @@ tags: [people]
 | 환경 | 기기 | Base Path |
 |------|------|-----------|
 | Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-secondary}` |
+| Secondary | Mac Studio | `{vault-path-studio}` |
 
 - 모든 하위 경로와 파일이 동일하게 유지됩니다
 - AI 코드 출력은 환경별 하위 폴더(`03-1` ~ `03-4`)로 구분하여 출처를 추적합니다
@@ -411,6 +496,10 @@ tags: [people]
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.2** (2026-03-30): Property 네이밍 규칙 섹션 추가, `channel` 노트 타입 도입
+	- camelCase/snake_case/Obsidian 기본값 규칙 명시 및 교육용 예시 추가
+	- `myRate` 표준 강화 (`rating` 사용 금지)
+	- `channel` 타입 전용 Properties 스키마 정의
 - **v2.1** (2025-10-23): 내용 오류 및 일관성 수정
 - **v2.0** (2025-09-15): Properties 표준화 및 체계 개선
 	- 날짜 형식 ISO 8601 통일

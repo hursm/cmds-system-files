@@ -7,22 +7,45 @@ description: CMDS 시스템의 철학, 사용자 컨텍스트, 9개 카테고리
 author:
   - "[[{your-name}]]"
 date created: 2025-10-22T21:52
-date modified: 2026-03-15T21:38
+date modified: 2026-04-01T11:57
 tags:
   - CMDS
   - system
 audience: All LLM assistants
 scope: context-philosophy
+precedence: 3
+memory-type: user
+required-for:
+  - context-understanding
+  - new-conversation
+optional-for:
+  - code-generation
+  - file-editing
+token-estimate: 8500
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.0"
+version: "2.1"
 status: completed
+changelog:
+  - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
+  - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
+> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
 
 # CMDS.md
 
 This file provides LLM assistants with essential context about the CMDS (커맨드스페이스) Personal Knowledge Management system created by {your-name}({Your Name}). Use this document to understand the user's knowledge management philosophy, workflow, and context.
+
+## Essential (Post-Compact)
+
+> 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 컨텍스트:
+> 1. **CMDS**: Connect → Merge → Develop → Share (지식 생애주기)
+> 2. **{your-name}**: PhD ABD, KM 전문가, 생성형 AI 교육자, 컨설턴트
+> 3. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methods → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
+> 4. **볼트 규모**: 7,660+ 노트, 120+ 플러그인
+> 5. **기술 규칙**: CLAUDE.md (precedence 1) 또는 AGENTS.md (precedence 2) 참조
+
+<!-- STATIC: 아래 시스템 구조와 철학은 거의 변경되지 않습니다 -->
 
 ---
 
@@ -93,7 +116,7 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 | 환경 | 기기 | Base Path |
 |------|------|-----------|
 | Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-secondary}` |
+| Secondary | Mac Studio | `{vault-path-studio}` |
 
 - All subfolders and files are kept identical across both machines
 - AI coding agent outputs are separated by environment subfolders under `00. Inbox/03. AI Agent/`:
@@ -406,6 +429,7 @@ tags: []        # Topical tags
 - `meeting` — Meeting minutes (160+)
 - `people` — People profiles (93+)
 - `curriculum` — Course curricula (82+)
+- `channel` — YouTube/Blog/Newsletter 채널 프로필 (101+)
 - `project` — Project documentation
 
 ### Status Values
@@ -465,6 +489,7 @@ tags: []        # Topical tags
 - **Claude Code**: Code generation, skill/plugin development, vault automation, writing assistance
 - **ChatGPT** (Custom GPTs): Knowledge work, reasoning, analysis
 - **Gemini CLI**: Cross-validation, web search integration
+- **Midjourney**: AI image generation, visual content
 - **HeyGen**: AI avatar video creation
 - **ElevenLabs**: Text-to-speech, audio generation
 - **n8n**: Workflow automation
@@ -678,6 +703,8 @@ Look for relevant notes in:
 6. **People notes** — Relationship context
 
 ---
+
+<!-- DYNAMIC: 아래 통계와 도구 목록은 주기적으로 갱신됩니다 -->
 
 ## Vault Statistics (as of 2026-03-15)
 
