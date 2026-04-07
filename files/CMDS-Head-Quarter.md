@@ -3,15 +3,15 @@ type: CMDS
 aliases:
   - CMDS HQ
   - Head Quarter
-description: CMDS 볼트의 중앙 네비게이션 허브. 9개 카테고리(100-900)의 91개 서브카테고리 링크, CMDS Process 요약, 볼트 폴더 구조(00-90), 작업 환경 정보를 제공한다.
+description: Central navigation hub for the CMDS vault. Provides links to 91 sub-categories across 9 main categories (100-900), a CMDS Process summary, vault folder structure (00-90), and working environment information. Reference when navigating the vault or locating a specific category.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-04-01T11:30
+date modified: 2026-04-07T21:15
 tags:
   - CMDS
   - system
-audience: User ({your-name})
+audience: User (구요한)
 scope: navigation
 precedence: 5
 memory-type: reference
@@ -22,12 +22,13 @@ optional-for:
   - code-generation
 token-estimate: 1800
 index: "[[🏛 CMDS Guide]]"
-version: "1.1"
+version: "1.2"
 status: completed
 changelog:
+  - "1.2 (2026-04-07): description 필드 English 규칙 적용"
   - "1.1 (2026-04-01): precedence/memory-type/token-estimate 추가"
   - "1.0 (2026-03-15): CMDS Process 설명 추가, Vault Folders 섹션 추가"
-share_link: {share-link}
+share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
 share_updated: 2025-08-25T11:43:35+09:00
 ---
 > **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`

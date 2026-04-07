@@ -12,8 +12,8 @@
 | `03-4. OpenClaw (Studio)/` | OpenClaw | Mac Studio |
 
 **Auto-detection**: Check base path to determine machine:
-- `{home-path}/Local Obsidian_MBP/` → MBP
-- `{home-path}/Obsidian_Local/` → Studio
+- `/Users/yohankoo/Local Obsidian_MBP/` → MBP
+- `/Users/yohankoo/Obsidian_Local/` → Studio
 
 ## File Naming Convention
 

@@ -21,5 +21,5 @@
 
 - `[[🏛 CMDS Head Quarter]]` — Main hub
 - `[[📚 620 Generative AI]]` — CMDS category
-- `[[{your-name}]]` — People note
+- `[[구요한]]` — People note
 - `[[🏷 Meeting Notes]]` — Index page

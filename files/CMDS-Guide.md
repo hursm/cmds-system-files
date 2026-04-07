@@ -3,11 +3,11 @@ type: CMDS
 aliases:
   - CMDS Guide
   - guide
-description: CMDS 볼트의 운영 표준 가이드. 필수 Properties 6개, 표준 Type 목록, 파일명 규칙, 폴더 구조, 인용 스타일, 템플릿 예시를 정의한다.
+description: Operational standards guide for the CMDS vault. Defines the 7 required Properties, standard note types, file naming conventions, folder structure, citation styles, and template examples. Reference when creating new notes or validating existing ones.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-04-01T11:30
+date modified: 2026-04-07T21:15
 tags:
   - CMDS
   - system
@@ -29,9 +29,10 @@ token-estimate: 4800
 links:
   - "[[🏛 CMDS Head Quarter|CMDS HQ]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.2"
+version: "2.3"
 status: completed
 changelog:
+  - "2.3 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)"
   - "2.2 (2026-04-01): precedence/memory-type/token-estimate 추가, tags 정리"
   - "2.1 (2026-03-15): 폴더 구조 현행화, 새 type 추가"
 share: true
@@ -47,18 +48,26 @@ share_expires: 2026-01-29T11:02:12.926Z
 
 ## Properties
 ### 필수 Properties (Required)
-모든 노트는 다음 6개의 필수 properties를 포함해야 합니다:
+모든 노트는 다음 7개의 필수 properties를 포함해야 합니다:
 ```yaml
 ---
 type:           # 노트 유형 (아래 표준 type 참조)
 aliases: []     # 별칭 (배열 형식)
+description:    # 1-2 문장 영어 요약 (LLM용, 아래 규칙 참조)
 author:
-  - "[[{your-name}]]"  # 작성자 (wikilink 형식)
+  - "[[구요한]]"  # 작성자 (wikilink 형식)
 date created:   # 생성일 (YYYY-MM-DDTHH:mm:ss)
 date modified:  # 수정일 (YYYY-MM-DDTHH:mm:ss)
 tags: []        # 태그 (배열 형식)
 ---
 ```
+
+> ⚠️ **`description` 작성 규칙** (2026-04-07 추가)
+> - **반드시 영어로 작성**. LLM(Claude Code, Gemini CLI, ChatGPT 등)이 이 노트의 관련성을 판단할 때 사용하는 기계 가독 힌트입니다.
+> - **1-2 문장**, skill/tool description처럼 구체적이고 action-oriented하게.
+> - 노트의 내용 + 언제 참조해야 하는지를 함께 제공.
+> - ✅ 좋음: `"Meeting minutes from 2026-04-07 LG AX camp retrospective. Contains CEO feedback and next-action items."`
+> - ❌ 나쁨: `"회의록"` (한국어), `"This is a note"` (무정보)
 ### 표준 Properties 정의
 #### 날짜 관련
 - `date created` - 생성일 (YYYY-MM-DDTHH:mm:ss)
@@ -69,7 +78,7 @@ tags: []        # 태그 (배열 형식)
 > ⚠️ **통일 규칙**: 모든 날짜는 ISO 8601 형식 (YYYY-MM-DD) 사용
 
 #### 작성자 및 관계
-- `author: [[{your-name}]]` - 항상 wikilink 형식 사용
+- `author: [[구요한]]` - 항상 wikilink 형식 사용
 - `attendees: []` - 참석자 목록 (wikilink 배열)
 - `organization: [[조직명]]` - 조직 (wikilink)
 
@@ -315,7 +324,7 @@ tags: []        # 태그 (배열 형식)
 type: note
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-01-09T14:30
 date modified: 2025-01-09T14:30
 tags: []
@@ -330,7 +339,7 @@ status:
 type: meeting
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-01-09T09:00
 date: 2025-01-09
 attendees:
@@ -349,7 +358,7 @@ tags: [meeting]
 type: research-review
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-01-09T16:45
 title: 
 source: 
@@ -368,7 +377,7 @@ tags: [research]
 type: books
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-01-09T11:20
 title: 
 subtitle: 
@@ -389,7 +398,7 @@ tags: [📚Book]
 type: people
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-01-09T10:15
 email: 
 mobile: 
@@ -479,15 +488,15 @@ date modified: 2026-03-30
 #### 명언
 > [!QUOTE]
 > "2주 뒤에 뵙겠습니다."
-> — {your-name}({Your Name})
+> — 구요한(Yohan Koo)
 ## Sync Settings
 ### Obsidian Sync (공식 클라우드)
 두 대의 Mac이 **Obsidian Sync**(공식 Obsidian 클라우드 서버)로 동기화됩니다.
 
 | 환경 | 기기 | Base Path |
 |------|------|-----------|
-| Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-studio}` |
+| Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
+| Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 - 모든 하위 경로와 파일이 동일하게 유지됩니다
 - AI 코드 출력은 환경별 하위 폴더(`03-1` ~ `03-4`)로 구분하여 출처를 추적합니다

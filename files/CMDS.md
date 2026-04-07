@@ -3,11 +3,11 @@ type: documentation
 aliases:
   - CMDS Context Guide
   - System Philosophy
-description: CMDS 시스템의 철학, 사용자 컨텍스트, 9개 카테고리(100-900) 설명, CMDS 프로세스(Connect→Merge→Develop→Share) 워크플로우를 제공하는 모든 LLM 어시스턴트용 컨텍스트 가이드.
+description: Context and philosophy guide for all LLM assistants working with the CMDS vault. Explains system purpose, user profile (Yohan Koo), 9 categories (100-900), and the Connect→Merge→Develop→Share process. Reference first when starting a new conversation about the CMDS vault.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-04-01T11:57
+date modified: 2026-04-07T21:15
 tags:
   - CMDS
   - system
@@ -24,25 +24,26 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.1"
+version: "2.2"
 status: completed
 changelog:
+  - "2.2 (2026-04-07): 필수 프로퍼티 7개 반영 (description 추가, English required)"
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
+> 	**🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
 
 # CMDS.md
 
-This file provides LLM assistants with essential context about the CMDS (커맨드스페이스) Personal Knowledge Management system created by {your-name}({Your Name}). Use this document to understand the user's knowledge management philosophy, workflow, and context.
+This file provides LLM assistants with essential context about the CMDS (커맨드스페이스) Personal Knowledge Management system created by 구요한(Yohan Koo). Use this document to understand the user's knowledge management philosophy, workflow, and context.
 
 ## Essential (Post-Compact)
 
 > 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 컨텍스트:
 > 1. **CMDS**: Connect → Merge → Develop → Share (지식 생애주기)
-> 2. **{your-name}**: PhD ABD, KM 전문가, 생성형 AI 교육자, 컨설턴트
+> 2. **구요한**: PhD ABD, KM 전문가, 생성형 AI 교육자, 컨설턴트
 > 3. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methods → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
-> 4. **볼트 규모**: 10,000+ 노트, 120+ 플러그인
+> 4. **볼트 규모**: 7,660+ 노트, 120+ 플러그인
 > 5. **기술 규칙**: CLAUDE.md (precedence 1) 또는 AGENTS.md (precedence 2) 참조
 
 <!-- STATIC: 아래 시스템 구조와 철학은 거의 변경되지 않습니다 -->
@@ -74,7 +75,7 @@ This vault has **5 core system files** that complement each other. You are curre
 
 **Start here (CMDS.md) when**:
 - First time working with this vault
-- Need to understand user's ({your-name}) work context
+- Need to understand user's (구요한) work context
 - Want to know the PURPOSE of each category (100-900)
 - Learning about CMDS Process (Connect → Merge → Develop → Share)
 
@@ -115,8 +116,8 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 
 | 환경 | 기기 | Base Path |
 |------|------|-----------|
-| Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-studio}` |
+| Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
+| Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 - All subfolders and files are kept identical across both machines
 - AI coding agent outputs are separated by environment subfolders under `00. Inbox/03. AI Agent/`:
@@ -139,7 +140,7 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 
 ---
 
-## The User: {your-name} ({Your Name})
+## The User: 구요한 (Yohan Koo)
 
 ### Professional Identity
 - **PhD ABD** (All But Dissertation) in Educational Technology/Knowledge Management
@@ -150,7 +151,7 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 - **Creative Professional**: YouTube creator, music producer, digital artist
 
 ### Work Context
-{your-name} operates **9 professional divisions** (📖 900 Divisions):
+구요한 operates **9 professional divisions** (📖 900 Divisions):
 1. **Knowledge Management & Research** (901)
 2. **Editorial & Content Creation** (902)
 3. **Education & Training** (903)
@@ -167,7 +168,7 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 - Consulting with corporations on AI transformation and knowledge management
 - Creating educational content (YouTube, articles, courses)
 - Managing multiple projects simultaneously across different domains
-- Building and maintaining a 10,000+ note knowledge base
+- Building and maintaining a 7,660+ note knowledge base
 
 ---
 
@@ -266,7 +267,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 - 📚 680 Educations — Educational theory and practice
 - 📚 690 Spirituality — Faith and spiritual growth
 
-**Role in Workflow**: This is where {your-name} develops and maintains professional expertise. It's a combination of theory (200), methods (400), and practical experience.
+**Role in Workflow**: This is where 구요한 develops and maintains professional expertise. It's a combination of theory (200), methods (400), and practical experience.
 
 ### 📖 700 Creatives — Expression & Content
 **Purpose**: Create and distribute creative content across multiple platforms
@@ -302,7 +303,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 **Role in Workflow**: This is the ultimate destination—where all prior work (Connect, Merge, Develop) culminates in tangible outputs that serve others.
 
 ### 📖 900 Divisions — Operations & Management
-**Purpose**: Organize and manage the operational structure of {your-name}'s professional activities
+**Purpose**: Organize and manage the operational structure of 구요한's professional activities
 **Contains**:
 - 📚 901 Knowledge Management & Research Division
 - 📚 902 Editorial & Content Creation Division
@@ -314,7 +315,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 - 📚 908 Events & Community Engagement Division
 - 📚 909 Consulting & Professional Services Division
 
-**Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in {your-name}'s professional life.
+**Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in 구요한's professional life.
 
 ---
 
@@ -395,18 +396,21 @@ Index notes aggregate related content across categories:
 
 Every note in CMDS contains structured metadata that enables powerful queries and connections.
 
-### Required Properties (6 fields)
+### Required Properties (7 fields)
 ```yaml
 ---
 type:           # Note category (see types below)
 aliases: []     # Alternative names
+description:    # English 1-2 sentence summary for LLMs
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created:   # YYYY-MM-DD
 date modified:  # YYYY-MM-DD
 tags: []        # Topical tags
 ---
 ```
+
+> **`description` field** (added 2026-04-07): Must be in English, 1-2 sentences, skill-description style. Explains what the note contains AND when an LLM should reference it. This is a machine-readable relevance hint for AI agents working across the vault.
 
 ### Common Note Types
 **Content Types**:
@@ -496,7 +500,7 @@ tags: []        # Topical tags
 - **Obsidian AI Plugins**: Copilot, Smart Connections
 
 ### Custom AI Assistants
-{your-name} maintains custom GPT assistants in ChatGPT (named after model versions, not the models themselves):
+구요한 maintains custom GPT assistants in ChatGPT (named after model versions, not the models themselves):
 - **CMDS GPT-5 Pro** — Primary assistant for knowledge work
 - **CMDS o3-pro** — Advanced reasoning and analysis
 - **CMDS GPT-5 Thinking** — Deep thinking and problem-solving
@@ -628,7 +632,7 @@ Fully developed, timeless notes that represent mature knowledge
 - 📎 — Web Clips (captured from web)
 - 🏷 — Index pages (collections)
 - 📦 — Reviews (analyzed content)
-- 🔖 — Personal outputs ({your-name}'s original ideas)
+- 🔖 — Personal outputs (구요한's original ideas)
 - 📜 — Others' outputs (curated external content)
 - 📈 — Code and syntax (technical content)
 - 🎹 — Music (compositions, theory)
@@ -638,7 +642,7 @@ Fully developed, timeless notes that represent mature knowledge
 
 ## Understanding User Intent
 
-When {your-name} asks you to work with the vault, understand the context:
+When 구요한 asks you to work with the vault, understand the context:
 
 ### Research Context
 If discussing research topics:
@@ -708,7 +712,7 @@ Look for relevant notes in:
 
 ## Vault Statistics (as of 2026-03-15)
 
-- **Total Notes**: 10,000+
+- **Total Notes**: 7,660+
 - **CMDS Categories**: 9 main (100-900) + 91 sub-categories
 - **Templates**: 94 note templates
 - **Obsidian Plugins**: 120+
@@ -747,6 +751,6 @@ This is a **mature, established system** with well-defined patterns. Respect exi
 
 ---
 
-**Remember**: CMDS is not just a filing system—it's a **thinking environment** where {your-name} develops ideas, conducts research, creates content, and serves others. When working with this vault, you're not just organizing files; you're supporting a knowledge worker's entire professional ecosystem.
+**Remember**: CMDS is not just a filing system—it's a **thinking environment** where 구요한 develops ideas, conducts research, creates content, and serves others. When working with this vault, you're not just organizing files; you're supporting a knowledge worker's entire professional ecosystem.
 
 **For technical implementation details, file operations, and coding guidelines, see [[CLAUDE.md]].**

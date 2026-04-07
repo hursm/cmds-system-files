@@ -3,11 +3,11 @@ type: documentation
 aliases:
   - Claude Code Guide
   - CC System File
-description: Claude Code 전용 기술 구현 가이드. 파일 생성/편집 규칙, YAML/MD 인덴트 규칙, 볼트 명령어, 코드 출력 경로를 정의한다.
+description: Claude Code specific technical implementation guide. Defines file creation/editing rules, YAML/Markdown indentation rules, vault commands, and code output paths. Reference when Claude Code is writing or modifying code in the CMDS vault.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-04-01T11:30
+date modified: 2026-04-07T21:46
 tags:
   - CMDS
   - system
@@ -26,14 +26,15 @@ optional-for:
 token-estimate: 5800
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "3.0"
+version: "3.1"
 status: completed
 changelog:
+  - "3.1 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)"
   - "3.0 (2026-04-01): @include 기반 공통 규칙 분리, 9개 아키텍처 패턴 적용"
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/{gpt-session-id}/cmds-system-files) | Web: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) | Web: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CLAUDE.md
 
@@ -67,6 +68,7 @@ Every time you create or edit a .md file, verify:
 - [ ] **Wikilinks in YAML are quoted**: `"[[link]]"` not `[[link]]`
 - [ ] **Arrays use proper format**: hyphen + space + value
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
+- [ ] **`description` field present and in English**: 1-2 sentences explaining the note for LLMs
 - [ ] **File saved in correct location**: Code → `00. Inbox/03. AI Agent/{environment subfolder}/`
 - [ ] **Filename follows convention**: `YYYY-MM-DD-description.ext`
 
@@ -78,7 +80,7 @@ Every time you create or edit a .md file, verify:
 > 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
 > 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
 > 3. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
-> 4. **필수 프로퍼티 6개**: type, aliases, author, date created, date modified, tags
+> 4. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
 > 5. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
 > 6. **배열 포맷**: hyphen + space (`- value`)
 
@@ -86,21 +88,21 @@ Every time you create or edit a .md file, verify:
 
 ## Project Overview
 
-This is an Obsidian vault for the CMDSPACE knowledge management system created by {Your Name}. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) and follows the CMDS Process: Connect → Merge → Develop → Share.
+This is an Obsidian vault for the CMDSPACE knowledge management system created by Yohan Koo. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) and follows the CMDS Process: Connect → Merge → Develop → Share.
 
 ## 💻 Working Environments
 
 This vault is accessed from two different Mac environments:
 
 ### Primary Environment (MacBook Pro) ✅
-**Base Path**: `{vault-path}`
+**Base Path**: `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP`
 
 **System**: MacBook Pro (16-inch)
 **Status**: Primary (Most Frequently Used)
 **Usage**: Main development and knowledge management workstation
 
 ### Secondary Environment (Mac Studio)
-**Base Path**: `{vault-path-studio}`
+**Base Path**: `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org`
 
 **System**: Mac Studio
 **Status**: Secondary
@@ -333,7 +335,7 @@ cat > "00. Inbox/$(date +%Y-%m-%d)-new-note.md" << 'EOF'
 type: note
 aliases: []
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: $(date +%Y-%m-%d)
 date modified: $(date +%Y-%m-%d)
 tags: []
@@ -363,14 +365,15 @@ find . -name "*.md" -mtime -7 -type f | head -20
 ## Critical Workflow Rules
 
 1. **Code Output Location**: ALL code MUST go to `00. Inbox/03. AI Agent/{environment subfolder}/`
-2. **Required Properties**: Every note needs 6 fields: type, aliases, author, date created, date modified, tags
+2. **Required Properties**: Every note needs 7 fields: type, aliases, **description** (English, LLM hint), author, date created, date modified, tags
 3. **Properties v2.0 Standards**:
 	- Dates: ISO 8601 (YYYY-MM-DD)
-	- Author: `[[{your-name}]]` wikilink format
+	- Author: `[[구요한]]` wikilink format
 	- Status: Use standard 5 values only
 	- CamelCase: myRate, totalPage (⚠️ `rating` 사용 금지 → 반드시 `myRate`)
+	- **description**: English only, 1-2 sentences, skill-description style (what + when to reference)
 4. **CMDS Hierarchy**: 🏛 (top) → 📖 (100-900) → 📚 (N01-N99) → no icon (details)
-5. **Vault Scale**: 10,000+ notes with established patterns - respect existing conventions
+5. **Vault Scale**: 7,660+ notes with established patterns - respect existing conventions
 
 ## Key Obsidian Plugins
 

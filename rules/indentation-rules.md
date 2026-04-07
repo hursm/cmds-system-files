@@ -15,7 +15,7 @@ type: note
 aliases:
   - Example Alias
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 tags:
   - AI
   - knowledge-management

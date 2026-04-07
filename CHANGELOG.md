@@ -3,10 +3,11 @@ type: documentation
 aliases:
   - System Files Changelog
   - 시스템 파일 변경 로그
+description: Central version history for the 5 core CMDS system files (CLAUDE.md, AGENTS.md, CMDS.md, CMDS Guide, CMDS Head Quarter). Tracks schema changes, architecture upgrades, and frontmatter standard evolution. Reference when auditing version lineage or planning migrations.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-04-01T11:36
+date modified: 2026-04-07T21:50
 tags:
   - CMDS
   - system
@@ -20,7 +21,51 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
-## v3.0 — 2026-04-01 (Architecture Upgrade)
+## v4.1 — 2026-04-07 (Description Field Standardization)
+
+**트리거**: 사용자 지시 — "생성하는 문서에 항상 YAML에 description 필드를 만들고 영어로 LLM용 설명을 작성하자"
+
+### 변경 사항
+
+1. **필수 프로퍼티 6개 → 7개**
+	- `description` 필드가 7번째 필수 프로퍼티로 승격
+	- **반드시 영어로 1-2문장** 작성 — LLM의 관련성 판단용 기계 가독 힌트
+	- Skill/tool description 스타일: "무엇을 담고 있는가 + 언제 참조해야 하는가"
+
+2. **`.claude/rules/frontmatter-standard.md`** (공용 규칙 업데이트)
+	- 필수 프로퍼티 블록에 `description:` 추가
+	- Rule #6 신설: "description must be in English"
+	- ✅ Good / ❌ Bad 예시 제공
+
+3. **시스템 파일 5개 개별 버전 bump**
+	- CLAUDE.md: 3.0 → **3.1**
+	- AGENTS.md: 2.0 → **2.1**
+	- CMDS.md: 2.1 → **2.2**
+	- 🏛 CMDS Guide.md: 2.2 → **2.3**
+	- 🏛 CMDS Head Quarter.md: 1.1 → **1.2**
+
+4. **5개 파일 description 필드 영어 변환** (exemplar 역할)
+	- 기존 한국어 설명 → 영어 1-2문장으로 재작성
+	- 모든 파일이 "what + when to reference" 패턴 준수
+
+5. **CLAUDE.md Pre-Flight Checklist 항목 추가**
+	- `[ ] description field present and in English`
+
+6. **CLAUDE.md / AGENTS.md / CMDS.md Essential (Post-Compact) 업데이트**
+	- "필수 프로퍼티 6개" → "필수 프로퍼티 7개"
+
+7. **Feedback 메모리 저장**
+	- `~/.claude/projects/-Users-yohankoo/memory/feedback_yaml-description-english.md`
+
+### 왜 v4.1인가
+
+- v4.0(2026-04-01) Architecture Upgrade의 연장선 — frontmatter schema를 한 필드 확장
+- 과거 v2.0 → v2.1(Frontmatter Standard) 패턴과 동일한 성격의 Minor bump
+- 기존 6-프로퍼티 노트들과 호환됨 (추가일 뿐 breaking change 아님)
+
+---
+
+## v4.0 — 2026-04-01 (Architecture Upgrade)
 
 **영감**: Claude Code 소스 코드 아키텍처 분석 → 9개 패턴 적용
 
@@ -104,7 +149,7 @@ CMDS: "[[📚 501 Obsidian]]"
 ## v2.0 — 2026-03-15 (Full Review)
 
 ### 변경 사항
-- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 10,000+)
+- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 7,660+)
 - CLAUDE.md: 백업 경로 오타 수정, GenAI Chats 추가
 - CMDS.md: PhD Candidate → PhD ABD, AI Tools 갱신, 50. Assets 섹션 추가
 - 🏛 CMDS Head Quarter: CMDS Process 설명 추가, Vault Folders 섹션 추가

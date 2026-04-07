@@ -3,11 +3,11 @@ type: documentation
 aliases:
   - AI Agents Guide
   - Gemini Codex Guide
-description: Gemini CLI, Codex, Cursor 등 비-Claude AI 코딩 에이전트를 위한 기술 가이드. CLAUDE.md의 간소화 버전으로, 포터블하고 범용적인 규칙을 제공한다.
+description: Technical guide for non-Claude AI coding agents (Gemini CLI, Codex, Cursor, Windsurf). Simplified and portable version of CLAUDE.md. Reference when any AI agent other than Claude Code is operating in the CMDS vault.
 author:
-  - "[[{your-name}]]"
+  - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-04-01T11:30
+date modified: 2026-04-07T21:15
 tags:
   - CMDS
   - system
@@ -25,9 +25,10 @@ optional-for:
 token-estimate: 3200
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.0"
+version: "2.1"
 status: completed
 changelog:
+  - "2.1 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required)"
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
@@ -48,17 +49,17 @@ This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Wind
 
 ## Project Overview
 
-This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by {your-name} ({Your Name}). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
+This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by 구요한 (Yohan Koo). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
 
-**Vault Scale**: 10,000+ notes, 120+ plugins, 90+ templates
+**Vault Scale**: 7,660+ notes, 120+ plugins, 90+ templates
 
 ### Working Environments & Sync
 Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All subfolders and files are kept identical.
 
 | Environment | Machine | Base Path |
 |-------------|---------|-----------|
-| Primary | MacBook Pro (16-inch) | `{vault-path}` |
-| Secondary | Mac Studio | `{vault-path-studio}` |
+| Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
+| Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 ---
 
@@ -84,7 +85,7 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 > 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
 > 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
 > 3. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
-> 4. **필수 프로퍼티 6개**: type, aliases, author, date created, date modified, tags
+> 4. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
 > 5. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
 
 ---
