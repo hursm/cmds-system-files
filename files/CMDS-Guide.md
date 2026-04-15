@@ -7,14 +7,8 @@ description: Operational standards guide for the CMDS vault. Defines the 7 requi
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-04-07T21:15
-tags:
-  - CMDS
-  - system
-  - guideline
-  - index
-  - NoteClass
-  - operation
+date modified: 2026-04-14T22:14
+tags: [CMDS, system, guideline, index, NoteClass, operation, 태그는자유로워야지, maps, example, service]
 audience: User + AI
 scope: operational-standards
 precedence: 4
@@ -102,6 +96,58 @@ tags: []        # 태그 (배열 형식)
 - `source_url` - 출처 URL
 - `bookends` - 북엔드 (기존 유지)
 - `CMDS` - CMDS 카테고리 참조
+
+#### CMDS Process Command Fields (v2.2, 2026-04-14+)
+
+CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/query`) 가 자동으로 기록하는 프로퍼티. 모두 **camelCase**, 배열 필드는 quoted wikilink.
+
+| 필드 | 기록하는 커맨드 | 용도 |
+|------|---------------|------|
+| `sourceInbox: []` | `/connect` | Theme stub 이 어느 inbox 파일에서 캡처됐는지 배열로 기록 |
+| `mergePurpose: ""` | `/merge` | 합성 목적 (7 재활용 축 중 하나 + 한 줄 맥락). 다운스트림 `/share` 의 format 자동 추천에 사용 |
+| `sourceNotes: []` | `/merge` | 합성에 쓰인 후보 노트들의 wikilink 배열 (N→1 traceability) |
+| `mainVaultRelated: []` | `/merge`, `/query` | LLM Wiki satellite vault 페이지 참조 (text ref 형식: `"→ LLM Wiki: {page name}"`) |
+| `developSources: []` | `/develop` | artifact 가 참조한 method/data/specialty 노트들 |
+| `shareSourceNotes: []` | `/share` | 산출물이 어느 합성 노트에서 나왔는지 |
+| `shareFormat: ""` | `/share` | newsletter / slides / video / social / article / proposal 등 |
+| `sharePurpose: ""` | `/share` | 왜 이 share 가 일어났는지 (예: "4월 LG CNS 강의용") |
+| `queryOrigin: ""` | `/query` | 원 질문 verbatim (file-back 된 답변 노트에 기록) |
+| `querySources: []` | `/query` | 답변 합성에 쓰인 노트 배열 |
+
+사용 예시 (merge 된 Literature 노트):
+
+```yaml
+---
+type: note
+aliases: []
+description: Synthesized analysis comparing RAG and Compiled Wiki patterns for team research sharing workflows. Reference when deciding between retrieval-based vs pre-compiled knowledge architectures.
+author:
+  - "[[구요한]]"
+date created: 2026-04-14
+date modified: 2026-04-14
+tags:
+  - merged
+  - rag
+  - knowledge-management
+  - literature-review
+CMDS: "[[📖 200 Literature]]"
+index: "[[📚 210 Literature Reviews]]"
+status: completed
+mergePurpose: "강의·강연 — 주간 팀 리서치 공유 워크플로 재설계"
+sourceNotes:
+  - "[[RAG 한계 분석]]"
+  - "[[Compiled Wiki 운영 경험]]"
+  - "[[팀 지식 공유 패턴]]"
+related:
+  - "[[📚 601 Knowledge Management]]"
+mainVaultRelated:
+  - "→ LLM Wiki: RAG vs Compiled Wiki"
+  - "→ LLM Wiki: Shared State Pattern"
+---
+```
+
+> **구현 위치**: 커맨드 정의는 `90. Settings/94. Agent Settings/claude/commands/` 폴더 참조. 전체 커맨드 사용법은 [[CLAUDE.md]] "CMDS Process Command Suite" 섹션 참조.
+
 ### 표준 Type 목록
 #### 주요 노트 타입
 - `note` - 일반 노트

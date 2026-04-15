@@ -7,7 +7,7 @@ description: Technical guide for non-Claude AI coding agents (Gemini CLI, Codex,
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-04-07T21:15
+date modified: 2026-04-11T14:16
 tags:
   - CMDS
   - system
@@ -51,7 +51,7 @@ This file provides guidance to AI coding agents (Gemini CLI, Codex, Cursor, Wind
 
 This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system created by 구요한 (Yohan Koo). It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series).
 
-**Vault Scale**: 7,660+ notes, 120+ plugins, 90+ templates
+**Vault Scale**: 10,000+ notes, 120+ plugins, 90+ templates
 
 ### Working Environments & Sync
 Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All subfolders and files are kept identical.
@@ -76,6 +76,8 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 @.claude/rules/wikilink-rules.md
 
 @.claude/rules/file-creation-rules.md
+
+@.claude/rules/video-project-workflow.md
 
 ---
 
@@ -151,6 +153,62 @@ Templates are in `90. Settings/91. Templates/`. Key templates:
 - `Template_05. Meeting Minutes.md`
 - `Template_20. Research Note.md`
 - `Template_51. People.md`
+
+---
+
+## CMDS Process Command Suite (2026-04-14+)
+
+The mothership has 8 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). Implementation lives in `.claude/commands/` (symlinked to `90. Settings/94. Agent Settings/claude/commands/`). If your agent runtime supports Claude Code-compatible slash commands, you can invoke these directly; otherwise, treat them as workflow documentation for how the user thinks about vault operations.
+
+### Stage commands (the 4-stage knowledge lifecycle)
+
+| Command | Stage | Fan | Role |
+|---------|-------|-----|------|
+| `/connect` | Connect (📖 100 Themes) | 1→1 | Inbox item → Theme stub. Auto-classifies into interest/topic/variable/terminology. Low-friction. |
+| `/merge` | Merge (📖 200 Literature) | N→1 | Multiple notes → one synthesized Literature note. Heaviest command; multi-dialog flow. |
+| `/develop` | Develop (📖 300-600) | 1→1 | Apply method, build artifact (code/prompt/curriculum/specialty). Code goes to `00. Inbox/03. AI Agent/` first. |
+| `/share` | Share (📖 700-800) | 1→N | Orchestrate to existing skills (`thebetter-writer`, `markdown-slides`, etc.). Never writes content directly. |
+
+### Cross-cutting utilities
+
+| Command | Role |
+|---------|------|
+| `/inbox` | Scan 9 inbox subfolders, route to stage command. **Read-only, router only.** |
+| `/lint {scope}` | Health check by stage scope (inbox/connect/merge/develop/share/all). Read-only. |
+| `/query` | Search vault + LLM Wiki, synthesize answer, file back to appropriate CMDS category (NOT a separate folder). |
+| `/status` | One-screen stage snapshot + recommended next action. Zero dialogs. |
+
+### When to use which
+
+```
+세션 시작 / 뭐 할지 모름             → /status
+방대한 inbox에서 시작                → /inbox → 라우팅
+inbox 항목 빠르게 등록               → /connect
+여러 노트 합성해서 한 노트로         → /merge
+방법론 적용 / 코드·프롬프트 생성     → /develop
+기존 합성 → 외부 산출물              → /share
+볼트에 질문 (자신의 글 + LLM Wiki)   → /query
+위생 점검 (모순/orphan/stale)        → /lint
+```
+
+### Key design decisions (inherited conventions)
+
+- **CMDS Process is the operational vocabulary** — not LLM Wiki's ingest/query/lint triad. Stay in the user's framework.
+- **`/inbox` and `/share` never write directly** — `/inbox` is a router, `/share` is an orchestrator.
+- **`/query` results are NOT folder-isolated** — they classify into the appropriate CMDS category (usually `220 Personal Insights`, `210 Literature Reviews`, `5XX Product`) and save to `30. Permanent Notes/` or similar. There is no `30. Queries/` folder. User policy: "내 모든 노트가 쿼리의 소재이고 결과".
+- **CMDS categorization is metadata, not folders**: notes live in existing folder structure (`30. Permanent Notes/`, `60. Collections/`, etc.) and are categorized via `CMDS:` and `index:` frontmatter.
+- **New v2 frontmatter fields** introduced by commands: `mergePurpose`, `sourceNotes`, `mainVaultRelated`, `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`, `sourceInbox`. Use camelCase per frontmatter standard.
+- **User dialog tool**: commands use `AskUserQuestion` MCP tool (if available to your agent) with `multiSelect` where applicable, max 4 options, always `(Recommended)` first.
+
+### For agents without slash command support
+
+If your runtime doesn't execute `/connect` etc. directly, you can still:
+
+1. Read the command file (`90. Settings/94. Agent Settings/claude/commands/{name}.md`) to understand the expected workflow.
+2. Execute the workflow manually using standard tool calls (Read, Write, Edit, Glob, Grep).
+3. Follow the same frontmatter conventions and user-dialog checkpoints the command specifies.
+
+The commands are self-contained markdown — each `.md` file is both the spec and the prompt.
 
 ---
 

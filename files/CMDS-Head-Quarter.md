@@ -7,7 +7,7 @@ description: Central navigation hub for the CMDS vault. Provides links to 91 sub
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-04-07T21:15
+date modified: 2026-04-14T22:13
 tags:
   - CMDS
   - system
@@ -151,6 +151,25 @@ References:: [[🏛 000 YHN Home]]
 - [[📖 700 Creatives]] — YouTube, SNS, 음악, 재즈, 이미지, 디지털아트
 - [[📖 800 Outputs]] — PhD, 논문, 강의, 컨설팅, 프로젝트, 커뮤니티
 - [[📖 900 Divisions]] — 9개 운영 부문 (KM, 교육, 컨설팅 등)
+
+## CMDS Process Commands (2026-04-14+)
+> [!tip] CMDS Process의 operational verbs
+> 4단계 프로세스 각각에 대응하는 슬래시 커맨드. Claude Code 세션에서 `/command` 형태로 실행. 정의 파일: `90. Settings/94. Agent Settings/claude/commands/`
+
+#### Stage Commands
+- `/connect` — inbox 항목을 [[📖 100 Themes]] stub 으로 빠르게 등록 (자동 분류/중복제거)
+- `/merge` — N개 노트 → 1개 [[📖 200 Literature]] 합성 (multi-dialog: purpose/candidate/angle/draft)
+- `/develop` — method + data → [[📖 400 Methodologies]] artifact (code/prompt/curriculum) 생성
+- `/share` — 기존 합성을 [[📖 700 Creatives]] / [[📖 800 Outputs]] 로 포맷 변환 (skill 오케스트레이션)
+
+#### Cross-cutting Utilities
+- `/inbox` — `00. Inbox/` 스캔 + AskUserQuestion 으로 stage 라우팅
+- `/lint {scope}` — 단계별 위생 점검 (orphan/contradiction/stale/frontmatter coverage)
+- `/query` — 볼트 + LLM Wiki 검색, 답변은 해당 CMDS 카테고리에 file-back (별도 폴더 없음)
+- `/status` — 단계별 노트 수 + 추천 액션 한 화면 요약
+
+> 세부 문서: [[CLAUDE.md]] "CMDS Process Command Suite" 섹션 / [[🏛 CMDS Guide]] "CMDS Process Command Fields (v2.2)" 섹션
+
 ## Vault Folders
 > [!tip] 폴더 구조 (00-90)
 > CMDS 카테고리(100-900)와 별도로, 볼트의 물리적 폴더 구조입니다.
@@ -173,3 +192,14 @@ References:: [[🏛 000 YHN Home]]
 |------|------|--------------------|
 | Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` |
 | Secondary | Mac Studio | `03-2. Claude Code (Studio)` / `03-4. OpenClaw (Studio)` |
+
+## Satellite Vaults
+> [!tip] 이 볼트의 자매 볼트
+> CMDSPACE_Local_MBP 옆에 특수 목적 satellite 볼트가 있습니다. Obsidian Sync 별개이며 각자 독립 git repo로 관리됩니다.
+
+| Satellite | 경로 | 목적 | 진입점 |
+|-----------|------|------|--------|
+| `CMDS_LLM_Wiki` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki` | Karpathy LLM Wiki 패턴 구현 — LLM이 raw source를 컴파일하여 영속 위키 유지 | [[🛰 CMDS_LLM_Wiki Satellite Vault]] |
+
+- 사용 기준: 외부 자료(기사·논문·전사)를 LLM이 통합 관리하는 주제별 deep-dive는 satellite에, 그 외 PKM은 메인 볼트에.
+- Cross-reference 규약: [[🛰 CMDS_LLM_Wiki Satellite Vault#5. Cross-Reference Convention]] 참조.

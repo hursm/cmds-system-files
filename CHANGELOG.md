@@ -7,17 +7,66 @@ description: Central version history for the 5 core CMDS system files (CLAUDE.md
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-04-07T21:50
-tags:
-  - CMDS
-  - system
-  - changelog
+date modified: 2026-04-10T20:26
+tags: [CMDS, system, changelog, 6]
 CMDS: "[[📚 501 Obsidian]]"
 ---
 
 # CMDS System Files — Changelog
 
 > 5개 시스템 파일(CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Head Quarter, 🏛 CMDS Guide)의 변경 이력을 추적합니다.
+
+---
+
+## v4.2 — 2026-04-15 (CMDS Process Command Suite)
+
+**트리거**: 사용자 지시 — "cmds 프로세스에 맞게 connect merge develop share 로 하면 어떨까? inbox 명령어는 인박스 파악하는데 쓰고 c m d s 명령어들 통해서 각각 프로세스에 맞게 구조화하는 것이 중요할듯."
+
+### 신규 파일 생성 (8개 슬래시 커맨드)
+
+`90. Settings/94. Agent Settings/claude/commands/` 에 8개 커맨드 파일 신설:
+
+1. `inbox.md` — 9개 inbox 서브폴더 스캔 + AskUserQuestion 라우팅 (router only)
+2. `connect.md` — inbox → 📖 100 Themes, 자동 분류·중복제거·stub (low-friction)
+3. `merge.md` — N개 노트 → 1개 📖 200 Literature, multi-dialog 합성 (heaviest)
+4. `develop.md` — method 적용 + artifact 생성 (code/prompt/curriculum/specialty)
+5. `share.md` — 기존 skills 자동 위임 오케스트레이션 (thebetter-writer, markdown-slides 등)
+6. `lint.md` — 단계별 위생 점검 scope (inbox/connect/merge/develop/share/all)
+7. `query.md` — 볼트 + LLM Wiki 검색, 결과는 해당 CMDS 카테고리에 file-back (별도 폴더 X)
+8. `status.md` — 단계별 노트 수 + 추천 액션 one-screen snapshot
+
+### 5개 시스템 파일 업데이트
+
+1. **CLAUDE.md** — "CMDS Process Command Suite (2026-04-14+)" 섹션 신설 (Cross-Vault Query 다음)
+	- 8 커맨드 역할 표, 결정 트리, 설계 결정 기록, 전형적 세션 패턴
+2. **AGENTS.md** — "CMDS Process Command Suite" 섹션 신설 (Templates 다음)
+	- 다른 AI 에이전트용 요약 + slash command 미지원 런타임에서의 대안 가이드
+3. **CMDS.md** — "Command Suite: CMDS Process as Operational Verbs" 섹션 신설 (Working with CMDS System 안)
+	- 커맨드를 CMDS Process 의 operational verb 로 격상, 철학/맥락 해설
+4. **🏛 CMDS Guide.md** — "CMDS Process Command Fields (v2.2, 2026-04-14+)" 섹션 신설 (Properties 안)
+	- 신규 v2 프로퍼티 10개 공식 등록 (mergePurpose, sourceNotes, mainVaultRelated, developSources, shareSourceNotes, shareFormat, sharePurpose, queryOrigin, querySources, sourceInbox)
+5. **🏛 CMDS Head Quarter.md** — "CMDS Process Commands (2026-04-14+)" 섹션 신설 (CMDS Process 다음)
+	- 네비게이션 허브에 8 커맨드 한 줄 요약 등재
+
+### 주요 설계 결정 (사용자 승인)
+
+1. **Vocabulary**: LLM Wiki 의 ingest/query/lint 대신 CMDS Process (Connect/Merge/Develop/Share) 어휘 채택. Satellite 와 mothership 의 workflow 언어 분리.
+2. **Inbox = Router only**: `/inbox` 는 절대 write 안 함. `AskUserQuestion` 으로 multi-select 스코프 받고 stage 커맨드로 위임.
+3. **Share = Orchestrator only**: `/share` 는 content 직접 작성 금지. 기존 13개 skills (thebetter-writer, markdown-slides, tone-writer, pptx-cmds, series-writer, social-media-content-adapter, course-designer, markdown-video, business-docs 등) 로 자동 라우팅.
+4. **Query results ≠ separate folder**: 사용자 정책 "내 모든 노트가 쿼리의 소재이고 결과" — `/query` 결과는 적합한 CMDS 카테고리 (220 Personal Insights, 210 Literature Reviews 등) 로 분류. LLM Wiki 의 `30. Queries/` 같은 origin-based 폴더 구조 거부.
+5. **Automation density**: `/connect` auto-pilot (dialog 0~1회), `/merge` 의도적 multi-dialog (synthesis = 정보 손실), `/develop`+`/share` 결정 지점 1~2회, `/lint`+`/status` zero-dialog.
+6. **AskUserQuestion 표준화**: stage 커맨드 모두 MCP 도구 사용, `multiSelect` 가능한 경우 활용, max 4 options, "(Recommended)" 첫 번째.
+7. **CMDS 카테고리 = 메타데이터**: 100/200 물리 폴더 없음. 모든 노트는 `30. Permanent Notes/`, `60. Collections/` 등 기존 구조에 저장되고 `CMDS:` + `index:` frontmatter 로 카테고리 등록.
+
+### 메모리 파일 신규
+
+`~/.claude/projects/.../memory/cmds-process-commands.md` — 커맨드 존재 + 사용 정책 reference 메모리 추가.
+
+### 왜 v4.2인가
+
+- v4.0/v4.1 이 frontmatter schema 확장이었다면, v4.2 는 **operational layer** 추가.
+- 문서 구조나 프로퍼티 schema 는 v4.1 유지 — 새 프로퍼티 10개가 추가됐지만 기존 노트 호환성은 그대로 (backward compatible).
+- 가장 큰 변화는 **파일이 아닌 워크플로** — CMDS Process 가 철학에서 실행 가능한 커맨드로 구현됨.
 
 ---
 
@@ -149,7 +198,7 @@ CMDS: "[[📚 501 Obsidian]]"
 ## v2.0 — 2026-03-15 (Full Review)
 
 ### 변경 사항
-- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 7,660+)
+- 5개 파일 전면 리뷰 및 통계 갱신 (5,344+ → 10,000+)
 - CLAUDE.md: 백업 경로 오타 수정, GenAI Chats 추가
 - CMDS.md: PhD Candidate → PhD ABD, AI Tools 갱신, 50. Assets 섹션 추가
 - 🏛 CMDS Head Quarter: CMDS Process 설명 추가, Vault Folders 섹션 추가

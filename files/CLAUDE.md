@@ -7,7 +7,7 @@ description: Claude Code specific technical implementation guide. Defines file c
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-04-07T21:46
+date modified: 2026-04-14T22:16
 tags:
   - CMDS
   - system
@@ -59,6 +59,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @.claude/rules/wikilink-rules.md
 
+@.claude/rules/mermaid-rules.md
+
 ### Pre-Flight Checklist (Before Every Write/Edit)
 
 Every time you create or edit a .md file, verify:
@@ -66,6 +68,7 @@ Every time you create or edit a .md file, verify:
 - [ ] **YAML frontmatter uses 2 SPACES** (not tabs)
 - [ ] **Markdown body uses TAB** (not spaces)
 - [ ] **Wikilinks in YAML are quoted**: `"[[link]]"` not `[[link]]`
+- [ ] **Mermaid node/edge labels are quoted**: `A["label"]`, no `[/` start
 - [ ] **Arrays use proper format**: hyphen + space + value
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
 - [ ] **`description` field present and in English**: 1-2 sentences explaining the note for LLMs
@@ -79,10 +82,11 @@ Every time you create or edit a .md file, verify:
 > 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 규칙:
 > 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
 > 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
-> 3. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
-> 4. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
-> 5. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
-> 6. **배열 포맷**: hyphen + space (`- value`)
+> 3. **Mermaid 라벨: 큰따옴표** `A["label"]` / `[/` 로 시작 금지
+> 4. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
+> 5. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
+> 6. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
+> 7. **배열 포맷**: hyphen + space (`- value`)
 
 ---
 
@@ -113,10 +117,188 @@ This vault is accessed from two different Mac environments:
 - The vault structure and all files/subfolders remain identical across both environments
 - Sync is automatic and continuous — changes on one machine propagate to the other
 
+### Claude Settings Sync (Symlink Strategy) — 결정 로그 (2026-04-14)
+
+Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Claude 설정/스킬/룰을 두 Mac 간 공유하려면 **볼트 내 경로** 에 원본을 둬야 한다.
+
+**결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 폴더 4개를 이 원본으로 향하는 심볼릭 링크로 연결한다.
+
+```
+.claude/
+├── agents   → ../90. Settings/94. Agent Settings/claude/agents    (symlink)
+├── commands → ../90. Settings/94. Agent Settings/claude/commands  (symlink)
+├── rules    → ../90. Settings/94. Agent Settings/claude/rules     (symlink)
+├── skills   → ../90. Settings/94. Agent Settings/claude/skills    (symlink)
+├── settings.json         (머신 로컬 전용 — symlink 안 함)
+├── settings.local.json   (머신 로컬 전용 — symlink 안 함)
+└── sessions/             (머신 로컬 전용 — symlink 안 함)
+```
+
+**이유**:
+- 두 Mac 이 동일한 유저명/볼트명/경로 구조를 쓰므로, 상대 경로 symlink (`../90. Settings/...`) 가 양쪽에서 동일하게 resolve 된다.
+- `settings.json`, `sessions/` 같은 머신 로컬 상태는 공유되면 충돌하므로 symlink 대상에서 제외.
+- 새 Mac 에서 수동 설정하는 법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션 참조.
+
+**주의**: Obsidian Sync 가 symlink 자체를 실체 폴더로 복제해버리는 경우가 있다. 새 Mac 에서 처음 볼트를 받으면 `.claude/` 가 일반 폴더일 수 있으니, **각 Mac 마다 symlink 를 수동으로 재설정** 해야 한다.
+
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above
 - When switching between environments, Claude Code will automatically use the appropriate base path
 - AI coding outputs are separated by environment subfolder (`03-1` ~ `03-4`) to track which machine/agent created each file
+
+## 🛰 Satellite Vaults
+
+This mothership vault has companion **satellite vaults** — separate Obsidian vaults with specialized purposes. Not part of Obsidian Sync; each has its own git repo.
+
+### Registered Satellites
+
+| Satellite | Path | Purpose | Entry Point |
+|-----------|------|---------|-------------|
+| `CMDS_LLM_Wiki` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki` | Karpathy LLM Wiki pattern implementation (3-Layer: Raw Sources / Wiki / Schema). LLM ingests external sources (articles, papers, transcripts) and compiles them into a persistent wiki. | [[🛰 CMDS_LLM_Wiki Satellite Vault]] |
+
+### Cross-Vault Reference Convention
+
+Obsidian does not support direct wikilinks between vaults. Use the following:
+
+**To reference satellite notes from this (mothership) vault:**
+
+```yaml
+# Frontmatter
+source-vault: CMDS_LLM_Wiki
+related:
+  - "[[🛰 CMDS_LLM_Wiki Satellite Vault]]"  # always link the entry point
+```
+
+```markdown
+# Body text (concrete satellite pages)
+→ LLM Wiki: LLM Wiki Pattern (Concepts)
+→ LLM Wiki: MOC-Knowledge Management
+```
+
+**To reference this vault from satellite:**
+
+Satellite notes use `source-vault: CMDSPACE_Local_MBP` and body text like `→ CMDSPACE: {category}/{note name}`.
+
+### When to Work in Which Vault
+
+- **Mothership (here)**: personal PKM, journals, project tracking, lectures, life context
+- **Satellite LLM Wiki**: LLM-driven deep-dive into an external topic via ingested sources
+- When uncertain: if the primary author is the LLM compiling raw sources, it belongs in the satellite; if the primary author is the human recording/thinking, it belongs here.
+
+### Cross-Vault Query from Mothership
+
+메인 볼트 세션에서도 **`CMDS_LLM_Wiki` 볼트의 컴파일된 지식을 바로 검색/인용 가능**하다. Obsidian wikilink는 볼트 경계를 넘지 못하지만, qmd MCP는 user-scope로 등록되어 cwd 무관하게 satellite vault를 인덱싱한다.
+
+**가능한 것**:
+
+```
+✅ qmd로 LLM Wiki 검색 (자동 — cwd 무관)
+   mcp__qmd__query(searches=[{type:"vec", query:"..."}])
+
+✅ Grep/Read에 명시 path
+   Grep(pattern="...", path="/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki")
+   Read(file_path="/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki/20. Wiki/...")
+```
+
+**불가능한 것**:
+
+```
+❌ /query 스킬 — index.md를 cwd 기준으로 읽으므로 LLM Wiki 안에서만 동작
+❌ cwd만 믿는 기본 Grep — path 명시 안 하면 메인 볼트만 스캔
+❌ [[LLM Wiki 페이지]] 직접 wikilink — 볼트 경계 넘지 못함
+```
+
+**메커니즘**:
+- qmd config: `~/.config/qmd/index.yml` — absolute path로 `CMDS_LLM_Wiki/20. Wiki` 등 하드코딩
+- qmd MCP: `~/.claude.json` user-scope 등록 (모든 Claude Code 세션에서 사용 가능)
+- qmd 인덱스 DB: `~/.cache/qmd/index.sqlite` (cwd 독립)
+
+**기본 동작 (Default Trigger)**: 사용자 질문/작성 주제가 아래 카테고리에 닿으면 **답변 전에 `mcp__qmd__query` 를 먼저 한 번 돌린다** — 사용자가 명시적으로 "wiki 검색해줘"라고 안 해도 default behavior. LLM Wiki는 컴파일된 cross-reference 와 관련 개념 묶음을 이미 보유하고 있어서, Grep 만으로는 구조적 연결을 놓친다.
+
+**qmd 트리거 카테고리**:
+- LLM/AI 아키텍처 개념 (RAG, Compiled Wiki, Context Engineering, Persistent Knowledge Base 등)
+- 멀티에이전트 패턴 (Orchestrator-Subagent, Agent Teams, Shared State, Message Bus, Generator-Verifier)
+- Karpathy / kepano / Anthropic 등 wiki 에 등록된 entity 가 등장하는 토픽
+- Knowledge Management 이론 (Memex, Zettelkasten 의 LLM 시대 변용, Ingest-Query-Lint Cycle 등)
+- "내가 LLM Wiki 에 정리해뒀던 X" 같은 사용자의 self-reference
+
+**도구 선택 규칙**:
+
+| 상황 | 도구 | 이유 |
+|------|------|------|
+| 정확한 파일명/제목 안다 | `Grep` + path 명시 | 빠르고 결정적 |
+| 추상 쿼리 / 의미 검색 / 관련 개념 묶음 | `mcp__qmd__query` (vec/hyde) | cross-reference 자동 surfacing |
+| 키워드는 명확하지만 어디 있는지 모름 | qmd `lex` 먼저, fallback 으로 Grep | 키워드 매칭 + 의미 보강 |
+| 답변 풍부하게 / 관점 다층화 | qmd `vec` 또는 `hyde` (intent 명시) | "사용자가 묻지 않았지만 관련 있는 것" 발굴 |
+
+**Anti-pattern (이번 세션의 실수)**: 정확한 제목(`RAG vs Compiled Wiki`)을 알아서 Grep + Read 로 직행했더니, 같은 주제에 묶여있던 `Shared State Pattern`, `Choosing Multi-Agent Patterns` 페이지를 놓침 → 팀 멀티 저자 시나리오에서 결정적인 통찰 누락. 정확한 페이지를 안다고 해서 qmd 를 건너뛰면 안 됨 — **확장 검색 (관련 개념 1-hop) 의 비용이 매우 낮다**.
+
+**인용 표기**: 본문에서는 `→ LLM Wiki: {page name}` 텍스트 참조로 크로스-볼트 링크를 표시한다 (Obsidian wikilink 는 볼트 경계 못 넘음).
+
+---
+
+## CMDS Process Command Suite (2026-04-14+)
+
+The mothership has 8 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). They live in `90. Settings/94. Agent Settings/claude/commands/` (symlinked from `.claude/commands/`).
+
+### Command Map
+
+| Command | Type | Role | Key dialogs |
+|---------|------|------|-------------|
+| `/inbox` | Router | Scan 9 inbox subfolders, AskUserQuestion to route to a stage command | scope + stage |
+| `/connect` | Stage | Triage inbox → 100 Themes (interest/topic/variable/term). **Auto-classifies, auto-dedupes, auto-stubs.** | only at ambiguity |
+| `/merge` | Stage | N inbox/Theme notes → 1 synthesized 200 Literature note. **Heaviest command, most dialogs.** | purpose, candidates, angle, draft review |
+| `/develop` | Stage | Apply method/build artifact → 300-600 (code, prompts, specialty, curriculum). | artifact type, review |
+| `/share` | Stage / Orchestrator | Auto-delegate to existing skills (`thebetter-writer`, `markdown-slides`, `tone-writer`, etc.) → 700-800 | format, tone (when needed) |
+| `/lint` | Cross-cutting | Health check by stage scope (inbox/connect/merge/develop/share/all). **Read-only**, surfaces issues. | only if user asks for fix |
+| `/query` | Cross-cutting | Search vault + LLM Wiki, synthesize answer, optionally file back into appropriate CMDS category (NOT a separate /queries folder). | wiki-worthy + classify |
+| `/status` | Cross-cutting | One-screen vault stage snapshot + recommended next action. **Zero dialogs**, fast. | none |
+
+### Decision Tree (When to Use Which)
+
+```
+세션 시작 / 뭐 할지 모름
+  └─→ /status  (한 화면 요약 + 추천 액션)
+
+방대한 inbox에서 시작
+  └─→ /inbox  → AskUserQuestion으로 라우팅
+
+inbox 항목 빠르게 분류·등록
+  └─→ /connect  (low-friction, Theme stub)
+
+여러 노트 합성해서 한 노트로 만들고 싶음 (사용자의 핵심 워크플로)
+  └─→ /merge  (multi-dialog, Literature 산출)
+
+방법론을 데이터/도구에 적용 / 코드·프롬프트 생성
+  └─→ /develop  (artifact-producing)
+
+기존 합성을 외부용 산출물로 (뉴스레터/슬라이드/SNS 등)
+  └─→ /share  (skill 오케스트레이션)
+
+볼트에 질문하기 (자신의 글 + LLM Wiki 동시 검색)
+  └─→ /query  (답변 + 가치 있으면 해당 CMDS 카테고리에 file back)
+
+위생 점검 (모순/orphan/stale)
+  └─→ /lint {scope}  (read-only)
+```
+
+### Settled Design Decisions (record of intent)
+
+- **Vocabulary**: stage commands use the user's own framework (CMDS Process) instead of LLM Wiki's `ingest/query/lint` triad. The LLM Wiki vocabulary stays satellite-side; mothership uses Connect/Merge/Develop/Share.
+- **Inbox is router-only**: `/inbox` never writes; it only scans, summarizes, and uses `AskUserQuestion` to route. This matches the user's mental model of inbox as triage zone.
+- **`/share` as orchestrator, not writer**: auto-delegates to existing skills (`thebetter-writer`, `markdown-slides`, `tone-writer`, `pptx-cmds`, `series-writer`, `social-media-content-adapter`, `course-designer`, `markdown-video`, `business-docs`, etc.). Never produces content directly. Routing map maintained in `share.md`.
+- **`/query` results are NOT folder-isolated**: per user policy "내 모든 노트가 쿼리의 소재이고 결과이기 때문에 구분하지 않고 — CMDS 지식분류 체계에 따라 분류". Query results that survive the wiki-worthiness gate get classified into the appropriate CMDS category (220 Personal Insights, 210 Literature Reviews, 5XX Product, etc.) and saved to the correct physical folder (mostly `30. Permanent Notes/`).
+- **Automation density per command**: `/connect` auto-pilots with minimal user input; `/merge` deliberately preserves multi-dialog because synthesis involves information loss; `/develop` and `/share` ask only at the type/format decision; `/lint` and `/status` are zero-dialog.
+- **`AskUserQuestion` everywhere it's used**: stage commands use the MCP tool with multiSelect where applicable, max 4 options per question. Always include a "(Recommended)" first option based on context.
+- **CMDS categorization is metadata, not folders**: there is no `100/`, `200/`, etc. physical folder. Notes live in the existing folder structure (`30. Permanent Notes/`, `60. Collections/`, etc.) and are categorized via `CMDS:` and `index:` frontmatter.
+- **All commands honor pre-flight rules**: `frontmatter-standard.md`, `wikilink-rules.md`, `indentation-rules.md`, `file-creation-rules.md`. New v2 fields introduced: `mergePurpose`, `sourceNotes`, `mainVaultRelated`, `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`.
+
+### Typical Session Patterns
+
+**Daily**: `/status` → `/inbox` → (`/connect` 또는 `/merge`) → 종료
+**Weekly**: `/lint inbox` → 정리 후 `/merge {topic}` → `/share` (필요 시)
+**프로젝트 작업**: `/query {topic}` → `/merge {topic}` → `/develop` 또는 `/share`
+**시스템 점검 (월 1회)**: `/lint all` → `/refresh-context` (TBD)
 
 ---
 
@@ -170,6 +352,10 @@ This vault has **5 core system files** that work together to provide complete gu
 ## File Creation Rules
 
 @.claude/rules/file-creation-rules.md
+
+## Video Project Workflow
+
+@.claude/rules/video-project-workflow.md
 
 ## Directory Structure
 
@@ -243,6 +429,14 @@ The vault uses emoji prefixes systematically:
 - `📚` - Subcollections (2nd level)
 - `🏷` - Tag/index pages
 
+### Mermaid Diagrams
+Full rules: `.claude/rules/mermaid-rules.md`
+
+핵심 3가지:
+- **모든 라벨을 큰따옴표로**: `A["시작"] --> B{"조건?"}`
+- **`[/` 로 시작 금지**: trapezoid 도형 기호로 파싱됨 → `C["/query 스킬"]`로 작성
+- **엣지 라벨도 따옴표**: `B -->|"라벨"| C`
+
 ## Key Integration Points
 
 ### Main Hub Notes
@@ -252,7 +446,7 @@ The vault uses emoji prefixes systematically:
 ### AI Integration
 - ChatGPT custom GPTs linked in CMDS Head Quarter
 - Claude integration via Claude Code directory
-- System prompts in `90. Settings/94. System Prompts/`
+- Agent settings: `90. Settings/94. Agent Settings/claude/` 이 **원본** (Obsidian Sync 대상). `.claude/{agents,commands,rules,skills}` 는 이 원본으로 향하는 **심볼릭 링크**. `.claude/settings.json`, `.claude/sessions/` 등은 머신 로컬 전용 (symlink 안 함). 새 MBP 에서 재설정 방법은 `.claude/rules/directory-structure.md` 참조.
 
 ### Automation
 - n8n workflows for automation
@@ -373,7 +567,7 @@ find . -name "*.md" -mtime -7 -type f | head -20
 	- CamelCase: myRate, totalPage (⚠️ `rating` 사용 금지 → 반드시 `myRate`)
 	- **description**: English only, 1-2 sentences, skill-description style (what + when to reference)
 4. **CMDS Hierarchy**: 🏛 (top) → 📖 (100-900) → 📚 (N01-N99) → no icon (details)
-5. **Vault Scale**: 7,660+ notes with established patterns - respect existing conventions
+5. **Vault Scale**: 10,000+ notes with established patterns - respect existing conventions
 
 ## Key Obsidian Plugins
 
