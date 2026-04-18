@@ -3,1381 +3,2005 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CMDS System Files — Knowledge Architecture</title>
-    <meta name="description" content="CMDS (CMDSPACE) Personal Knowledge Management System - 5 Core System Files for AI Agents and Human Users">
-    
+    <title>CMDS System Files v4.2 — Knowledge Architecture</title>
+    <meta name="description" content="CMDS (CMDSPACE) Personal Knowledge Management System - 5 Core System Files, 5 Shared Rules, 8 Slash Commands (CMDS Process), 9 Architecture Patterns, 7 Required Properties for AI Agents and Human Users">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CMDS System Files v4.2 — Knowledge Architecture">
+    <meta property="og:description" content="5 Core System Files, 5 Shared Rules, 8 Slash Commands (CMDS Process), 9 Architecture Patterns, 7 Required Properties for AI-powered Personal Knowledge Management">
+    <meta property="og:image" content="https://system.cmdspace.work/og-image.jpg?v=20260415">
+    <meta property="og:url" content="https://system.cmdspace.work">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CMDS System Files v4.2 — Knowledge Architecture">
+    <meta name="twitter:description" content="5 Core System Files, 5 Shared Rules, 8 Slash Commands (CMDS Process), 9 Architecture Patterns, 7 Required Properties for AI-powered Personal Knowledge Management">
+    <meta name="twitter:image" content="https://system.cmdspace.work/og-image.jpg?v=20260415">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
+        /* =========================================== */
+        /* CSS VARIABLES — TEMPLATE #6 BRUTALIST DARK  */
+        /* =========================================== */
         :root {
-            --color-bg: #ffffff;
-            --color-fg: #111111;
-            --color-accent: #3b82f6;
-            --color-highlight: #eab308;
-            --color-alert: #ef4444;
-            --color-success: #22c55e;
-            --color-purple: #8b5cf6;
-            --color-muted: #737373;
-            --color-surface: #f4f4f5;
-            
-            --font-display: 'Space Grotesk', 'Pretendard', sans-serif;
-            --font-body: 'Inter', 'Pretendard', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            
-            --border-width: 2px;
-            --container-padding: clamp(1rem, 5vw, 4rem);
-            --header-height: 60px;
+            --black: #000000;
+            --white: #FFFFFF;
+            --toxic: #CCFF00;
+            --toxic-dim: #99CC00;
+            --red: #FF0000;
+            --grey-100: #F0F0F0;
+            --grey-200: #E0E0E0;
+            --grey-300: #CCCCCC;
+            --grey-500: #888888;
+            --grey-700: #444444;
+            --grey-900: #1A1A1A;
+            --purple: #8b5cf6;
+            --highlight: #eab308;
+
+            --font-mono: 'IBM Plex Mono', 'Space Mono', 'Courier New', monospace;
+            --font-display: 'Space Mono', 'IBM Plex Mono', monospace;
+
+            --radius: 0;
+            --border-thin: 1px solid var(--grey-700);
+            --border-medium: 2px solid var(--grey-700);
+            --border-thick: 4px solid var(--grey-700);
+            --border-brutal: 6px solid var(--grey-700);
+            --border-toxic: 2px solid var(--toxic);
+
+            --nav-height: 52px;
         }
 
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
 
         body {
-            font-family: var(--font-body);
-            background: var(--color-bg);
-            color: var(--color-fg);
+            font-family: var(--font-mono);
+            background: var(--black);
+            color: var(--white);
             line-height: 1.6;
             overflow-x: hidden;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.03em;
         }
 
-        ::selection {
-            background: var(--color-accent);
-            color: white;
-        }
+        ::selection { background: var(--toxic); color: var(--black); }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.03;
+        /* SVG Noise Overlay */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 9999;
+            pointer-events: none; opacity: 0.035;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--header-height);
-            background: var(--color-bg);
-            border-bottom: var(--border-width) solid var(--color-fg);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 var(--container-padding);
-            z-index: 1000;
-        }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.25rem;
-            text-decoration: none;
-            color: var(--color-fg);
-            letter-spacing: -0.02em;
-        }
-
-        .nav-logo span {
-            color: var(--color-accent);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0;
-        }
-
-        .nav-link {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            color: var(--color-fg);
-            padding: 0.75rem 1.25rem;
-            border-left: var(--border-width) solid var(--color-fg);
-            transition: all 0.15s ease;
-        }
-
-        .nav-link:hover {
-            background: var(--color-fg);
-            color: var(--color-bg);
-        }
-
-        /* Language Toggle */
-        .lang-toggle {
-            display: flex;
-            border-left: var(--border-width) solid var(--color-fg);
-        }
-
-        .lang-btn {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.75rem 1rem;
-            border: none;
-            background: transparent;
-            color: var(--color-muted);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .lang-btn.active {
-            background: var(--color-fg);
-            color: var(--color-bg);
-        }
-
-        .lang-btn:hover:not(.active) {
-            background: var(--color-surface);
-        }
-
-        /* Hero */
+        /* =========================================== */
+        /* HERO                                        */
+        /* =========================================== */
         .hero {
             min-height: 100vh;
+            background: var(--black);
+            color: var(--white);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: calc(var(--header-height) + 4rem) var(--container-padding) 4rem;
+            padding: 80px 40px 60px;
             position: relative;
-            border-bottom: var(--border-width) solid var(--color-fg);
+            overflow: hidden;
+        }
+
+        /* Scan lines */
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent, transparent 2px,
+                rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Grid lines */
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(204,255,0,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(204,255,0,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero > * { position: relative; z-index: 2; }
+
+        .hero-terminal {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: var(--toxic);
+            margin-bottom: 16px;
+            opacity: 0.8;
         }
 
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: inline-block;
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 0.5rem 1rem;
-            border: var(--border-width) solid var(--color-fg);
-            margin-bottom: 2rem;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            padding: 6px 16px;
+            border: 2px solid var(--toxic);
+            color: var(--toxic);
+            margin-bottom: 32px;
             width: fit-content;
-        }
-
-        .hero-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--color-success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         .hero-title {
             font-family: var(--font-display);
-            font-size: clamp(3.5rem, 12vw, 10rem);
+            font-size: clamp(3rem, 10vw, 8rem);
             font-weight: 700;
-            line-height: 0.9;
+            line-height: 0.95;
             letter-spacing: -0.04em;
-            margin-bottom: 2rem;
+            margin-bottom: 24px;
         }
-
-        .hero-title .outline {
-            -webkit-text-stroke: 2px var(--color-fg);
-            color: transparent;
-        }
-
-        .hero-title .accent {
-            color: var(--color-accent);
-        }
+        .hero-title .slash { color: var(--grey-500); }
+        .hero-title .accent { color: var(--toxic); }
 
         .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--color-muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--grey-500);
+            max-width: 650px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            text-transform: none;
         }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 10px;
+            height: 1.1em;
+            background: var(--toxic);
+            vertical-align: text-bottom;
+            margin-left: 4px;
+            animation: cursorBlink 1s steps(1) infinite;
+        }
+        @keyframes cursorBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
         .hero-stats {
             display: flex;
             gap: 0;
             flex-wrap: wrap;
         }
-
-        .stat-item {
-            padding: 1.5rem 2rem;
-            border: var(--border-width) solid var(--color-fg);
+        .hero-stat {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            padding: 14px 24px;
+            border: 1px solid var(--grey-700);
             border-right: none;
-            text-align: center;
-            min-width: 140px;
+            color: var(--grey-300);
         }
+        .hero-stat:last-child { border-right: 1px solid var(--grey-700); }
+        .hero-stat strong { color: var(--toxic); font-weight: 700; margin-right: 6px; font-size: 18px; }
 
-        .stat-item:last-child {
-            border-right: var(--border-width) solid var(--color-fg);
-        }
-
-        .stat-value {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--color-accent);
-        }
-
-        .stat-label {
+        .hero-cta {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: var(--toxic);
+            color: var(--black);
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
             letter-spacing: 0.1em;
-            color: var(--color-muted);
-            margin-top: 0.5rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--toxic);
+            transition: all 0.2s;
+        }
+        .hero-cta:hover {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--toxic);
         }
 
-        /* Marquee */
-        .marquee {
-            background: var(--color-fg);
-            color: var(--color-bg);
-            padding: 1rem 0;
-            overflow: hidden;
-            border-bottom: var(--border-width) solid var(--color-fg);
-        }
-
-        .marquee-content {
+        /* =========================================== */
+        /* NAV                                         */
+        /* =========================================== */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--black);
+            border-top: 2px solid var(--grey-700);
+            border-bottom: 2px solid var(--grey-700);
             display: flex;
-            gap: 3rem;
-            animation: scroll 30s linear infinite;
+            align-items: stretch;
+            height: var(--nav-height);
+            overflow-x: auto;
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--grey-300);
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            border-right: var(--border-thin);
             white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .nav-link:first-child { border-left: none; }
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--white);
+            color: var(--black);
         }
 
-        .marquee:hover .marquee-content {
-            animation-play-state: paused;
-        }
+        .nav-spacer { flex: 1; }
 
-        .marquee-content span {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* Section */
-        .section {
-            padding: 6rem var(--container-padding);
-            border-bottom: var(--border-width) solid var(--color-fg);
-        }
-
-        .section-header {
+        .nav-search {
             display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-            margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            border-bottom: var(--border-width) solid var(--color-fg);
+            align-items: center;
+            border-left: var(--border-thin);
+            padding: 0 12px;
+        }
+        .nav-search input {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid var(--grey-700);
+            color: var(--white);
+            padding: 6px 12px;
+            width: 140px;
+            outline: none;
+        }
+        .nav-search input::placeholder { color: var(--grey-700); }
+        .nav-search input:focus { border-color: var(--toxic); }
+
+        .lang-toggle {
+            display: flex;
+            align-items: stretch;
+            border-left: var(--border-thin);
+        }
+        .lang-btn {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 0 14px;
+            border: none;
+            background: transparent;
+            color: var(--grey-500);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .lang-btn.active {
+            background: var(--toxic);
+            color: var(--black);
+        }
+        .lang-btn:hover:not(.active) { color: var(--white); }
+
+        /* =========================================== */
+        /* SECTIONS                                    */
+        /* =========================================== */
+        .section {
+            padding: 80px 40px;
+            border-bottom: 2px solid var(--grey-700);
         }
 
-        .section-number {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--color-accent);
-            opacity: 0.3;
+        .section-inner { max-width: 1200px; margin: 0 auto; }
+
+        .section-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--toxic);
+            margin-bottom: 12px;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(1.8rem, 4vw, 3rem);
             font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 12px;
         }
-
-        .section-title .highlight {
-            background: var(--color-highlight);
-            padding: 0 0.25em;
-        }
+        .section-title .accent { color: var(--toxic); }
+        .section-title .highlight { background: var(--toxic); padding: 0 0.2em; color: var(--black); }
 
         .section-desc {
-            font-size: 1rem;
-            color: var(--color-muted);
-            margin-top: 1rem;
-            max-width: 500px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--grey-500);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 48px;
+            text-transform: none;
         }
 
-        /* Core Files Grid */
-        .files-grid {
+        /* =========================================== */
+        /* FILE CARDS (01: Core System Files)           */
+        /* =========================================== */
+        .guide-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 0;
         }
 
-        .file-card {
-            border: var(--border-width) solid var(--color-fg);
-            margin-right: calc(var(--border-width) * -1);
-            margin-bottom: calc(var(--border-width) * -1);
-            padding: 2rem;
+        .guide-card {
+            border: 2px solid var(--grey-700);
+            margin-right: -2px;
+            margin-bottom: -2px;
+            padding: 32px 28px;
             position: relative;
-            transition: all 0.15s ease;
+            transition: all 0.2s;
         }
-
-        .file-card::before {
+        .guide-card::before {
             content: attr(data-index);
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 12px; right: 16px;
             font-family: var(--font-display);
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 700;
             opacity: 0.05;
             line-height: 1;
+            color: var(--white);
+        }
+        .guide-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--toxic);
+            border-color: var(--toxic);
+            z-index: 2;
         }
 
-        .file-card:hover {
-            background: var(--color-fg);
-            color: var(--color-bg);
-        }
-
-        .file-card:hover .file-icon {
-            background: var(--color-accent);
-            border-color: var(--color-accent);
-        }
-
-        .file-card:hover .file-badge {
-            background: var(--color-bg);
-            color: var(--color-fg);
-        }
-
-        .file-card:hover .file-download {
-            background: var(--color-bg);
-            color: var(--color-fg);
-            border-color: var(--color-bg);
-        }
-
-        .file-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .file-icon {
-            width: 48px;
-            height: 48px;
-            border: var(--border-width) solid var(--color-fg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.15s ease;
-        }
-
-        .file-download {
+        .guide-card-number {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.5rem 0.75rem;
-            border: var(--border-width) solid var(--color-fg);
-            background: transparent;
-            color: var(--color-fg);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            transition: all 0.15s ease;
-        }
-
-        .file-download:hover {
-            background: var(--color-accent);
-            border-color: var(--color-accent);
-            color: white;
-        }
-
-        .file-name {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .file-desc {
-            font-size: 0.875rem;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            color: var(--toxic);
+            margin-bottom: 12px;
             opacity: 0.7;
-            margin-bottom: 1rem;
         }
 
-        .file-badge {
+        .guide-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .guide-card-title {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .guide-card-text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--grey-500);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+
+        .guide-card-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.03em;
+        }
+        .meta-key { color: var(--grey-500); min-width: 100px; }
+        .meta-val { color: var(--grey-300); font-weight: 500; }
+        .meta-val.precedence { color: var(--toxic); font-weight: 700; font-size: 12px; }
+
+        .badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+        .badge {
             display: inline-block;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.25rem 0.75rem;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            padding: 3px 8px;
             border: 1px solid currentColor;
-            transition: all 0.15s ease;
         }
+        .badge.ai { border-color: var(--toxic); color: var(--toxic); }
+        .badge.human { border-color: var(--purple); color: var(--purple); }
+        .badge.static { border-color: var(--grey-500); color: var(--grey-500); }
+        .badge.dynamic { border-color: var(--highlight); color: var(--highlight); }
 
-        .file-badge.ai { border-color: var(--color-accent); color: var(--color-accent); }
-        .file-badge.human { border-color: var(--color-purple); color: var(--color-purple); }
-
-        /* Why Grid */
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0;
-        }
-
-        .why-card {
-            border: var(--border-width) solid var(--color-fg);
-            margin-right: calc(var(--border-width) * -1);
-            margin-bottom: calc(var(--border-width) * -1);
-            padding: 2.5rem;
-            transition: all 0.15s ease;
-        }
-
-        .why-card:hover {
-            background: var(--color-surface);
-        }
-
-        .why-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .why-title {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .why-desc {
-            font-size: 0.9rem;
-            color: var(--color-muted);
-            line-height: 1.7;
-        }
-
-        @media (max-width: 768px) {
-            .why-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Categories */
-        .categories-grid {
+        /* =========================================== */
+        /* PATTERN CARDS (02: Architecture Patterns)    */
+        /* =========================================== */
+        .patterns-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0;
         }
 
-        .category-card {
-            border: var(--border-width) solid var(--color-fg);
-            margin-right: calc(var(--border-width) * -1);
-            margin-bottom: calc(var(--border-width) * -1);
-            padding: 2rem;
+        .pattern-card {
+            border: 2px solid var(--grey-700);
+            margin-right: -2px;
+            margin-bottom: -2px;
+            padding: 28px 24px;
             position: relative;
-            transition: all 0.15s ease;
+            transition: all 0.2s;
+        }
+        .pattern-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--grey-700);
+            border-color: var(--grey-300);
+            z-index: 2;
         }
 
-        .category-card:hover {
-            background: var(--color-surface);
-        }
-
-        .category-number {
+        .pattern-number {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 700;
             line-height: 1;
-            opacity: 0.1;
-            margin-bottom: 1rem;
+            opacity: 0.08;
+            color: var(--white);
+            margin-bottom: 8px;
         }
 
-        .category-name {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .category-purpose {
-            font-size: 0.875rem;
-            color: var(--color-muted);
-            margin-bottom: 1rem;
-        }
-
-        .category-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .category-item {
+        .pattern-name {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
-            padding: 0.25rem 0.5rem;
-            background: var(--color-surface);
-            border: 1px solid var(--color-fg);
-            opacity: 0.7;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--toxic);
+            margin-bottom: 6px;
         }
 
-        /* Process */
-        .process-grid {
+        .pattern-title {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .pattern-desc {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--grey-500);
+            line-height: 1.7;
+            text-transform: none;
+        }
+
+        .pattern-example {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: var(--grey-900);
+            border-left: 3px solid var(--toxic);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--grey-300);
+            line-height: 1.6;
+            text-transform: none;
+            overflow-x: auto;
+        }
+
+        /* =========================================== */
+        /* RULE CARDS (03: Shared Rules)                */
+        /* =========================================== */
+        .rules-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 0;
         }
 
-        .process-step {
-            border: var(--border-width) solid var(--color-fg);
-            margin-right: calc(var(--border-width) * -1);
-            padding: 3rem 2rem;
-            text-align: center;
-            position: relative;
-            transition: all 0.15s ease;
+        .rule-card {
+            border: 2px solid var(--grey-700);
+            margin-right: -2px;
+            margin-bottom: -2px;
+            padding: 28px 24px;
+            transition: all 0.2s;
+        }
+        .rule-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--grey-700);
+            border-color: var(--grey-300);
+            z-index: 2;
         }
 
-        .process-step:hover {
-            background: var(--color-fg);
-            color: var(--color-bg);
-        }
+        .rule-icon { font-size: 1.5rem; margin-bottom: 12px; }
 
-        .process-step::after {
-            content: '→';
-            position: absolute;
-            right: -0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: var(--color-accent);
-            z-index: 1;
-        }
-
-        .process-step:last-child::after {
-            display: none;
-        }
-
-        .process-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .process-name {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .process-desc {
-            font-size: 0.875rem;
-            opacity: 0.7;
-        }
-
-        .process-categories {
-            margin-top: 1rem;
+        .rule-filename {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            opacity: 0.5;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--toxic);
+            margin-bottom: 8px;
+            letter-spacing: 0.03em;
+            text-transform: none;
         }
 
-        /* Download CTA */
-        .cta-section {
-            background: var(--color-fg);
-            color: var(--color-bg);
-            padding: 8rem var(--container-padding);
+        .rule-title {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .rule-desc {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--grey-500);
+            line-height: 1.7;
+            text-transform: none;
+        }
+
+        .rule-consumers {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .rule-consumer {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            background: var(--grey-900);
+            border: 1px solid var(--grey-700);
+            color: var(--grey-300);
+        }
+
+        /* =========================================== */
+        /* ARCHITECTURE DIAGRAM (04)                    */
+        /* =========================================== */
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 48px 24px;
+            border: 2px solid var(--grey-700);
+        }
+
+        .arch-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            color: var(--grey-500);
+            margin-bottom: 12px;
             text-align: center;
         }
 
-        .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 700;
-            line-height: 0.9;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
+        .arch-row {
+            display: flex;
+            gap: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 0;
         }
 
-        .cta-title .outline {
-            -webkit-text-stroke: 2px var(--color-bg);
+        .arch-box {
+            border: 2px solid var(--grey-700);
+            padding: 14px 20px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-align: center;
+            min-width: 120px;
+            border-right: none;
+        }
+        .arch-box:last-child { border-right: 2px solid var(--grey-700); }
+        .arch-box.accent { background: var(--toxic); color: var(--black); border-color: var(--toxic); }
+        .arch-box.primary { background: var(--black); color: var(--toxic); border-color: var(--toxic); }
+        .arch-box small { display: block; font-size: 9px; color: var(--grey-500); margin-top: 4px; font-weight: 400; }
+
+        .arch-connector {
+            width: 2px;
+            height: 32px;
+            background: var(--grey-700);
+        }
+        .arch-connector.toxic { background: var(--toxic); }
+
+        .arch-connector-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--toxic);
+            letter-spacing: 0.1em;
+            padding: 8px 0;
+            text-align: center;
+        }
+
+        /* =========================================== */
+        /* CHANGELOG (05)                               */
+        /* =========================================== */
+        .changelog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .changelog-item {
+            border: 2px solid var(--grey-700);
+            margin-bottom: -2px;
+            padding: 28px 32px;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            transition: all 0.15s;
+        }
+        .changelog-item:hover { background: var(--grey-900); }
+        .changelog-item.current { border-left: 4px solid var(--toxic); }
+
+        .changelog-version {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--toxic);
+            min-width: 60px;
+        }
+        .changelog-item:not(.current) .changelog-version { color: var(--grey-500); }
+
+        .changelog-date {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--grey-500);
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .changelog-title {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .changelog-changes {
+            font-size: 11px;
+            color: var(--grey-500);
+            line-height: 1.8;
+            text-transform: none;
+        }
+        .changelog-changes ul { list-style: none; padding: 0; }
+        .changelog-changes li::before {
+            content: '+';
+            color: var(--toxic);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .changelog-item:not(.current) .changelog-changes li::before {
+            content: '-';
+            color: var(--grey-500);
+        }
+
+        /* =========================================== */
+        /* DOWNLOAD (06)                                */
+        /* =========================================== */
+        .download-section {
+            padding: 80px 40px;
+            border-bottom: 2px solid var(--grey-700);
+            text-align: center;
+        }
+        .download-inner { max-width: 1000px; margin: 0 auto; }
+
+        .download-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 0.95;
+            margin-bottom: 16px;
+        }
+        .download-title .outline {
+            -webkit-text-stroke: 2px var(--white);
             color: transparent;
         }
 
-        .cta-desc {
-            font-size: 1.125rem;
-            opacity: 0.7;
+        .download-desc {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--grey-500);
             max-width: 500px;
-            margin: 0 auto 3rem;
+            margin: 0 auto 40px;
+            text-transform: none;
         }
 
-        .cta-buttons {
+        .download-buttons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 12px;
             flex-wrap: wrap;
+            margin-bottom: 48px;
         }
 
         .btn {
             font-family: var(--font-mono);
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             text-decoration: none;
-            padding: 1rem 2rem;
-            border: var(--border-width) solid var(--color-bg);
-            transition: all 0.15s ease;
+            padding: 14px 28px;
+            border: 2px solid var(--white);
+            transition: all 0.2s;
             cursor: pointer;
         }
-
         .btn-primary {
-            background: var(--color-bg);
-            color: var(--color-fg);
+            background: var(--toxic);
+            color: var(--black);
+            border-color: var(--toxic);
         }
-
         .btn-primary:hover {
             transform: translate(-4px, -4px);
-            box-shadow: 4px 4px 0 var(--color-accent);
+            box-shadow: 8px 8px 0 var(--white);
         }
-
         .btn-secondary {
             background: transparent;
-            color: var(--color-bg);
+            color: var(--white);
         }
-
         .btn-secondary:hover {
-            background: var(--color-bg);
-            color: var(--color-fg);
+            background: var(--white);
+            color: var(--black);
         }
 
-        /* Footer */
-        .footer {
-            background: var(--color-bg);
-            border-top: var(--border-width) solid var(--color-fg);
-            padding: 4rem var(--container-padding);
+        .dl-section-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            color: var(--grey-500);
+            margin-bottom: 12px;
+            margin-top: 32px;
+            text-align: left;
         }
 
-        .footer-content {
+        .dl-files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0;
+        }
+
+        .dl-file-card {
+            border: 1px solid var(--grey-700);
+            padding: 16px;
+            text-align: left;
+            transition: all 0.15s;
+            margin-right: -1px;
+            margin-bottom: -1px;
+        }
+        .dl-file-card:hover {
+            border-color: var(--toxic);
+            background: rgba(204,255,0,0.03);
+        }
+        .dl-file-card a { display: block; text-decoration: none; color: inherit; }
+        .dl-file-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--white);
+            text-transform: none;
+        }
+        .dl-file-size {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--grey-500);
+        }
+
+        /* =========================================== */
+        /* CTA BANNER                                   */
+        /* =========================================== */
+        .cta-banner {
+            background: var(--black);
+            border-top: 2px solid var(--grey-700);
+            border-bottom: 2px solid var(--grey-700);
+            padding: 0;
+        }
+        .cta-banner-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 2rem;
+            padding: 48px 40px;
+            gap: 32px;
+        }
+        .cta-banner-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            color: var(--toxic);
+            margin-bottom: 8px;
+        }
+        .cta-banner-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: none;
+            margin-bottom: 8px;
+        }
+        .cta-banner-desc {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--grey-500);
+            text-transform: none;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+        .cta-banner-btn {
+            display: inline-block;
+            padding: 18px 44px;
+            white-space: nowrap;
+            background: var(--toxic);
+            color: var(--black);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--toxic);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .cta-banner-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--toxic);
         }
 
-        .footer-brand {
-            max-width: 300px;
+        /* =========================================== */
+        /* FOOTER                                       */
+        /* =========================================== */
+        .footer {
+            background: var(--black);
+            color: var(--white);
+            border-top: var(--border-brutal);
+            padding: 60px 40px;
         }
+        .footer-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
 
         .footer-logo {
             font-family: var(--font-display);
-            font-weight: 700;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
+        .footer-logo span { color: var(--toxic); }
 
-        .footer-logo span {
-            color: var(--color-accent);
-        }
-
-        .footer-desc {
-            font-size: 0.875rem;
-            color: var(--color-muted);
+        .footer-tagline {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--grey-500);
+            margin-bottom: 32px;
+            text-transform: none;
         }
 
         .footer-links {
             display: flex;
+            justify-content: center;
             gap: 0;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
         }
-
         .footer-link {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 11px;
+            letter-spacing: 0.1em;
             text-decoration: none;
-            color: var(--color-fg);
-            padding: 0.75rem 1.25rem;
-            border: var(--border-width) solid var(--color-fg);
+            color: var(--grey-300);
+            padding: 12px 20px;
+            border: 1px solid var(--grey-700);
             border-right: none;
-            transition: all 0.15s ease;
+            transition: all 0.15s;
         }
-
-        .footer-link:last-child {
-            border-right: var(--border-width) solid var(--color-fg);
-        }
-
+        .footer-link:last-child { border-right: 1px solid var(--grey-700); }
         .footer-link:hover {
-            background: var(--color-fg);
-            color: var(--color-bg);
+            background: var(--toxic);
+            color: var(--black);
+            border-color: var(--toxic);
         }
 
-        .footer-bottom {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--color-surface);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-copyright {
+        .footer-copy {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 10px;
+            color: var(--grey-700);
+            letter-spacing: 0.1em;
         }
 
-        .footer-ip {
-            font-size: 0.7rem;
-            color: var(--color-muted);
+        /* =========================================== */
+        /* TOAST + SCROLL-TO-TOP                        */
+        /* =========================================== */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            background: var(--black);
+            color: var(--toxic);
+            border: 2px solid var(--toxic);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            padding: 12px 24px;
+            z-index: 9998;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            background: var(--black);
+            color: var(--toxic);
+            border: 2px solid var(--toxic);
+            font-family: var(--font-mono);
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 9998;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-top.visible { opacity: 1; transform: translateY(0); }
+        .scroll-top:hover {
+            background: var(--toxic);
+            color: var(--black);
         }
 
-        /* Responsive */
+        /* =========================================== */
+        /* MARQUEE                                      */
+        /* =========================================== */
+        .marquee {
+            background: var(--grey-900);
+            padding: 14px 0;
+            overflow: hidden;
+            border-bottom: 2px solid var(--grey-700);
+        }
+        .marquee-content {
+            display: flex;
+            gap: 3rem;
+            animation: marqueeScroll 35s linear infinite;
+            white-space: nowrap;
+        }
+        .marquee:hover .marquee-content { animation-play-state: paused; }
+        .marquee-content span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: var(--grey-500);
+        }
+        @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* =========================================== */
+        /* BILINGUAL (data-lang toggle)                 */
+        /* =========================================== */
+        [data-lang="en"] .ko-only { display: none; }
+        [data-lang="ko"] .en-only { display: none; }
+
+        /* =========================================== */
+        /* SEARCH FILTER                                */
+        /* =========================================== */
+        .hidden-by-search { display: none !important; }
+
+        /* =========================================== */
+        /* REVEAL ANIMATION                             */
+        /* =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* =========================================== */
+        /* RESPONSIVE                                   */
+        /* =========================================== */
         @media (max-width: 1024px) {
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .process-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .process-step::after {
-                display: none;
-            }
+            .patterns-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-stats {
-                flex-direction: column;
-            }
-            .stat-item {
-                border-right: var(--border-width) solid var(--color-fg);
-            }
-            .categories-grid,
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                flex-direction: column;
-            }
-            .footer-links {
-                flex-wrap: wrap;
-            }
-            .file-header {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
+            .hero { min-height: 90vh; padding: 60px 20px 40px; }
+            .section { padding: 60px 20px; }
+            .download-section { padding: 60px 20px; }
+            .footer { padding: 40px 20px; }
+            .cta-banner-inner { flex-direction: column; text-align: center; align-items: center; padding: 40px 20px; }
+            .cta-banner-desc { max-width: 100%; }
+
+            .guide-grid,
+            .rules-grid,
+            .patterns-grid { grid-template-columns: 1fr; }
+
+            .nav-search { display: none; }
+
+            .hero-stats { flex-direction: column; }
+            .hero-stat { border-right: 1px solid var(--grey-700); }
+
+            .arch-row { flex-direction: column; align-items: center; }
+            .arch-box { border-right: 2px solid var(--grey-700); border-bottom: none; min-width: 200px; }
+            .arch-box:last-child { border-bottom: 2px solid var(--grey-700); }
+
+            .changelog-item { flex-direction: column; gap: 12px; }
+
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+            .footer-link { border-right: 1px solid var(--grey-700); }
         }
 
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        /* =========================================== */
+        /* PRINT + REDUCED MOTION                       */
+        /* =========================================== */
+        @media print {
+            body::before, .nav, .scroll-top, .toast, .hero::after, .hero::before { display: none; }
+            .reveal { opacity: 1; transform: none; }
+            body { background: white; color: black; }
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
-    <div class="noise-overlay"></div>
 
-    <nav class="nav">
-        <a href="#" class="nav-logo">CMDS<span>_</span>SYSTEM</a>
-        <div class="nav-right">
-            <div class="nav-links">
-                <a href="#why" class="nav-link" data-i18n="nav.why">Why</a>
-                <a href="#files" class="nav-link" data-i18n="nav.files">Files</a>
-                <a href="#architecture" class="nav-link" data-i18n="nav.architecture">Architecture</a>
-                <a href="#process" class="nav-link" data-i18n="nav.process">Process</a>
-                <a href="#download" class="nav-link" data-i18n="nav.download">Download</a>
-            </div>
-            <div class="lang-toggle">
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="ko">KO</button>
-            </div>
-        </div>
-    </nav>
+<!-- =========================================== -->
+<!-- HERO                                        -->
+<!-- =========================================== -->
+<section class="hero">
+    <div class="hero-terminal">$ SYSTEM.INIT // CMDS KNOWLEDGE ARCHITECTURE</div>
+    <div class="hero-badge" data-i18n="hero.badge">KNOWLEDGE ARCHITECTURE V4.2</div>
+    <h1 class="hero-title">
+        CMDS <span class="slash">/</span><br>
+        SYSTEM<br>
+        <span class="accent">FILES</span>
+    </h1>
+    <p class="hero-subtitle" data-i18n="hero.subtitle">
+        5 Core Files + 5 Shared Rules + 9 Architecture Patterns that power the CMDSPACE PKM ecosystem &mdash; designed for AI agents and human users alike.<span class="cursor-blink"></span>
+    </p>
+    <div class="hero-stats">
+        <div class="hero-stat"><strong>5</strong>&nbsp; <span data-i18n="stats.files">SYSTEM FILES</span></div>
+        <div class="hero-stat"><strong>5</strong>&nbsp; <span data-i18n="stats.rules">SHARED RULES</span></div>
+        <div class="hero-stat"><strong>9</strong>&nbsp; <span data-i18n="stats.patterns">ARCH PATTERNS</span></div>
+        <div class="hero-stat"><strong>10K+</strong>&nbsp; <span data-i18n="stats.notes">NOTES</span></div>
+    </div>
+    <a href="https://class.cmdspace.kr/" target="_blank" rel="noopener" class="hero-cta en-only">CMDSPACE EDUCATION &rarr;</a>
+    <a href="https://class.cmdspace.kr/" target="_blank" rel="noopener" class="hero-cta ko-only">&#xCEE4;&#xB9E8;&#xB4DC;&#xC2A4;&#xD398;&#xC774;&#xC2A4; &#xAC15;&#xC758; &#xBCF4;&#xB7EC;&#xAC00;&#xAE30; &rarr;</a>
+</section>
 
-    <section class="hero">
-        <div class="hero-badge"><span data-i18n="hero.badge">Knowledge Architecture v2.1</span> · <span data-i18n="hero.updated">Updated</span> 2026-01-24</div>
-        <h1 class="hero-title">
-            <span class="outline">CMDS</span><br>
-            SYSTEM<br>
-            <span class="accent">FILES</span>
-        </h1>
-        <p class="hero-subtitle" data-i18n="hero.subtitle">
-            5 Core System Files that power the CMDSPACE Personal Knowledge Management ecosystem. 
-            For AI Agents and Human Users.
-        </p>
-        <div class="hero-stats">
-            <div class="stat-item">
-                <div class="stat-value" data-target="5">5</div>
-                <div class="stat-label" data-i18n="stats.files">Core Files</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value" data-target="9">9</div>
-                <div class="stat-label" data-i18n="stats.categories">Categories</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value" data-target="91">91</div>
-                <div class="stat-label" data-i18n="stats.subcategories">Subcategories</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">5K+</div>
-                <div class="stat-label" data-i18n="stats.notes">Notes</div>
-            </div>
-        </div>
-    </section>
+<!-- =========================================== -->
+<!-- MARQUEE                                     -->
+<!-- =========================================== -->
+<div class="marquee">
+    <div class="marquee-content">
+        <span>Connect &#9670;</span><span>Merge &#9670;</span><span>Develop &#9670;</span><span>Share &#9670;</span>
+        <span>CLAUDE.md &#9670;</span><span>AGENTS.md &#9670;</span><span>CMDS.md &#9670;</span>
+        <span>@include &#9670;</span><span>Post-Compact &#9670;</span><span>Precedence &#9670;</span>
+        <span>Shared Rules &#9670;</span><span>10,000+ Notes &#9670;</span>
+        <span>Connect &#9670;</span><span>Merge &#9670;</span><span>Develop &#9670;</span><span>Share &#9670;</span>
+        <span>CLAUDE.md &#9670;</span><span>AGENTS.md &#9670;</span><span>CMDS.md &#9670;</span>
+        <span>@include &#9670;</span><span>Post-Compact &#9670;</span><span>Precedence &#9670;</span>
+        <span>Shared Rules &#9670;</span><span>10,000+ Notes &#9670;</span>
+    </div>
+</div>
 
-    <div class="marquee">
-        <div class="marquee-content">
-            <span>Connect ◆</span>
-            <span>Merge ◆</span>
-            <span>Develop ◆</span>
-            <span>Share ◆</span>
-            <span>Knowledge Management ◆</span>
-            <span>AI Integration ◆</span>
-            <span>Obsidian Vault ◆</span>
-            <span>Second Brain ◆</span>
-            <span>Connect ◆</span>
-            <span>Merge ◆</span>
-            <span>Develop ◆</span>
-            <span>Share ◆</span>
-            <span>Knowledge Management ◆</span>
-            <span>AI Integration ◆</span>
-            <span>Obsidian Vault ◆</span>
-            <span>Second Brain ◆</span>
+<!-- =========================================== -->
+<!-- NAV                                         -->
+<!-- =========================================== -->
+<nav class="nav" id="mainNav">
+    <a href="#files" class="nav-link" data-section="files" data-i18n="nav.files">FILES</a>
+    <a href="#patterns" class="nav-link" data-section="patterns" data-i18n="nav.patterns">PATTERNS</a>
+    <a href="#rules" class="nav-link" data-section="rules" data-i18n="nav.rules">RULES</a>
+    <a href="#diagram" class="nav-link" data-section="diagram" data-i18n="nav.diagram">DIAGRAM</a>
+    <a href="#changelog" class="nav-link" data-section="changelog" data-i18n="nav.changelog">CHANGELOG</a>
+    <a href="#download" class="nav-link" data-section="download" data-i18n="nav.download">DOWNLOAD</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-search">
+        <input type="text" id="searchInput" placeholder="SEARCH...">
+    </div>
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">KO</button>
+    </div>
+</nav>
+
+<!-- =========================================== -->
+<!-- 01: CORE SYSTEM FILES                       -->
+<!-- =========================================== -->
+<section class="section" id="files" data-search="files system core cmds claude agents guide head quarter">
+    <div class="section-inner">
+        <div class="section-eyebrow reveal">// 01 CORE SYSTEM FILES</div>
+        <h2 class="section-title reveal" data-i18n="section.files.title">CORE <span class="accent">SYSTEM FILES</span></h2>
+        <p class="section-desc reveal" data-i18n="section.files.desc">5 files with structured frontmatter &mdash; each with precedence, memory-type, token-estimate, and audience fields. v4 introduces @include shared rules.</p>
+
+        <div class="guide-grid">
+            <!-- CMDS.md -->
+            <div class="guide-card reveal" data-index="01">
+                <div class="guide-card-number">// 001</div>
+                <div class="guide-card-icon">&#128203;</div>
+                <div class="guide-card-title">CMDS.md</div>
+                <div class="guide-card-text" data-i18n="file.cmds.desc">System philosophy and user context. WHY &amp; WHAT &mdash; purpose, workflows, 9 categories, CMDS Process explained.</div>
+                <div class="guide-card-meta">
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.audience">AUDIENCE:</span><span class="meta-val" data-i18n="file.cmds.audience">All LLM Assistants</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.precedence">PRECEDENCE:</span><span class="meta-val precedence">1</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.memory">MEMORY-TYPE:</span><span class="meta-val">STATIC</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.tokens">TOKEN-EST:</span><span class="meta-val">~6,200</span></div>
+                </div>
+                <div class="badge-row">
+                    <span class="badge ai">AI</span>
+                    <span class="badge static">STATIC</span>
+                </div>
+            </div>
+
+            <!-- CLAUDE.md -->
+            <div class="guide-card reveal" data-index="02">
+                <div class="guide-card-number">// 002</div>
+                <div class="guide-card-icon">&#128187;</div>
+                <div class="guide-card-title">CLAUDE.md</div>
+                <div class="guide-card-text" data-i18n="file.claude.desc">Technical implementation guide for Claude Code. File operations, commands, vault rules. Uses @include for shared rules.</div>
+                <div class="guide-card-meta">
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.audience">AUDIENCE:</span><span class="meta-val">Claude Code</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.precedence">PRECEDENCE:</span><span class="meta-val precedence">2</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.memory">MEMORY-TYPE:</span><span class="meta-val">DYNAMIC</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.tokens">TOKEN-EST:</span><span class="meta-val">~5,800</span></div>
+                </div>
+                <div class="badge-row">
+                    <span class="badge ai">AI</span>
+                    <span class="badge dynamic">DYNAMIC</span>
+                </div>
+            </div>
+
+            <!-- AGENTS.md -->
+            <div class="guide-card reveal" data-index="03">
+                <div class="guide-card-number">// 003</div>
+                <div class="guide-card-icon">&#129302;</div>
+                <div class="guide-card-title">AGENTS.md</div>
+                <div class="guide-card-text" data-i18n="file.agents.desc">Portable technical guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf. Uses @include for shared rules.</div>
+                <div class="guide-card-meta">
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.audience">AUDIENCE:</span><span class="meta-val" data-i18n="file.agents.audience">Gemini, Codex, etc.</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.precedence">PRECEDENCE:</span><span class="meta-val precedence">2</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.memory">MEMORY-TYPE:</span><span class="meta-val">DYNAMIC</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.tokens">TOKEN-EST:</span><span class="meta-val">~3,400</span></div>
+                </div>
+                <div class="badge-row">
+                    <span class="badge ai">AI</span>
+                    <span class="badge dynamic">DYNAMIC</span>
+                </div>
+            </div>
+
+            <!-- CMDS Head Quarter.md -->
+            <div class="guide-card reveal" data-index="04">
+                <div class="guide-card-number">// 004</div>
+                <div class="guide-card-icon">&#127963;</div>
+                <div class="guide-card-title">CMDS Head Quarter.md</div>
+                <div class="guide-card-text" data-i18n="file.hq.desc">Navigation hub for user. Quick access to all 91 subcategories, ChatGPT GPT links, and the full category map.</div>
+                <div class="guide-card-meta">
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.audience">AUDIENCE:</span><span class="meta-val" data-i18n="file.hq.audience">User</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.precedence">PRECEDENCE:</span><span class="meta-val precedence">3</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.memory">MEMORY-TYPE:</span><span class="meta-val">STATIC</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.tokens">TOKEN-EST:</span><span class="meta-val">~2,100</span></div>
+                </div>
+                <div class="badge-row">
+                    <span class="badge human">HUMAN</span>
+                    <span class="badge static">STATIC</span>
+                </div>
+            </div>
+
+            <!-- CMDS Guide.md -->
+            <div class="guide-card reveal" data-index="05">
+                <div class="guide-card-number">// 005</div>
+                <div class="guide-card-icon">&#128208;</div>
+                <div class="guide-card-title">CMDS Guide.md</div>
+                <div class="guide-card-text" data-i18n="file.guide.desc">Operational standards. Properties templates, naming conventions, note types, folder structure, and status values.</div>
+                <div class="guide-card-meta">
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.audience">AUDIENCE:</span><span class="meta-val" data-i18n="file.guide.audience">User + AI</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.precedence">PRECEDENCE:</span><span class="meta-val precedence">3</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.memory">MEMORY-TYPE:</span><span class="meta-val">DYNAMIC</span></div>
+                    <div class="meta-row"><span class="meta-key" data-i18n="meta.tokens">TOKEN-EST:</span><span class="meta-val">~4,500</span></div>
+                </div>
+                <div class="badge-row">
+                    <span class="badge human">HUMAN</span>
+                    <span class="badge dynamic">DYNAMIC</span>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Why This Structure Section -->
-    <section class="section" id="why">
-        <div class="section-header reveal">
-            <div class="section-number">00</div>
-            <div>
-                <h2 class="section-title">WHY <span class="highlight">THIS STRUCTURE</span></h2>
-                <p class="section-desc" data-i18n="section.why.desc">In the AI era, your knowledge system needs clear documentation for both humans and AI agents to work together effectively.</p>
+<!-- =========================================== -->
+<!-- 02: ARCHITECTURE PATTERNS                   -->
+<!-- =========================================== -->
+<section class="section" id="patterns" data-search="patterns architecture precedence static dynamic include essential required optional token changelog shared rules audience">
+    <div class="section-inner">
+        <div class="section-eyebrow reveal">// 02 ARCHITECTURE PATTERNS</div>
+        <h2 class="section-title reveal" data-i18n="section.patterns.title">ARCHITECTURE <span class="accent">PATTERNS</span></h2>
+        <p class="section-desc reveal" data-i18n="section.patterns.desc">9 design patterns discovered through iterative development of the CMDS system files &mdash; each solving a specific knowledge architecture challenge.</p>
+
+        <div class="patterns-grid">
+            <!-- Pattern 1 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">01</div>
+                <div class="pattern-name">PRECEDENCE</div>
+                <div class="pattern-title" data-i18n="pat.1.title">Precedence Ordering</div>
+                <div class="pattern-desc" data-i18n="pat.1.desc">Each system file carries a numeric precedence value (1-3) that determines override priority. Lower numbers win when rules conflict across files.</div>
+                <div class="pattern-example">precedence: 1&nbsp;&nbsp;# CMDS.md wins<br>precedence: 2&nbsp;&nbsp;# CLAUDE.md / AGENTS.md<br>precedence: 3&nbsp;&nbsp;# Guide / HQ</div>
+            </div>
+            <!-- Pattern 2 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">02</div>
+                <div class="pattern-name">MEMORY-TYPE</div>
+                <div class="pattern-title" data-i18n="pat.2.title">STATIC / DYNAMIC Markers</div>
+                <div class="pattern-desc" data-i18n="pat.2.desc">Files are tagged STATIC (rarely changes, philosophy) or DYNAMIC (updated with new tools, rules). Signals update frequency and cache behavior for AI agents.</div>
+                <div class="pattern-example">memory-type: STATIC&nbsp;&nbsp;# CMDS.md, HQ<br>memory-type: DYNAMIC # CLAUDE.md</div>
+            </div>
+            <!-- Pattern 3 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">03</div>
+                <div class="pattern-name">@INCLUDE</div>
+                <div class="pattern-title" data-i18n="pat.3.title">@include + [[wikilink]]</div>
+                <div class="pattern-desc" data-i18n="pat.3.desc">Shared rules live in .claude/rules/ and are pulled into CLAUDE.md and AGENTS.md via @include directives. Eliminates duplication across AI-facing docs.</div>
+                <div class="pattern-example">@include .claude/rules/indentation-rules.md<br>@include .claude/rules/wikilink-rules.md</div>
+            </div>
+            <!-- Pattern 4 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">04</div>
+                <div class="pattern-name">ESSENTIAL</div>
+                <div class="pattern-title" data-i18n="pat.4.title">Essential (Post-Compact)</div>
+                <div class="pattern-desc" data-i18n="pat.4.desc">Sections marked [ESSENTIAL] survive context compaction. When the context window fills, the AI retains these critical rules even as other content is trimmed.</div>
+                <div class="pattern-example">&lt;!-- [ESSENTIAL] --&gt;<br>YAML: 2 spaces. Body: TAB.<br>Wikilinks in YAML: quoted.</div>
+            </div>
+            <!-- Pattern 5 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">05</div>
+                <div class="pattern-name">REQUIRED-FOR</div>
+                <div class="pattern-title" data-i18n="pat.5.title">required-for / optional-for</div>
+                <div class="pattern-desc" data-i18n="pat.5.desc">Frontmatter fields specify which agents must read the file vs. which can optionally reference it. Reduces unnecessary token consumption per agent.</div>
+                <div class="pattern-example">required-for: [claude-code]<br>optional-for: [gemini, codex, cursor]</div>
+            </div>
+            <!-- Pattern 6 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">06</div>
+                <div class="pattern-name">TOKEN-ESTIMATE</div>
+                <div class="pattern-title" data-i18n="pat.6.title">Token Estimate Field</div>
+                <div class="pattern-desc" data-i18n="pat.6.desc">Each file's frontmatter includes an estimated token count. Helps AI orchestrators budget context window usage before loading files into memory.</div>
+                <div class="pattern-example">token-estimate: ~6200<br># Helps plan which files fit<br># in a 128K context window</div>
+            </div>
+            <!-- Pattern 7 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">07</div>
+                <div class="pattern-name">CHANGELOG</div>
+                <div class="pattern-title" data-i18n="pat.7.title">Changelog Field</div>
+                <div class="pattern-desc" data-i18n="pat.7.desc">Each file's frontmatter links to the central CHANGELOG.md. Provides version lineage so agents know when rules were last modified and what changed.</div>
+                <div class="pattern-example">changelog: "[[CHANGELOG]]"<br># v4: Added shared rules<br># v3: Added frontmatter standard</div>
+            </div>
+            <!-- Pattern 8 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">08</div>
+                <div class="pattern-name">SHARED-RULES</div>
+                <div class="pattern-title" data-i18n="pat.8.title">Shared Rules Directory</div>
+                <div class="pattern-desc" data-i18n="pat.8.desc">Common rules extracted into .claude/rules/ as standalone files. Both CLAUDE.md and AGENTS.md @include them, ensuring a single source of truth for critical rules.</div>
+                <div class="pattern-example">.claude/rules/<br>&nbsp;&nbsp;indentation-rules.md<br>&nbsp;&nbsp;frontmatter-standard.md<br>&nbsp;&nbsp;wikilink-rules.md</div>
+            </div>
+            <!-- Pattern 9 -->
+            <div class="pattern-card reveal">
+                <div class="pattern-number">09</div>
+                <div class="pattern-name">AUDIENCE</div>
+                <div class="pattern-title" data-i18n="pat.9.title">Audience-Based Separation</div>
+                <div class="pattern-desc" data-i18n="pat.9.desc">Files are split by who reads them: AI agents (auto-loaded), human users (manually referenced). No single file tries to serve everyone, keeping each lean and focused.</div>
+                <div class="pattern-example">AI: CMDS.md, CLAUDE.md, AGENTS.md<br>Human: Head Quarter, Guide<br>Both: shared rules via @include</div>
             </div>
         </div>
+    </div>
+</section>
 
-        <div class="why-grid">
-            <div class="why-card reveal">
-                <div class="why-icon">🤖</div>
-                <h3 class="why-title" data-i18n="why.ai.title">AI Agents Need Context</h3>
-                <p class="why-desc" data-i18n="why.ai.desc">When you use AI tools like Claude Code, ChatGPT, or Cursor, they don't know your folder structure, naming conventions, or workflows. These system files give AI the context it needs to help you effectively without breaking your existing patterns.</p>
-            </div>
-            <div class="why-card reveal">
-                <div class="why-icon">🧠</div>
-                <h3 class="why-title" data-i18n="why.human.title">Humans Need Reference</h3>
-                <p class="why-desc" data-i18n="why.human.desc">Even the creator of a knowledge system can forget conventions over time. These files serve as living documentation - a single source of truth for how your system works, what goes where, and why decisions were made.</p>
-            </div>
-            <div class="why-card reveal">
-                <div class="why-icon">🔄</div>
-                <h3 class="why-title" data-i18n="why.sync.title">Human-AI Collaboration</h3>
-                <p class="why-desc" data-i18n="why.sync.desc">The 5-file structure creates a bridge between human understanding and AI capabilities. AI documents (CLAUDE.md, AGENTS.md, CMDS.md) are loaded into AI context windows, while human documents (Guide, HQ) provide quick reference for daily use.</p>
-            </div>
-            <div class="why-card reveal">
-                <div class="why-icon">📈</div>
-                <h3 class="why-title" data-i18n="why.scale.title">Systems Scale Better</h3>
-                <p class="why-desc" data-i18n="why.scale.desc">A 5,000+ note knowledge base without documentation becomes chaos. With clear system files, you can onboard new AI tools, maintain consistency across years of notes, and evolve your system without losing its foundation.</p>
-            </div>
-        </div>
-    </section>
+<!-- =========================================== -->
+<!-- 03: SHARED RULES                            -->
+<!-- =========================================== -->
+<section class="section" id="rules" data-search="rules shared indentation frontmatter file creation wikilink directory structure">
+    <div class="section-inner">
+        <div class="section-eyebrow reveal">// 03 SHARED RULES</div>
+        <h2 class="section-title reveal" data-i18n="section.rules.title">SHARED <span class="accent">RULES</span></h2>
+        <p class="section-desc reveal" data-i18n="section.rules.desc">5 rule files in .claude/rules/ &mdash; the single source of truth for formatting, structure, and conventions. Consumed by CLAUDE.md and AGENTS.md via @include.</p>
 
-    <section class="section" id="files">
-        <div class="section-header reveal">
-            <div class="section-number">01</div>
-            <div>
-                <h2 class="section-title">CORE <span class="highlight">FILES</span></h2>
-                <p class="section-desc" data-i18n="section.files.desc">5 system files that provide complete guidance for AI agents and human users working with the CMDS vault.</p>
-            </div>
-        </div>
-
-        <div class="files-grid">
-            <div class="file-card reveal" data-index="01">
-                <div class="file-header">
-                    <div class="file-icon">📋</div>
-                    <a href="files/CLAUDE.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
-                </div>
-                <div class="file-name">CLAUDE.md</div>
-                <div class="file-desc" data-i18n="file.claude.desc">Technical implementation guide for Claude Code. File operations, commands, vault rules.</div>
-                <span class="file-badge ai">AI Agent</span>
-            </div>
-            <div class="file-card reveal" data-index="02">
-                <div class="file-header">
-                    <div class="file-icon">🤖</div>
-                    <a href="files/AGENTS.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
-                </div>
-                <div class="file-name">AGENTS.md</div>
-                <div class="file-desc" data-i18n="file.agents.desc">General guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf.</div>
-                <span class="file-badge ai">AI Agent</span>
-            </div>
-            <div class="file-card reveal" data-index="03">
-                <div class="file-header">
-                    <div class="file-icon">📖</div>
-                    <a href="files/CMDS.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
-                </div>
-                <div class="file-name">CMDS.md</div>
-                <div class="file-desc" data-i18n="file.cmds.desc">System philosophy & user context. WHY & WHAT - Purpose, workflows, 9 categories.</div>
-                <span class="file-badge ai">AI Agent</span>
-            </div>
-            <div class="file-card reveal" data-index="04">
-                <div class="file-header">
-                    <div class="file-icon">📐</div>
-                    <a href="files/CMDS-Guide.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
-                </div>
-                <div class="file-name">CMDS Guide.md</div>
-                <div class="file-desc" data-i18n="file.guide.desc">Operational standards. Properties templates, naming conventions, folder structure.</div>
-                <span class="file-badge human">Human</span>
-            </div>
-            <div class="file-card reveal" data-index="05">
-                <div class="file-header">
-                    <div class="file-icon">🏛</div>
-                    <a href="files/CMDS-Head-Quarter.md" download class="file-download">↓ <span data-i18n="btn.download">Download</span></a>
-                </div>
-                <div class="file-name">CMDS Head Quarter.md</div>
-                <div class="file-desc" data-i18n="file.hq.desc">Navigation hub. Quick access to all 91 subcategories and ChatGPT GPT links.</div>
-                <span class="file-badge human">Human</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="architecture">
-        <div class="section-header reveal">
-            <div class="section-number">02</div>
-            <div>
-                <h2 class="section-title">CMDS <span class="highlight">ARCHITECTURE</span></h2>
-                <p class="section-desc" data-i18n="section.arch.desc">9 major categories (100-900 series) organizing all knowledge into distinct stages of the knowledge lifecycle.</p>
-            </div>
-        </div>
-
-        <div class="categories-grid">
-            <div class="category-card reveal">
-                <div class="category-number">100</div>
-                <div class="category-name">📖 Themes</div>
-                <div class="category-purpose" data-i18n="cat.100.purpose">Discovery & Connection</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.100.item1">Interests</span>
-                    <span class="category-item" data-i18n="cat.100.item2">Topics</span>
-                    <span class="category-item" data-i18n="cat.100.item3">Variables</span>
-                    <span class="category-item" data-i18n="cat.100.item4">Terminologies</span>
+        <div class="rules-grid">
+            <!-- Rule 1 -->
+            <div class="rule-card reveal">
+                <div class="rule-icon">&#9881;</div>
+                <div class="rule-filename">.claude/rules/indentation-rules.md</div>
+                <div class="rule-title" data-i18n="rule.1.title">Indentation Rules</div>
+                <div class="rule-desc" data-i18n="rule.1.desc">YAML frontmatter uses 2 spaces. Markdown body uses TAB. The most common mistake in vault editing &mdash; enforced as a shared rule so every AI agent follows the same standard.</div>
+                <div class="rule-consumers">
+                    <span class="rule-consumer">CLAUDE.md</span>
+                    <span class="rule-consumer">AGENTS.md</span>
                 </div>
             </div>
-            <div class="category-card reveal">
-                <div class="category-number">200</div>
-                <div class="category-name">📖 Literature</div>
-                <div class="category-purpose" data-i18n="cat.200.purpose">Integration & Theory</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.200.item1">Concepts</span>
-                    <span class="category-item" data-i18n="cat.200.item2">Frameworks</span>
-                    <span class="category-item" data-i18n="cat.200.item3">Theories</span>
-                    <span class="category-item" data-i18n="cat.200.item4">Books</span>
+            <!-- Rule 2 -->
+            <div class="rule-card reveal">
+                <div class="rule-icon">&#128196;</div>
+                <div class="rule-filename">.claude/rules/frontmatter-standard.md</div>
+                <div class="rule-title" data-i18n="rule.2.title">Frontmatter Standard</div>
+                <div class="rule-desc" data-i18n="rule.2.desc">6 required properties for every note: type, aliases, author, date created, date modified, tags. Defines ISO 8601 dates, array formats, and CamelCase conventions.</div>
+                <div class="rule-consumers">
+                    <span class="rule-consumer">CLAUDE.md</span>
+                    <span class="rule-consumer">AGENTS.md</span>
                 </div>
             </div>
-            <div class="category-card reveal">
-                <div class="category-number">300</div>
-                <div class="category-name">📖 Data</div>
-                <div class="category-purpose" data-i18n="cat.300.purpose">Collection & Management</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.300.item1">Surveys</span>
-                    <span class="category-item" data-i18n="cat.300.item2">Databases</span>
-                    <span class="category-item" data-i18n="cat.300.item3">Panel Data</span>
-                    <span class="category-item">LMS</span>
+            <!-- Rule 3 -->
+            <div class="rule-card reveal">
+                <div class="rule-icon">&#128193;</div>
+                <div class="rule-filename">.claude/rules/file-creation-rules.md</div>
+                <div class="rule-title" data-i18n="rule.3.title">File Creation Rules</div>
+                <div class="rule-desc" data-i18n="rule.3.desc">All code outputs go to 00. Inbox/03. AI Agent/{env-subfolder}/. Multi-file projects require a dated folder. Filenames follow YYYY-MM-DD-description.ext convention.</div>
+                <div class="rule-consumers">
+                    <span class="rule-consumer">CLAUDE.md</span>
+                    <span class="rule-consumer">AGENTS.md</span>
                 </div>
             </div>
-            <div class="category-card reveal">
-                <div class="category-number">400</div>
-                <div class="category-name">📖 Methodologies</div>
-                <div class="category-purpose" data-i18n="cat.400.purpose">Analysis & Implementation</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.400.item1">Research Methods</span>
-                    <span class="category-item" data-i18n="cat.400.item2">Statistics</span>
-                    <span class="category-item" data-i18n="cat.400.item3">Machine Learning</span>
-                    <span class="category-item" data-i18n="cat.400.item4">Prompts</span>
+            <!-- Rule 4 -->
+            <div class="rule-card reveal">
+                <div class="rule-icon">&#128279;</div>
+                <div class="rule-filename">.claude/rules/wikilink-rules.md</div>
+                <div class="rule-title" data-i18n="rule.4.title">Wikilink Rules</div>
+                <div class="rule-desc" data-i18n="rule.4.desc">Internal references use [[double brackets]]. Wikilinks inside YAML must be quoted with double quotes. Supports aliases, headings, blocks, and embeds.</div>
+                <div class="rule-consumers">
+                    <span class="rule-consumer">CLAUDE.md</span>
+                    <span class="rule-consumer">AGENTS.md</span>
                 </div>
             </div>
-            <div class="category-card reveal">
-                <div class="category-number">500</div>
-                <div class="category-name">📖 Products</div>
-                <div class="category-purpose" data-i18n="cat.500.purpose">Tools & Platforms</div>
-                <div class="category-items">
-                    <span class="category-item">Obsidian</span>
-                    <span class="category-item">ChatGPT</span>
-                    <span class="category-item">Claude</span>
-                    <span class="category-item">n8n</span>
-                </div>
-            </div>
-            <div class="category-card reveal">
-                <div class="category-number">600</div>
-                <div class="category-name">📖 Specialties</div>
-                <div class="category-purpose" data-i18n="cat.600.purpose">Expertise & Application</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.600.item1">Knowledge Mgmt</span>
-                    <span class="category-item" data-i18n="cat.600.item2">Second Brain</span>
-                    <span class="category-item" data-i18n="cat.600.item3">Gen AI</span>
-                    <span class="category-item" data-i18n="cat.600.item4">Productivity</span>
-                </div>
-            </div>
-            <div class="category-card reveal">
-                <div class="category-number">700</div>
-                <div class="category-name">📖 Creatives</div>
-                <div class="category-purpose" data-i18n="cat.700.purpose">Expression & Content</div>
-                <div class="category-items">
-                    <span class="category-item">YouTube</span>
-                    <span class="category-item">SNS</span>
-                    <span class="category-item" data-i18n="cat.700.item3">Music</span>
-                    <span class="category-item" data-i18n="cat.700.item4">Digital Art</span>
-                </div>
-            </div>
-            <div class="category-card reveal">
-                <div class="category-number">800</div>
-                <div class="category-name">📖 Outputs</div>
-                <div class="category-purpose" data-i18n="cat.800.purpose">Publication & Delivery</div>
-                <div class="category-items">
-                    <span class="category-item">PhD</span>
-                    <span class="category-item" data-i18n="cat.800.item2">Articles</span>
-                    <span class="category-item" data-i18n="cat.800.item3">Lectures</span>
-                    <span class="category-item" data-i18n="cat.800.item4">Consulting</span>
-                </div>
-            </div>
-            <div class="category-card reveal">
-                <div class="category-number">900</div>
-                <div class="category-name">📖 Divisions</div>
-                <div class="category-purpose" data-i18n="cat.900.purpose">Operations & Management</div>
-                <div class="category-items">
-                    <span class="category-item" data-i18n="cat.900.item1">9 Professional</span>
-                    <span class="category-item" data-i18n="cat.900.item2">Divisions</span>
+            <!-- Rule 5 -->
+            <div class="rule-card reveal">
+                <div class="rule-icon">&#128450;</div>
+                <div class="rule-filename">.claude/rules/directory-structure.md</div>
+                <div class="rule-title" data-i18n="rule.5.title">Directory Structure</div>
+                <div class="rule-desc" data-i18n="rule.5.desc">Maps the full vault folder layout (00-90 series) with purpose descriptions. Defines which folders are for inbox, process, literature, outputs, settings, and more.</div>
+                <div class="rule-consumers">
+                    <span class="rule-consumer">CLAUDE.md</span>
+                    <span class="rule-consumer">AGENTS.md</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="section" id="process">
-        <div class="section-header reveal">
-            <div class="section-number">03</div>
-            <div>
-                <h2 class="section-title">CMDS <span class="highlight">PROCESS</span></h2>
-                <p class="section-desc" data-i18n="section.process.desc">The knowledge lifecycle that guides information through four distinct stages.</p>
+<!-- =========================================== -->
+<!-- 04: FILE ARCHITECTURE DIAGRAM               -->
+<!-- =========================================== -->
+<section class="section" id="diagram" data-search="diagram architecture flow include wikilink reference">
+    <div class="section-inner">
+        <div class="section-eyebrow reveal">// 04 FILE ARCHITECTURE</div>
+        <h2 class="section-title reveal" data-i18n="section.diagram.title">FILE <span class="accent">ARCHITECTURE</span></h2>
+        <p class="section-desc reveal" data-i18n="section.diagram.desc">How shared rules flow into system files via @include (auto) and manual reference. The architecture ensures single-source-of-truth for all formatting rules.</p>
+
+        <div class="arch-flow reveal">
+            <!-- Layer 1: Shared Rules -->
+            <div class="arch-label" data-i18n="diagram.layer1">.CLAUDE/RULES/ (SHARED RULES)</div>
+            <div class="arch-row">
+                <div class="arch-box accent">INDENTATION<small>rule</small></div>
+                <div class="arch-box accent">FRONTMATTER<small>rule</small></div>
+                <div class="arch-box accent">FILE-CREATION<small>rule</small></div>
+                <div class="arch-box accent">WIKILINKS<small>rule</small></div>
+                <div class="arch-box accent">DIRECTORY<small>rule</small></div>
+            </div>
+
+            <!-- Connector -->
+            <div class="arch-connector toxic"></div>
+            <div class="arch-connector-label" data-i18n="diagram.arrow1">@INCLUDE (AUTO-INJECTED)</div>
+            <div class="arch-connector toxic"></div>
+
+            <!-- Layer 2: AI System Files -->
+            <div class="arch-label" data-i18n="diagram.layer2">AI SYSTEM FILES (AUTO-LOADED INTO CONTEXT)</div>
+            <div class="arch-row">
+                <div class="arch-box primary">CMDS.md<small>precedence: 1</small></div>
+                <div class="arch-box primary">CLAUDE.md<small>precedence: 2</small></div>
+                <div class="arch-box primary">AGENTS.md<small>precedence: 2</small></div>
+            </div>
+
+            <!-- Connector -->
+            <div class="arch-connector"></div>
+            <div class="arch-connector-label" data-i18n="diagram.arrow2">[[WIKILINK]] (MANUAL REFERENCE)</div>
+            <div class="arch-connector"></div>
+
+            <!-- Layer 3: Human System Files -->
+            <div class="arch-label" data-i18n="diagram.layer3">HUMAN SYSTEM FILES (REFERENCED IN OBSIDIAN)</div>
+            <div class="arch-row">
+                <div class="arch-box">CMDS HEAD QUARTER<small>precedence: 3</small></div>
+                <div class="arch-box">CMDS GUIDE<small>precedence: 3</small></div>
             </div>
         </div>
+    </div>
+</section>
 
-        <div class="process-grid">
-            <div class="process-step reveal">
-                <div class="process-icon">🔗</div>
-                <div class="process-name">Connect</div>
-                <div class="process-desc" data-i18n="process.connect.desc">Discover ideas by connecting interests and topics</div>
-                <div class="process-categories">100 Themes</div>
+<!-- =========================================== -->
+<!-- 05: CHANGELOG                               -->
+<!-- =========================================== -->
+<section class="section" id="changelog" data-search="changelog version history v1 v2 v3 v4">
+    <div class="section-inner">
+        <div class="section-eyebrow reveal">// 05 CHANGELOG</div>
+        <h2 class="section-title reveal" data-i18n="section.changelog.title"><span class="accent">CHANGELOG</span></h2>
+        <p class="section-desc reveal" data-i18n="section.changelog.desc">Version history of the CMDS System Files architecture, tracked in CHANGELOG.md.</p>
+
+        <div class="changelog-list">
+            <!-- v4.2 -->
+            <div class="changelog-item current reveal">
+                <div class="changelog-version">v4.2</div>
+                <div>
+                    <div class="changelog-date">2026-04-15</div>
+                    <div class="changelog-title" data-i18n="cl.v42.title">CMDS Process Command Suite</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v42.1">Added 8 slash commands aligned with CMDS Process (Connect / Merge / Develop / Share)</li>
+                            <li data-i18n="cl.v42.2">Stage commands: <code>/connect</code>, <code>/merge</code>, <code>/develop</code>, <code>/share</code></li>
+                            <li data-i18n="cl.v42.3">Cross-cutting utilities: <code>/inbox</code> (router), <code>/lint</code>, <code>/query</code>, <code>/status</code></li>
+                            <li data-i18n="cl.v42.4">Design principle: <code>/inbox</code> is router-only; <code>/share</code> is orchestrator-only (delegates to skills)</li>
+                            <li data-i18n="cl.v42.5"><code>/query</code> results classify into CMDS categories — no separate folder</li>
+                            <li data-i18n="cl.v42.6">Introduced 10 new camelCase frontmatter fields (<code>mergePurpose</code>, <code>sourceNotes</code>, <code>shareFormat</code>, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="process-step reveal">
-                <div class="process-icon">🔀</div>
-                <div class="process-name">Merge</div>
-                <div class="process-desc" data-i18n="process.merge.desc">Build theoretical foundations by integrating knowledge</div>
-                <div class="process-categories">200 Literature</div>
+            <!-- v4.1 -->
+            <div class="changelog-item reveal">
+                <div class="changelog-version">v4.1</div>
+                <div>
+                    <div class="changelog-date">2026-04-07</div>
+                    <div class="changelog-title" data-i18n="cl.v41.title">Description Field Standardization</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v41.1">Expanded required properties from 6 to 7 — added <code>description</code> field</li>
+                            <li data-i18n="cl.v41.2">New rule: <code>description</code> must be written in English (1-2 sentences) as an LLM relevance hint</li>
+                            <li data-i18n="cl.v41.3">Updated <code>frontmatter-standard.md</code> shared rule with English-only requirement and examples</li>
+                            <li data-i18n="cl.v41.4">Converted all 5 system file descriptions from Korean to English (exemplar role)</li>
+                            <li data-i18n="cl.v41.5">Added <code>description</code> check to CLAUDE.md Pre-Flight Checklist</li>
+                            <li data-i18n="cl.v41.6">Saved feedback memory for cross-session persistence</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="process-step reveal">
-                <div class="process-icon">🛠</div>
-                <div class="process-name">Develop</div>
-                <div class="process-desc" data-i18n="process.develop.desc">Collect data and apply methodologies</div>
-                <div class="process-categories">300-600</div>
+            <!-- v4.0 -->
+            <div class="changelog-item reveal">
+                <div class="changelog-version">v4.0</div>
+                <div>
+                    <div class="changelog-date">2026-04-01</div>
+                    <div class="changelog-title" data-i18n="cl.v4.title">Shared Rules + Architecture Patterns</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v4.1">Added 5 shared rule files in .claude/rules/</li>
+                            <li data-i18n="cl.v4.2">Introduced @include pattern for rule reuse</li>
+                            <li data-i18n="cl.v4.3">Documented 9 architecture patterns</li>
+                            <li data-i18n="cl.v4.4">Added precedence, memory-type, token-estimate to frontmatter</li>
+                            <li data-i18n="cl.v4.5">Created CHANGELOG.md for version tracking</li>
+                            <li data-i18n="cl.v4.6">New essential (post-compact) markers for critical rules</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="process-step reveal">
-                <div class="process-icon">📤</div>
-                <div class="process-name">Share</div>
-                <div class="process-desc" data-i18n="process.share.desc">Disseminate creative work and outputs</div>
-                <div class="process-categories">700-800</div>
+            <!-- v3 -->
+            <div class="changelog-item reveal">
+                <div class="changelog-version">v3</div>
+                <div>
+                    <div class="changelog-date">2026-03-15</div>
+                    <div class="changelog-title" data-i18n="cl.v3.title">Frontmatter Standard + Share System</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v3.1">Introduced structured YAML frontmatter for all system files</li>
+                            <li data-i18n="cl.v3.2">Added description, audience, scope fields</li>
+                            <li data-i18n="cl.v3.3">Created share system with 8 placeholder rules</li>
+                            <li data-i18n="cl.v3.4">Backup/share copy workflow for sanitized distribution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- v2 -->
+            <div class="changelog-item reveal">
+                <div class="changelog-version">v2</div>
+                <div>
+                    <div class="changelog-date">2026-01-20</div>
+                    <div class="changelog-title" data-i18n="cl.v2.title">5-File Architecture</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v2.1">Split single doc into 5 audience-specific files</li>
+                            <li data-i18n="cl.v2.2">Added AGENTS.md for non-Claude AI tools</li>
+                            <li data-i18n="cl.v2.3">Separated human docs (HQ, Guide) from AI docs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- v1 -->
+            <div class="changelog-item reveal">
+                <div class="changelog-version">v1</div>
+                <div>
+                    <div class="changelog-date">2025-10-01</div>
+                    <div class="changelog-title" data-i18n="cl.v1.title">Initial System Files</div>
+                    <div class="changelog-changes">
+                        <ul>
+                            <li data-i18n="cl.v1.1">Created CMDS.md and CLAUDE.md as initial system documentation</li>
+                            <li data-i18n="cl.v1.2">Defined CMDS categories (100-900) and vault structure</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="cta-section" id="download">
-        <h2 class="cta-title reveal">
+<!-- =========================================== -->
+<!-- 06: DOWNLOAD                                -->
+<!-- =========================================== -->
+<section class="download-section" id="download" data-search="download zip github files get">
+    <div class="download-inner">
+        <h2 class="download-title reveal">
             GET THE<br>
             <span class="outline">FILES</span>
         </h2>
-        <p class="cta-desc reveal" data-i18n="cta.desc">Download the complete CMDS System Files package and start building your knowledge architecture.</p>
-        <div class="cta-buttons reveal">
-            <a href="https://github.com/johnfkoo951/cmds-system-files" class="btn btn-primary" target="_blank" data-i18n="cta.github">GitHub Repository</a>
-            <a href="files/CMDS-System-Files.zip" download class="btn btn-secondary" data-i18n="cta.zip">Download All (ZIP)</a>
+        <p class="download-desc reveal" data-i18n="cta.desc">Download the complete CMDS System Files v4 package &mdash; system files, shared rules, and changelog.</p>
+        <div class="download-buttons reveal">
+            <a href="files/CMDS-System-Files.zip" download class="btn btn-primary" data-i18n="cta.zip">&#8595; Download All (ZIP)</a>
+            <a href="https://github.com/johnfkoo951/cmds-system-files" class="btn btn-secondary" target="_blank" data-i18n="cta.github">GitHub Repository</a>
         </div>
-    </section>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="footer-logo">CMD<span>SPACE</span></div>
-                <p class="footer-desc" data-i18n="footer.desc">Personal Knowledge Management System. Connect → Merge → Develop → Share.</p>
-            </div>
-            <div class="footer-links">
-                <a href="https://litt.ly/cmds" class="footer-link" target="_blank">Profile</a>
-                <a href="https://www.youtube.com/@cmdspace" class="footer-link" target="_blank">YouTube</a>
-                <a href="https://x.com/YohanKoo" class="footer-link" target="_blank">X</a>
-                <a href="https://www.linkedin.com/in/yohan-koo-a1baa3138/" class="footer-link" target="_blank">LinkedIn</a>
-                <a href="https://www.threads.com/@cmds_pace" class="footer-link" target="_blank">Threads</a>
-                <a href="https://class.cmdspace.kr/" class="footer-link" target="_blank">Edu</a>
-            </div>
+        <div class="dl-section-label reveal" data-i18n="dl.label.system">SYSTEM FILES</div>
+        <div class="dl-files-grid reveal">
+            <div class="dl-file-card"><a href="files/CMDS.md" download><div class="dl-file-name">CMDS.md</div><div class="dl-file-size">~18 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/CLAUDE.md" download><div class="dl-file-name">CLAUDE.md</div><div class="dl-file-size">~15 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/AGENTS.md" download><div class="dl-file-name">AGENTS.md</div><div class="dl-file-size">~5 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/CMDS-Head-Quarter.md" download><div class="dl-file-name">CMDS Head Quarter.md</div><div class="dl-file-size">~8 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/CMDS-Guide.md" download><div class="dl-file-name">CMDS Guide.md</div><div class="dl-file-size">~12 KB</div></a></div>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-copyright">© 2026 CMDSPACE // BRUTALIST EDITION v2.0</div>
-            <div class="footer-ip" data-i18n="footer.ip">본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다.</div>
+
+        <div class="dl-section-label reveal" data-i18n="dl.label.rules">SHARED RULES (.CLAUDE/RULES/)</div>
+        <div class="dl-files-grid reveal">
+            <div class="dl-file-card"><a href="files/rules/indentation-rules.md" download><div class="dl-file-name">indentation-rules.md</div><div class="dl-file-size">~1 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/rules/frontmatter-standard.md" download><div class="dl-file-name">frontmatter-standard.md</div><div class="dl-file-size">~2 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/rules/file-creation-rules.md" download><div class="dl-file-name">file-creation-rules.md</div><div class="dl-file-size">~2 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/rules/wikilink-rules.md" download><div class="dl-file-name">wikilink-rules.md</div><div class="dl-file-size">~1 KB</div></a></div>
+            <div class="dl-file-card"><a href="files/rules/directory-structure.md" download><div class="dl-file-name">directory-structure.md</div><div class="dl-file-size">~2 KB</div></a></div>
         </div>
-    </footer>
 
-    <script>
-        // i18n Translations
-        const translations = {
-            en: {
-                "nav.why": "Why",
-                "nav.files": "Files",
-                "nav.architecture": "Architecture",
-                "nav.process": "Process",
-                "nav.download": "Download",
-                "hero.badge": "Knowledge Architecture v2.1",
-                "hero.updated": "Updated",
-                "hero.subtitle": "5 Core System Files that power the CMDSPACE Personal Knowledge Management ecosystem. For AI Agents and Human Users.",
-                "stats.files": "Core Files",
-                "stats.categories": "Categories",
-                "stats.subcategories": "Subcategories",
-                "stats.notes": "Notes",
-                "section.files.desc": "5 system files that provide complete guidance for AI agents and human users working with the CMDS vault.",
-                "btn.download": "Download",
-                "file.claude.desc": "Technical implementation guide for Claude Code. File operations, commands, vault rules.",
-                "file.agents.desc": "General guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf.",
-                "file.cmds.desc": "System philosophy & user context. WHY & WHAT - Purpose, workflows, 9 categories.",
-                "file.guide.desc": "Operational standards. Properties templates, naming conventions, folder structure.",
-                "file.hq.desc": "Navigation hub. Quick access to all 91 subcategories and ChatGPT GPT links.",
-                "section.arch.desc": "9 major categories (100-900 series) organizing all knowledge into distinct stages of the knowledge lifecycle.",
-                "cat.100.purpose": "Discovery & Connection",
-                "cat.100.item1": "Interests",
-                "cat.100.item2": "Topics",
-                "cat.100.item3": "Variables",
-                "cat.100.item4": "Terminologies",
-                "cat.200.purpose": "Integration & Theory",
-                "cat.200.item1": "Concepts",
-                "cat.200.item2": "Frameworks",
-                "cat.200.item3": "Theories",
-                "cat.200.item4": "Books",
-                "cat.300.purpose": "Collection & Management",
-                "cat.300.item1": "Surveys",
-                "cat.300.item2": "Databases",
-                "cat.300.item3": "Panel Data",
-                "cat.400.purpose": "Analysis & Implementation",
-                "cat.400.item1": "Research Methods",
-                "cat.400.item2": "Statistics",
-                "cat.400.item3": "Machine Learning",
-                "cat.400.item4": "Prompts",
-                "cat.500.purpose": "Tools & Platforms",
-                "cat.600.purpose": "Expertise & Application",
-                "cat.600.item1": "Knowledge Mgmt",
-                "cat.600.item2": "Second Brain",
-                "cat.600.item3": "Gen AI",
-                "cat.600.item4": "Productivity",
-                "cat.700.purpose": "Expression & Content",
-                "cat.700.item3": "Music",
-                "cat.700.item4": "Digital Art",
-                "cat.800.purpose": "Publication & Delivery",
-                "cat.800.item2": "Articles",
-                "cat.800.item3": "Lectures",
-                "cat.800.item4": "Consulting",
-                "cat.900.purpose": "Operations & Management",
-                "cat.900.item1": "9 Professional",
-                "cat.900.item2": "Divisions",
-                "section.process.desc": "The knowledge lifecycle that guides information through four distinct stages.",
-                "process.connect.desc": "Discover ideas by connecting interests and topics",
-                "process.merge.desc": "Build theoretical foundations by integrating knowledge",
-                "process.develop.desc": "Collect data and apply methodologies",
-                "process.share.desc": "Disseminate creative work and outputs",
-                "cta.desc": "Download the complete CMDS System Files package and start building your knowledge architecture.",
-                "cta.github": "GitHub Repository",
-                "cta.zip": "Download All (ZIP)",
-                "footer.desc": "Personal Knowledge Management System. Connect → Merge → Develop → Share.",
-                "footer.ip": "All intellectual property rights belong to CMDSPACE.",
-                "section.why.desc": "In the AI era, your knowledge system needs clear documentation for both humans and AI agents to work together effectively.",
-                "why.ai.title": "AI Agents Need Context",
-                "why.ai.desc": "When you use AI tools like Claude Code, ChatGPT, or Cursor, they don't know your folder structure, naming conventions, or workflows. These system files give AI the context it needs to help you effectively without breaking your existing patterns.",
-                "why.human.title": "Humans Need Reference",
-                "why.human.desc": "Even the creator of a knowledge system can forget conventions over time. These files serve as living documentation - a single source of truth for how your system works, what goes where, and why decisions were made.",
-                "why.sync.title": "Human-AI Collaboration",
-                "why.sync.desc": "The 5-file structure creates a bridge between human understanding and AI capabilities. AI documents (CLAUDE.md, AGENTS.md, CMDS.md) are loaded into AI context windows, while human documents (Guide, HQ) provide quick reference for daily use.",
-                "why.scale.title": "Systems Scale Better",
-                "why.scale.desc": "A 5,000+ note knowledge base without documentation becomes chaos. With clear system files, you can maintain consistency across years of notes, and evolve your system without losing its foundation."
-            },
-            ko: {
-                "nav.why": "왜?",
-                "nav.files": "파일",
-                "nav.architecture": "아키텍처",
-                "nav.process": "프로세스",
-                "nav.download": "다운로드",
-                "hero.badge": "지식 아키텍처 v2.1",
-                "hero.updated": "업데이트",
-                "hero.subtitle": "CMDSPACE 개인 지식 관리 생태계를 구동하는 5개의 핵심 시스템 파일. AI 에이전트와 인간 사용자를 위한 가이드.",
-                "stats.files": "핵심 파일",
-                "stats.categories": "카테고리",
-                "stats.subcategories": "서브카테고리",
-                "stats.notes": "노트",
-                "section.files.desc": "CMDS 볼트에서 작업하는 AI 에이전트와 인간 사용자를 위한 완전한 가이드를 제공하는 5개의 시스템 파일.",
-                "btn.download": "다운로드",
-                "file.claude.desc": "Claude Code를 위한 기술 구현 가이드. 파일 작업, 명령어, 볼트 규칙.",
-                "file.agents.desc": "다른 AI 코딩 에이전트를 위한 일반 가이드. Gemini CLI, Codex, Cursor, Windsurf.",
-                "file.cmds.desc": "시스템 철학 & 사용자 컨텍스트. WHY & WHAT - 목적, 워크플로우, 9개 카테고리.",
-                "file.guide.desc": "운영 표준. 프로퍼티 템플릿, 명명 규칙, 폴더 구조.",
-                "file.hq.desc": "내비게이션 허브. 91개 서브카테고리와 ChatGPT GPT 링크에 대한 빠른 접근.",
-                "section.arch.desc": "지식 라이프사이클의 단계별로 모든 지식을 구성하는 9개의 주요 카테고리 (100-900 시리즈).",
-                "cat.100.purpose": "발견 & 연결",
-                "cat.100.item1": "관심사",
-                "cat.100.item2": "토픽",
-                "cat.100.item3": "변수",
-                "cat.100.item4": "용어",
-                "cat.200.purpose": "통합 & 이론",
-                "cat.200.item1": "개념",
-                "cat.200.item2": "프레임워크",
-                "cat.200.item3": "이론",
-                "cat.200.item4": "책",
-                "cat.300.purpose": "수집 & 관리",
-                "cat.300.item1": "설문조사",
-                "cat.300.item2": "데이터베이스",
-                "cat.300.item3": "패널 데이터",
-                "cat.400.purpose": "분석 & 구현",
-                "cat.400.item1": "연구 방법",
-                "cat.400.item2": "통계",
-                "cat.400.item3": "머신러닝",
-                "cat.400.item4": "프롬프트",
-                "cat.500.purpose": "도구 & 플랫폼",
-                "cat.600.purpose": "전문성 & 응용",
-                "cat.600.item1": "지식 관리",
-                "cat.600.item2": "세컨드 브레인",
-                "cat.600.item3": "생성형 AI",
-                "cat.600.item4": "생산성",
-                "cat.700.purpose": "표현 & 콘텐츠",
-                "cat.700.item3": "음악",
-                "cat.700.item4": "디지털 아트",
-                "cat.800.purpose": "출판 & 전달",
-                "cat.800.item2": "아티클",
-                "cat.800.item3": "강의",
-                "cat.800.item4": "컨설팅",
-                "cat.900.purpose": "운영 & 관리",
-                "cat.900.item1": "9개 전문",
-                "cat.900.item2": "디비전",
-                "section.process.desc": "정보를 4가지 단계로 안내하는 지식 라이프사이클.",
-                "process.connect.desc": "관심사와 토픽을 연결하여 아이디어 발견",
-                "process.merge.desc": "지식을 통합하여 이론적 기반 구축",
-                "process.develop.desc": "데이터 수집 및 방법론 적용",
-                "process.share.desc": "창작물과 결과물 배포",
-                "cta.desc": "CMDS 시스템 파일 전체 패키지를 다운로드하고 지식 아키텍처를 구축하세요.",
-                "cta.github": "GitHub 저장소",
-                "cta.zip": "전체 다운로드 (ZIP)",
-                "footer.desc": "개인 지식 관리 시스템. Connect → Merge → Develop → Share.",
-                "footer.ip": "본 콘텐츠의 지적재산권은 커맨드스페이스(CMDSPACE)에 있습니다.",
-                "section.why.desc": "AI 시대에는 인간과 AI 에이전트가 효과적으로 협업할 수 있도록 명확한 시스템 문서가 필요합니다.",
-                "why.ai.title": "AI 에이전트에게는 맥락이 필요합니다",
-                "why.ai.desc": "Claude Code, ChatGPT, Cursor 같은 AI 도구를 사용할 때, AI는 당신의 폴더 구조, 명명 규칙, 워크플로우를 모릅니다. 이 시스템 파일들은 AI가 기존 패턴을 깨뜨리지 않고 효과적으로 도울 수 있는 맥락을 제공합니다.",
-                "why.human.title": "인간에게도 참조 문서가 필요합니다",
-                "why.human.desc": "지식 시스템을 만든 사람도 시간이 지나면 규칙을 잊을 수 있습니다. 이 파일들은 살아있는 문서로서 - 시스템이 어떻게 작동하는지, 무엇이 어디에 있는지, 왜 그렇게 결정했는지에 대한 단일 진실의 원천 역할을 합니다.",
-                "why.sync.title": "인간-AI 협업",
-                "why.sync.desc": "5개 파일 구조는 인간의 이해와 AI 능력 사이의 다리를 만듭니다. AI 문서(CLAUDE.md, AGENTS.md, CMDS.md)는 AI 컨텍스트 윈도우에 로드되고, 인간 문서(Guide, HQ)는 일상적인 빠른 참조를 제공합니다.",
-                "why.scale.title": "시스템은 더 잘 확장됩니다",
-                "why.scale.desc": "문서화 없는 5,000개 이상의 노트 지식 베이스는 혼란이 됩니다. 명확한 시스템 파일이 있으면 수년간의 노트에서 일관성을 유지하고, 기반을 잃지 않으면서 시스템을 발전시킬 수 있습니다."
-            }
-        };
+        <div class="dl-section-label reveal" data-i18n="dl.label.changelog">CHANGELOG</div>
+        <div class="dl-files-grid reveal">
+            <div class="dl-file-card"><a href="files/CHANGELOG.md" download><div class="dl-file-name">CHANGELOG.md</div><div class="dl-file-size">~3 KB</div></a></div>
+        </div>
+    </div>
+</section>
 
-        // Language Switcher
-        function setLanguage(lang) {
-            document.documentElement.setAttribute('data-lang', lang);
-            document.documentElement.setAttribute('lang', lang);
-            localStorage.setItem('cmds-lang', lang);
-            
-            // Update active button
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
-            
-            // Update all translatable elements
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
+<!-- =========================================== -->
+<!-- CTA BANNER                                  -->
+<!-- =========================================== -->
+<section class="cta-banner">
+    <div class="cta-banner-inner">
+        <div>
+            <div class="cta-banner-eyebrow">// CMDSPACE EDUCATION</div>
+            <div class="cta-banner-title en-only">Want to learn more?</div>
+            <div class="cta-banner-title ko-only">&#xB354; &#xAE4A;&#xC774; &#xBC30;&#xC6B0;&#xACE0; &#xC2F6;&#xB2E4;&#xBA74;</div>
+            <div class="cta-banner-desc en-only">Explore courses on PKM, Obsidian, AI agents, and knowledge architecture from the creator of CMDS.</div>
+            <div class="cta-banner-desc ko-only">Obsidian, AI &#xC5D0;&#xC774;&#xC804;&#xD2B8;, PKM&#xC5D0; &#xB300;&#xD55C; &#xCCB4;&#xACC4;&#xC801;&#xC778; &#xAC15;&#xC758;&#xB97C; &#xCEE4;&#xB9E8;&#xB4DC;&#xC2A4;&#xD398;&#xC774;&#xC2A4;&#xC5D0;&#xC11C; &#xB9CC;&#xB098;&#xBCF4;&#xC138;&#xC694;.</div>
+        </div>
+        <a href="https://class.cmdspace.kr/" target="_blank" rel="noopener" class="cta-banner-btn en-only">CMDSPACE EDUCATION &rarr;</a>
+        <a href="https://class.cmdspace.kr/" target="_blank" rel="noopener" class="cta-banner-btn ko-only">&#xCEE4;&#xB9E8;&#xB4DC;&#xC2A4;&#xD398;&#xC774;&#xC2A4; &#xAC15;&#xC758; &#xBCF4;&#xB7EC;&#xAC00;&#xAE30; &rarr;</a>
+    </div>
+</section>
+
+<!-- =========================================== -->
+<!-- FOOTER                                      -->
+<!-- =========================================== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-logo">CMD<span>SPACE</span></div>
+        <p class="footer-tagline" data-i18n="footer.desc">Personal Knowledge Management System. Connect &rarr; Merge &rarr; Develop &rarr; Share.</p>
+        <div class="footer-links">
+            <a href="https://litt.ly/cmds" target="_blank" class="footer-link">PROFILE</a>
+            <a href="https://www.youtube.com/@cmdspace" target="_blank" class="footer-link">YOUTUBE</a>
+            <a href="https://x.com/YohanKoo" target="_blank" class="footer-link">X</a>
+            <a href="https://www.linkedin.com/in/yohan-koo-a1baa3138/" target="_blank" class="footer-link">LINKEDIN</a>
+            <a href="https://www.threads.com/@cmds_pace" target="_blank" class="footer-link">THREADS</a>
+            <a href="https://class.cmdspace.kr/" target="_blank" class="footer-link">EDU</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 CMDSPACE // ALL RIGHTS RESERVED &middot; BRUTALIST EDITION V4.2 &middot; UPDATED 2026-04-15</div>
+    </div>
+</footer>
+
+<!-- TOAST + SCROLL-TO-TOP -->
+<div class="toast" id="toast">COPIED TO CLIPBOARD</div>
+<button class="scroll-top" id="scrollTop">&#x2191;</button>
+
+<script>
+(function() {
+    'use strict';
+
+    // ===========================================
+    // TRANSLATIONS
+    // ===========================================
+    var translations = {
+        en: {
+            "nav.files": "FILES",
+            "nav.patterns": "PATTERNS",
+            "nav.rules": "RULES",
+            "nav.diagram": "DIAGRAM",
+            "nav.changelog": "CHANGELOG",
+            "nav.download": "DOWNLOAD",
+            "hero.badge": "KNOWLEDGE ARCHITECTURE V4.2",
+            "hero.subtitle": "5 Core Files + 5 Shared Rules + 9 Architecture Patterns that power the CMDSPACE PKM ecosystem \u2014 designed for AI agents and human users alike.<span class=\"cursor-blink\"></span>",
+            "stats.files": "SYSTEM FILES",
+            "stats.rules": "SHARED RULES",
+            "stats.patterns": "ARCH PATTERNS",
+            "stats.notes": "NOTES",
+            "section.files.title": "CORE <span class=\"accent\">SYSTEM FILES</span>",
+            "section.files.desc": "5 files with structured frontmatter \u2014 each with precedence, memory-type, token-estimate, and audience fields. v4 introduces @include shared rules.",
+            "file.cmds.desc": "System philosophy and user context. WHY & WHAT \u2014 purpose, workflows, 9 categories, CMDS Process explained.",
+            "file.cmds.audience": "All LLM Assistants",
+            "file.claude.desc": "Technical implementation guide for Claude Code. File operations, commands, vault rules. Uses @include for shared rules.",
+            "file.agents.desc": "Portable technical guide for other AI coding agents. Gemini CLI, Codex, Cursor, Windsurf. Uses @include for shared rules.",
+            "file.agents.audience": "Gemini, Codex, etc.",
+            "file.hq.desc": "Navigation hub for user. Quick access to all 91 subcategories, ChatGPT GPT links, and the full category map.",
+            "file.hq.audience": "User",
+            "file.guide.desc": "Operational standards. Properties templates, naming conventions, note types, folder structure, and status values.",
+            "file.guide.audience": "User + AI",
+            "meta.audience": "AUDIENCE:",
+            "meta.precedence": "PRECEDENCE:",
+            "meta.memory": "MEMORY-TYPE:",
+            "meta.tokens": "TOKEN-EST:",
+            "section.patterns.title": "ARCHITECTURE <span class=\"accent\">PATTERNS</span>",
+            "section.patterns.desc": "9 design patterns discovered through iterative development of the CMDS system files \u2014 each solving a specific knowledge architecture challenge.",
+            "pat.1.title": "Precedence Ordering",
+            "pat.1.desc": "Each system file carries a numeric precedence value (1-3) that determines override priority. Lower numbers win when rules conflict across files.",
+            "pat.2.title": "STATIC / DYNAMIC Markers",
+            "pat.2.desc": "Files are tagged STATIC (rarely changes, philosophy) or DYNAMIC (updated with new tools, rules). Signals update frequency and cache behavior for AI agents.",
+            "pat.3.title": "@include + [[wikilink]]",
+            "pat.3.desc": "Shared rules live in .claude/rules/ and are pulled into CLAUDE.md and AGENTS.md via @include directives. Eliminates duplication across AI-facing docs.",
+            "pat.4.title": "Essential (Post-Compact)",
+            "pat.4.desc": "Sections marked [ESSENTIAL] survive context compaction. When the context window fills, the AI retains these critical rules even as other content is trimmed.",
+            "pat.5.title": "required-for / optional-for",
+            "pat.5.desc": "Frontmatter fields specify which agents must read the file vs. which can optionally reference it. Reduces unnecessary token consumption per agent.",
+            "pat.6.title": "Token Estimate Field",
+            "pat.6.desc": "Each file's frontmatter includes an estimated token count. Helps AI orchestrators budget context window usage before loading files into memory.",
+            "pat.7.title": "Changelog Field",
+            "pat.7.desc": "Each file's frontmatter links to the central CHANGELOG.md. Provides version lineage so agents know when rules were last modified and what changed.",
+            "pat.8.title": "Shared Rules Directory",
+            "pat.8.desc": "Common rules extracted into .claude/rules/ as standalone files. Both CLAUDE.md and AGENTS.md @include them, ensuring a single source of truth for critical rules.",
+            "pat.9.title": "Audience-Based Separation",
+            "pat.9.desc": "Files are split by who reads them: AI agents (auto-loaded), human users (manually referenced). No single file tries to serve everyone, keeping each lean and focused.",
+            "section.rules.title": "SHARED <span class=\"accent\">RULES</span>",
+            "section.rules.desc": "5 rule files in .claude/rules/ \u2014 the single source of truth for formatting, structure, and conventions. Consumed by CLAUDE.md and AGENTS.md via @include.",
+            "rule.1.title": "Indentation Rules",
+            "rule.1.desc": "YAML frontmatter uses 2 spaces. Markdown body uses TAB. The most common mistake in vault editing \u2014 enforced as a shared rule so every AI agent follows the same standard.",
+            "rule.2.title": "Frontmatter Standard",
+            "rule.2.desc": "6 required properties for every note: type, aliases, author, date created, date modified, tags. Defines ISO 8601 dates, array formats, and CamelCase conventions.",
+            "rule.3.title": "File Creation Rules",
+            "rule.3.desc": "All code outputs go to 00. Inbox/03. AI Agent/{env-subfolder}/. Multi-file projects require a dated folder. Filenames follow YYYY-MM-DD-description.ext convention.",
+            "rule.4.title": "Wikilink Rules",
+            "rule.4.desc": "Internal references use [[double brackets]]. Wikilinks inside YAML must be quoted with double quotes. Supports aliases, headings, blocks, and embeds.",
+            "rule.5.title": "Directory Structure",
+            "rule.5.desc": "Maps the full vault folder layout (00-90 series) with purpose descriptions. Defines which folders are for inbox, process, literature, outputs, settings, and more.",
+            "section.diagram.title": "FILE <span class=\"accent\">ARCHITECTURE</span>",
+            "section.diagram.desc": "How shared rules flow into system files via @include (auto) and manual reference. The architecture ensures single-source-of-truth for all formatting rules.",
+            "diagram.title": "CMDS SYSTEM FILES V4 ARCHITECTURE",
+            "diagram.layer1": ".CLAUDE/RULES/ (SHARED RULES)",
+            "diagram.arrow1": "@INCLUDE (AUTO-INJECTED)",
+            "diagram.layer2": "AI SYSTEM FILES (AUTO-LOADED INTO CONTEXT)",
+            "diagram.arrow2": "[[WIKILINK]] (MANUAL REFERENCE)",
+            "diagram.layer3": "HUMAN SYSTEM FILES (REFERENCED IN OBSIDIAN)",
+            "section.changelog.title": "<span class=\"accent\">CHANGELOG</span>",
+            "section.changelog.desc": "Version history of the CMDS System Files architecture, tracked in CHANGELOG.md.",
+            "cl.v42.title": "CMDS Process Command Suite",
+            "cl.v42.1": "Added 8 slash commands aligned with CMDS Process (Connect / Merge / Develop / Share)",
+            "cl.v42.2": "Stage commands: <code>/connect</code>, <code>/merge</code>, <code>/develop</code>, <code>/share</code>",
+            "cl.v42.3": "Cross-cutting utilities: <code>/inbox</code> (router), <code>/lint</code>, <code>/query</code>, <code>/status</code>",
+            "cl.v42.4": "Design principle: <code>/inbox</code> is router-only; <code>/share</code> is orchestrator-only (delegates to skills)",
+            "cl.v42.5": "<code>/query</code> results classify into CMDS categories — no separate folder",
+            "cl.v42.6": "Introduced 10 new camelCase frontmatter fields (<code>mergePurpose</code>, <code>sourceNotes</code>, <code>shareFormat</code>, etc.)",
+            "cl.v41.title": "Description Field Standardization",
+            "cl.v41.1": "Expanded required properties from 6 to 7 — added <code>description</code> field",
+            "cl.v41.2": "New rule: <code>description</code> must be written in English (1-2 sentences) as an LLM relevance hint",
+            "cl.v41.3": "Updated <code>frontmatter-standard.md</code> shared rule with English-only requirement and examples",
+            "cl.v41.4": "Converted all 5 system file descriptions from Korean to English (exemplar role)",
+            "cl.v41.5": "Added <code>description</code> check to CLAUDE.md Pre-Flight Checklist",
+            "cl.v41.6": "Saved feedback memory for cross-session persistence",
+            "cl.v4.title": "Shared Rules + Architecture Patterns",
+            "cl.v4.1": "Added 5 shared rule files in .claude/rules/",
+            "cl.v4.2": "Introduced @include pattern for rule reuse",
+            "cl.v4.3": "Documented 9 architecture patterns",
+            "cl.v4.4": "Added precedence, memory-type, token-estimate to frontmatter",
+            "cl.v4.5": "Created CHANGELOG.md for version tracking",
+            "cl.v4.6": "New essential (post-compact) markers for critical rules",
+            "cl.v3.title": "Frontmatter Standard + Share System",
+            "cl.v3.1": "Introduced structured YAML frontmatter for all system files",
+            "cl.v3.2": "Added description, audience, scope fields",
+            "cl.v3.3": "Created share system with 8 placeholder rules",
+            "cl.v3.4": "Backup/share copy workflow for sanitized distribution",
+            "cl.v2.title": "5-File Architecture",
+            "cl.v2.1": "Split single doc into 5 audience-specific files",
+            "cl.v2.2": "Added AGENTS.md for non-Claude AI tools",
+            "cl.v2.3": "Separated human docs (HQ, Guide) from AI docs",
+            "cl.v1.title": "Initial System Files",
+            "cl.v1.1": "Created CMDS.md and CLAUDE.md as initial system documentation",
+            "cl.v1.2": "Defined CMDS categories (100-900) and vault structure",
+            "cta.desc": "Download the complete CMDS System Files v4 package \u2014 system files, shared rules, and changelog.",
+            "cta.zip": "\u2193 Download All (ZIP)",
+            "cta.github": "GitHub Repository",
+            "dl.label.system": "SYSTEM FILES",
+            "dl.label.rules": "SHARED RULES (.CLAUDE/RULES/)",
+            "dl.label.changelog": "CHANGELOG",
+            "cta.banner.btn": "class.cmdspace.kr",
+            "footer.desc": "Personal Knowledge Management System. Connect \u2192 Merge \u2192 Develop \u2192 Share.",
+            "footer.ip": "All intellectual property rights belong to CMDSPACE."
+        },
+        ko: {
+            "nav.files": "\uD30C\uC77C",
+            "nav.patterns": "\uD328\uD134",
+            "nav.rules": "\uADDC\uCE59",
+            "nav.diagram": "\uB2E4\uC774\uC5B4\uADF8\uB7A8",
+            "nav.changelog": "\uBCC0\uACBD\uC774\uB825",
+            "nav.download": "\uB2E4\uC6B4\uB85C\uB4DC",
+            "hero.badge": "\uC9C0\uC2DD \uC544\uD0A4\uD14D\uCC98 V4.2",
+            "hero.subtitle": "CMDSPACE PKM \uC0DD\uD0DC\uACC4\uB97C \uAD6C\uB3D9\uD558\uB294 5\uAC1C \uD575\uC2EC \uD30C\uC77C + 5\uAC1C \uACF5\uC720 \uADDC\uCE59 + 9\uAC1C \uC544\uD0A4\uD14D\uCC98 \uD328\uD134 \u2014 AI \uC5D0\uC774\uC804\uD2B8\uC640 \uC778\uAC04 \uC0AC\uC6A9\uC790 \uBAA8\uB450\uB97C \uC704\uD55C \uC124\uACC4.<span class=\"cursor-blink\"></span>",
+            "stats.files": "\uC2DC\uC2A4\uD15C \uD30C\uC77C",
+            "stats.rules": "\uACF5\uC720 \uADDC\uCE59",
+            "stats.patterns": "\uC544\uD0A4\uD14D\uCC98 \uD328\uD134",
+            "stats.notes": "\uB178\uD2B8",
+            "section.files.title": "\uD575\uC2EC <span class=\"accent\">\uC2DC\uC2A4\uD15C \uD30C\uC77C</span>",
+            "section.files.desc": "\uAD6C\uC870\uD654\uB41C \uD504\uB860\uD2B8\uB9E4\uD130\uB97C \uAC00\uC9C4 5\uAC1C \uD30C\uC77C \u2014 precedence, memory-type, token-estimate, audience \uD544\uB4DC \uD3EC\uD568. v4\uC5D0\uC11C @include \uACF5\uC720 \uADDC\uCE59 \uB3C4\uC785.",
+            "file.cmds.desc": "\uC2DC\uC2A4\uD15C \uCCA0\uD559\uACFC \uC0AC\uC6A9\uC790 \uCEE8\uD14D\uC2A4\uD2B8. WHY & WHAT \u2014 \uBAA9\uC801, \uC6CC\uD06C\uD50C\uB85C\uC6B0, 9\uAC1C \uCE74\uD14C\uACE0\uB9AC, CMDS \uD504\uB85C\uC138\uC2A4 \uC124\uBA85.",
+            "file.cmds.audience": "\uBAA8\uB4E0 LLM \uC5B4\uC2DC\uC2A4\uD134\uD2B8",
+            "file.claude.desc": "Claude Code\uB97C \uC704\uD55C \uAE30\uC220 \uAD6C\uD604 \uAC00\uC774\uB4DC. \uD30C\uC77C \uC791\uC5C5, \uBA85\uB839\uC5B4, \uBCFC\uD2B8 \uADDC\uCE59. @include\uB85C \uACF5\uC720 \uADDC\uCE59 \uC0AC\uC6A9.",
+            "file.agents.desc": "\uB2E4\uB978 AI \uCF54\uB529 \uC5D0\uC774\uC804\uD2B8\uB97C \uC704\uD55C \uD734\uB300\uC6A9 \uAE30\uC220 \uAC00\uC774\uB4DC. Gemini CLI, Codex, Cursor, Windsurf. @include\uB85C \uACF5\uC720 \uADDC\uCE59 \uC0AC\uC6A9.",
+            "file.agents.audience": "Gemini, Codex \uB4F1",
+            "file.hq.desc": "\uC0AC\uC6A9\uC790\uC6A9 \uB0B4\uBE44\uAC8C\uC774\uC158 \uD5C8\uBE0C. 91\uAC1C \uC11C\uBE0C\uCE74\uD14C\uACE0\uB9AC, ChatGPT GPT \uB9C1\uD06C, \uC804\uCCB4 \uCE74\uD14C\uACE0\uB9AC \uB9F5\uC5D0 \uBE60\uB978 \uC811\uADFC.",
+            "file.hq.audience": "\uC0AC\uC6A9\uC790",
+            "file.guide.desc": "\uC6B4\uC601 \uD45C\uC900. \uD504\uB85C\uD37C\uD2F0 \uD15C\uD50C\uB9BF, \uBA85\uBA85 \uADDC\uCE59, \uB178\uD2B8 \uC720\uD615, \uD3F4\uB354 \uAD6C\uC870, \uC0C1\uD0DC\uAC12.",
+            "file.guide.audience": "\uC0AC\uC6A9\uC790 + AI",
+            "meta.audience": "\uB300\uC0C1:",
+            "meta.precedence": "\uC6B0\uC120\uC21C\uC704:",
+            "meta.memory": "\uBA54\uBAA8\uB9AC \uC720\uD615:",
+            "meta.tokens": "\uD1A0\uD070 \uCD94\uC815:",
+            "section.patterns.title": "\uC544\uD0A4\uD14D\uCC98 <span class=\"accent\">\uD328\uD134</span>",
+            "section.patterns.desc": "CMDS \uC2DC\uC2A4\uD15C \uD30C\uC77C\uC758 \uBC18\uBCF5\uC801 \uAC1C\uBC1C\uC744 \uD1B5\uD574 \uBC1C\uACAC\uB41C 9\uAC1C \uB514\uC790\uC778 \uD328\uD134 \u2014 \uAC01\uAC01 \uD2B9\uC815 \uC9C0\uC2DD \uC544\uD0A4\uD14D\uCC98 \uACFC\uC81C\uB97C \uD574\uACB0.",
+            "pat.1.title": "\uC6B0\uC120\uC21C\uC704 \uC815\uB82C",
+            "pat.1.desc": "\uAC01 \uC2DC\uC2A4\uD15C \uD30C\uC77C\uC740 \uC6B0\uC120\uC21C\uC704 \uC22B\uC790(1-3)\uB97C \uAC00\uC9D1\uB2C8\uB2E4. \uD30C\uC77C \uAC04 \uADDC\uCE59 \uCDA9\uB3CC \uC2DC \uB0AE\uC740 \uBC88\uD638\uAC00 \uC6B0\uC120\uD569\uB2C8\uB2E4.",
+            "pat.2.title": "STATIC / DYNAMIC \uB9C8\uCEE4",
+            "pat.2.desc": "\uD30C\uC77C\uC740 STATIC(\uCCA0\uD559, \uAC70\uC758 \uBCC0\uACBD \uC5C6\uC74C) \uB610\uB294 DYNAMIC(\uC0C8 \uB3C4\uAD6C/\uADDC\uCE59\uC73C\uB85C \uC5C5\uB370\uC774\uD2B8)\uC73C\uB85C \uD0DC\uADF8\uB429\uB2C8\uB2E4. AI \uC5D0\uC774\uC804\uD2B8\uC5D0\uAC8C \uC5C5\uB370\uC774\uD2B8 \uBE48\uB3C4\uB97C \uC2E0\uD638\uD569\uB2C8\uB2E4.",
+            "pat.3.title": "@include + [[wikilink]]",
+            "pat.3.desc": "\uACF5\uC720 \uADDC\uCE59\uC740 .claude/rules/\uC5D0 \uC788\uACE0 @include \uC9C0\uC2DC\uBB38\uC744 \uD1B5\uD574 CLAUDE.md\uC640 AGENTS.md\uC5D0 \uC8FC\uC785\uB429\uB2C8\uB2E4. AI \uBB38\uC11C \uAC04 \uC911\uBCF5\uC744 \uC81C\uAC70\uD569\uB2C8\uB2E4.",
+            "pat.4.title": "Essential (Post-Compact)",
+            "pat.4.desc": "[ESSENTIAL]\uB85C \uD45C\uC2DC\uB41C \uC139\uC158\uC740 \uCEE8\uD14D\uC2A4\uD2B8 \uC555\uCD95 \uD6C4\uC5D0\uB3C4 \uC720\uC9C0\uB429\uB2C8\uB2E4. \uCEE8\uD14D\uC2A4\uD2B8 \uC708\uB3C4\uC6B0\uAC00 \uCC28\uBA74 \uB2E4\uB978 \uB0B4\uC6A9\uC774 \uC798\uB824\uB3C4 \uC774 \uADDC\uCE59\uC740 \uC720\uC9C0\uB429\uB2C8\uB2E4.",
+            "pat.5.title": "required-for / optional-for",
+            "pat.5.desc": "\uD504\uB860\uD2B8\uB9E4\uD130 \uD544\uB4DC\uB85C \uC5B4\uB5A4 \uC5D0\uC774\uC804\uD2B8\uAC00 \uD574\uB2F9 \uD30C\uC77C\uC744 \uBC18\uB4DC\uC2DC \uC77D\uC5B4\uC57C \uD558\uB294\uC9C0, \uC120\uD0DD\uC801\uC73C\uB85C \uCC38\uC870\uD560 \uC218 \uC788\uB294\uC9C0 \uC9C0\uC815\uD569\uB2C8\uB2E4.",
+            "pat.6.title": "\uD1A0\uD070 \uCD94\uC815 \uD544\uB4DC",
+            "pat.6.desc": "\uAC01 \uD30C\uC77C\uC758 \uD504\uB860\uD2B8\uB9E4\uD130\uC5D0 \uCD94\uC815 \uD1A0\uD070 \uC218\uAC00 \uD3EC\uD568\uB429\uB2C8\uB2E4. AI \uC624\uCF00\uC2A4\uD2B8\uB808\uC774\uD130\uAC00 \uD30C\uC77C \uB85C\uB4DC \uC804 \uCEE8\uD14D\uC2A4\uD2B8 \uC708\uB3C4\uC6B0 \uC608\uC0B0\uC744 \uACC4\uD68D\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.",
+            "pat.7.title": "\uBCC0\uACBD\uC774\uB825 \uD544\uB4DC",
+            "pat.7.desc": "\uAC01 \uD30C\uC77C\uC758 \uD504\uB860\uD2B8\uB9E4\uD130\uAC00 \uC911\uC559 CHANGELOG.md\uC640 \uC5F0\uACB0\uB429\uB2C8\uB2E4. \uC5D0\uC774\uC804\uD2B8\uAC00 \uADDC\uCE59\uC774 \uC5B8\uC81C \uBCC0\uACBD\uB418\uC5C8\uB294\uC9C0 \uC54C \uC218 \uC788\uC2B5\uB2C8\uB2E4.",
+            "pat.8.title": "\uACF5\uC720 \uADDC\uCE59 \uB514\uB809\uD1A0\uB9AC",
+            "pat.8.desc": "\uACF5\uD1B5 \uADDC\uCE59\uC744 .claude/rules/\uC5D0 \uB3C5\uB9BD \uD30C\uC77C\uB85C \uCD94\uCD9C. CLAUDE.md\uC640 AGENTS.md \uBAA8\uB450 @include\uD558\uC5EC \uC911\uC694 \uADDC\uCE59\uC758 \uB2E8\uC77C \uC9C4\uC2E4 \uACF5\uAE09\uC6D0\uC744 \uBCF4\uC7A5\uD569\uB2C8\uB2E4.",
+            "pat.9.title": "\uB300\uC0C1 \uAE30\uBC18 \uBD84\uB9AC",
+            "pat.9.desc": "\uD30C\uC77C\uC740 \uC77D\uB294 \uC8FC\uCCB4\uC5D0 \uB530\uB77C \uBD84\uB9AC: AI \uC5D0\uC774\uC804\uD2B8(\uC790\uB3D9 \uB85C\uB4DC), \uC778\uAC04 \uC0AC\uC6A9\uC790(\uC218\uB3D9 \uCC38\uC870). \uB2E8\uC77C \uD30C\uC77C\uC774 \uBAA8\uB450\uB97C \uC11C\uBE44\uC2A4\uD558\uC9C0 \uC54A\uC544 \uAC01\uAC01 \uAC04\uACB0\uD558\uAC8C \uC720\uC9C0\uB429\uB2C8\uB2E4.",
+            "section.rules.title": "\uACF5\uC720 <span class=\"accent\">\uADDC\uCE59</span>",
+            "section.rules.desc": ".claude/rules/\uC758 5\uAC1C \uADDC\uCE59 \uD30C\uC77C \u2014 \uD3EC\uB9F7\uD305, \uAD6C\uC870, \uADDC\uBC94\uC758 \uB2E8\uC77C \uC9C4\uC2E4 \uACF5\uAE09\uC6D0. CLAUDE.md\uC640 AGENTS.md\uAC00 @include\uB85C \uC18C\uBE44.",
+            "rule.1.title": "\uB4E4\uC5EC\uC4F0\uAE30 \uADDC\uCE59",
+            "rule.1.desc": "YAML \uD504\uB860\uD2B8\uB9E4\uD130\uB294 2\uCE78 \uC2A4\uD398\uC774\uC2A4. \uB9C8\uD06C\uB2E4\uC6B4 \uBCF8\uBB38\uC740 TAB. \uBCFC\uD2B8 \uD3B8\uC9D1 \uC2DC \uAC00\uC7A5 \uD754\uD55C \uC2E4\uC218 \u2014 \uACF5\uC720 \uADDC\uCE59\uC73C\uB85C \uBAA8\uB4E0 AI \uC5D0\uC774\uC804\uD2B8\uAC00 \uB3D9\uC77C\uD55C \uD45C\uC900\uC744 \uB530\uB985\uB2C8\uB2E4.",
+            "rule.2.title": "\uD504\uB860\uD2B8\uB9E4\uD130 \uD45C\uC900",
+            "rule.2.desc": "\uBAA8\uB4E0 \uB178\uD2B8\uC5D0 6\uAC1C \uD544\uC218 \uD504\uB85C\uD37C\uD2F0: type, aliases, author, date created, date modified, tags. ISO 8601 \uB0A0\uC9DC, \uBC30\uC5F4 \uD615\uC2DD, CamelCase \uADDC\uCE59 \uC815\uC758.",
+            "rule.3.title": "\uD30C\uC77C \uC0DD\uC131 \uADDC\uCE59",
+            "rule.3.desc": "\uBAA8\uB4E0 \uCF54\uB4DC \uCD9C\uB825\uC740 00. Inbox/03. AI Agent/{env-subfolder}/\uC5D0 \uC800\uC7A5. \uB2E4\uC911 \uD30C\uC77C \uD504\uB85C\uC81D\uD2B8\uB294 \uB0A0\uC9DC\uBCC4 \uD3F4\uB354 \uD544\uC694. \uD30C\uC77C\uBA85\uC740 YYYY-MM-DD-description.ext \uADDC\uCE59.",
+            "rule.4.title": "\uC704\uD0A4\uB9C1\uD06C \uADDC\uCE59",
+            "rule.4.desc": "\uB0B4\uBD80 \uCC38\uC870\uB294 [[\uC774\uC911 \uAD04\uD638]] \uC0AC\uC6A9. YAML \uB0B4\uBD80 \uC704\uD0A4\uB9C1\uD06C\uB294 \uBC18\uB4DC\uC2DC \uC30D\uB530\uC634\uD45C\uB85C \uAC10\uC2F8\uC57C \uD568. \uBCC4\uCE6D, \uD5E4\uB529, \uBE14\uB85D, \uC784\uBCA0\uB4DC \uC9C0\uC6D0.",
+            "rule.5.title": "\uB514\uB809\uD1A0\uB9AC \uAD6C\uC870",
+            "rule.5.desc": "\uC804\uCCB4 \uBCFC\uD2B8 \uD3F4\uB354 \uB808\uC774\uC544\uC6C3(00-90 \uC2DC\uB9AC\uC988)\uC744 \uBAA9\uC801 \uC124\uBA85\uACFC \uD568\uAED8 \uB9E4\uD551. \uC778\uBC15\uC2A4, \uD504\uB85C\uC138\uC2A4, \uBB38\uD5CC, \uC0B0\uCD9C\uBB3C, \uC124\uC815 \uB4F1 \uD3F4\uB354 \uC815\uC758.",
+            "section.diagram.title": "\uD30C\uC77C <span class=\"accent\">\uC544\uD0A4\uD14D\uCC98</span>",
+            "section.diagram.desc": "\uACF5\uC720 \uADDC\uCE59\uC774 @include(\uC790\uB3D9)\uC640 \uC218\uB3D9 \uCC38\uC870\uB97C \uD1B5\uD574 \uC2DC\uC2A4\uD15C \uD30C\uC77C\uC5D0 \uD750\uB974\uB294 \uBC29\uC2DD. \uBAA8\uB4E0 \uD3EC\uB9F7\uD305 \uADDC\uCE59\uC758 \uB2E8\uC77C \uC9C4\uC2E4 \uACF5\uAE09\uC6D0\uC744 \uBCF4\uC7A5\uD569\uB2C8\uB2E4.",
+            "diagram.title": "CMDS \uC2DC\uC2A4\uD15C \uD30C\uC77C V4 \uC544\uD0A4\uD14D\uCC98",
+            "diagram.layer1": ".CLAUDE/RULES/ (\uACF5\uC720 \uADDC\uCE59)",
+            "diagram.arrow1": "@INCLUDE (\uC790\uB3D9 \uC8FC\uC785)",
+            "diagram.layer2": "AI \uC2DC\uC2A4\uD15C \uD30C\uC77C (\uCEE8\uD14D\uC2A4\uD2B8\uC5D0 \uC790\uB3D9 \uB85C\uB4DC)",
+            "diagram.arrow2": "[[WIKILINK]] (\uC218\uB3D9 \uCC38\uC870)",
+            "diagram.layer3": "\uC778\uAC04 \uC2DC\uC2A4\uD15C \uD30C\uC77C (OBSIDIAN\uC5D0\uC11C \uCC38\uC870)",
+            "section.changelog.title": "<span class=\"accent\">\uBCC0\uACBD\uC774\uB825</span>",
+            "section.changelog.desc": "CHANGELOG.md\uC5D0\uC11C \uCD94\uC801\uD558\uB294 CMDS \uC2DC\uC2A4\uD15C \uD30C\uC77C \uC544\uD0A4\uD14D\uCC98 \uBC84\uC804 \uC774\uB825.",
+            "cl.v42.title": "CMDS 프로세스 커맨드 스위트",
+            "cl.v42.1": "CMDS 프로세스(Connect / Merge / Develop / Share)에 맞춘 8개 슬래시 커맨드 추가",
+            "cl.v42.2": "스테이지 커맨드: <code>/connect</code>, <code>/merge</code>, <code>/develop</code>, <code>/share</code>",
+            "cl.v42.3": "공통 유틸리티: <code>/inbox</code> (라우터), <code>/lint</code>, <code>/query</code>, <code>/status</code>",
+            "cl.v42.4": "설계 원칙: <code>/inbox</code>는 라우터 전용, <code>/share</code>는 기존 스킬에 위임하는 오케스트레이터 전용",
+            "cl.v42.5": "<code>/query</code> 결과는 CMDS 카테고리로 분류 — 별도 폴더 없음",
+            "cl.v42.6": "새 camelCase 프론트매터 필드 10개 도입 (<code>mergePurpose</code>, <code>sourceNotes</code>, <code>shareFormat</code> 등)",
+            "cl.v41.title": "description 필드 표준화",
+            "cl.v41.1": "필수 프로퍼티 6개 → 7개로 확장 — <code>description</code> 필드 추가",
+            "cl.v41.2": "새 규칙: <code>description</code>은 LLM 관련성 힌트로서 반드시 영어 1-2문장으로 작성",
+            "cl.v41.3": "공유 규칙 <code>frontmatter-standard.md</code>에 영어 전용 요구사항과 예시 추가",
+            "cl.v41.4": "5개 시스템 파일의 description을 한국어→영어로 변환 (exemplar 역할)",
+            "cl.v41.5": "CLAUDE.md Pre-Flight Checklist에 <code>description</code> 체크 항목 추가",
+            "cl.v41.6": "세션 간 지속을 위한 feedback 메모리 저장",
+            "cl.v4.title": "\uACF5\uC720 \uADDC\uCE59 + \uC544\uD0A4\uD14D\uCC98 \uD328\uD134",
+            "cl.v4.1": ".claude/rules/\uC5D0 5\uAC1C \uACF5\uC720 \uADDC\uCE59 \uD30C\uC77C \uCD94\uAC00",
+            "cl.v4.2": "\uADDC\uCE59 \uC7AC\uC0AC\uC6A9\uC744 \uC704\uD55C @include \uD328\uD134 \uB3C4\uC785",
+            "cl.v4.3": "9\uAC1C \uC544\uD0A4\uD14D\uCC98 \uD328\uD134 \uBB38\uC11C\uD654",
+            "cl.v4.4": "\uD504\uB860\uD2B8\uB9E4\uD130\uC5D0 precedence, memory-type, token-estimate \uCD94\uAC00",
+            "cl.v4.5": "\uBC84\uC804 \uCD94\uC801\uC744 \uC704\uD55C CHANGELOG.md \uC0DD\uC131",
+            "cl.v4.6": "\uC911\uC694 \uADDC\uCE59\uC744 \uC704\uD55C essential (post-compact) \uB9C8\uCEE4 \uC0C8\uB85C \uB3C4\uC785",
+            "cl.v3.title": "\uD504\uB860\uD2B8\uB9E4\uD130 \uD45C\uC900 + \uACF5\uC720 \uC2DC\uC2A4\uD15C",
+            "cl.v3.1": "\uBAA8\uB4E0 \uC2DC\uC2A4\uD15C \uD30C\uC77C\uC5D0 \uAD6C\uC870\uD654\uB41C YAML \uD504\uB860\uD2B8\uB9E4\uD130 \uB3C4\uC785",
+            "cl.v3.2": "description, audience, scope \uD544\uB4DC \uCD94\uAC00",
+            "cl.v3.3": "8\uAC1C \uD50C\uB808\uC774\uC2A4\uD640\uB354 \uADDC\uCE59\uC774 \uC788\uB294 \uACF5\uC720 \uC2DC\uC2A4\uD15C \uC0DD\uC131",
+            "cl.v3.4": "\uC0AC\uC801 \uC815\uBCF4 \uC81C\uAC70\uB41C \uBC30\uD3EC\uB97C \uC704\uD55C \uBC31\uC5C5/\uACF5\uC720 \uBCF5\uC0AC \uC6CC\uD06C\uD50C\uB85C\uC6B0",
+            "cl.v2.title": "5\uAC1C \uD30C\uC77C \uC544\uD0A4\uD14D\uCC98",
+            "cl.v2.1": "\uB2E8\uC77C \uBB38\uC11C\uB97C 5\uAC1C \uB300\uC0C1\uBCC4 \uD30C\uC77C\uB85C \uBD84\uB9AC",
+            "cl.v2.2": "\uBE44-Claude AI \uB3C4\uAD6C\uB97C \uC704\uD55C AGENTS.md \uCD94\uAC00",
+            "cl.v2.3": "\uC778\uAC04 \uBB38\uC11C(HQ, Guide)\uC640 AI \uBB38\uC11C \uBD84\uB9AC",
+            "cl.v1.title": "\uCD08\uAE30 \uC2DC\uC2A4\uD15C \uD30C\uC77C",
+            "cl.v1.1": "CMDS.md\uC640 CLAUDE.md\uB97C \uCD08\uAE30 \uC2DC\uC2A4\uD15C \uBB38\uC11C\uB85C \uC0DD\uC131",
+            "cl.v1.2": "CMDS \uCE74\uD14C\uACE0\uB9AC(100-900)\uC640 \uBCFC\uD2B8 \uAD6C\uC870 \uC815\uC758",
+            "cta.desc": "CMDS \uC2DC\uC2A4\uD15C \uD30C\uC77C v4 \uC804\uCCB4 \uD328\uD0A4\uC9C0 \uB2E4\uC6B4\uB85C\uB4DC \u2014 \uC2DC\uC2A4\uD15C \uD30C\uC77C, \uACF5\uC720 \uADDC\uCE59, \uBCC0\uACBD\uC774\uB825 \uD3EC\uD568.",
+            "cta.zip": "\u2193 \uC804\uCCB4 \uB2E4\uC6B4\uB85C\uB4DC (ZIP)",
+            "cta.github": "GitHub \uC800\uC7A5\uC18C",
+            "dl.label.system": "\uC2DC\uC2A4\uD15C \uD30C\uC77C",
+            "dl.label.rules": "\uACF5\uC720 \uADDC\uCE59 (.CLAUDE/RULES/)",
+            "dl.label.changelog": "\uBCC0\uACBD\uC774\uB825",
+            "cta.banner.btn": "class.cmdspace.kr",
+            "footer.desc": "\uAC1C\uC778 \uC9C0\uC2DD \uAD00\uB9AC \uC2DC\uC2A4\uD15C. Connect \u2192 Merge \u2192 Develop \u2192 Share.",
+            "footer.ip": "\uBAA8\uB4E0 \uC9C0\uC801 \uC7AC\uC0B0\uAD8C\uC740 CMDSPACE\uC5D0 \uC18D\uD569\uB2C8\uB2E4."
         }
+    };
 
-        // Initialize language
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('cmds-lang') || 'en';
-            setLanguage(savedLang);
-            
-            // Language toggle event
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-            });
+    // ===========================================
+    // LANGUAGE TOGGLE
+    // ===========================================
+    function setLanguage(lang) {
+        document.documentElement.setAttribute('data-lang', lang);
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
         });
-
-        // Reveal animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+        var t = translations[lang];
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+            var key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t[key];
+                } else {
+                    el.innerHTML = t[key];
                 }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            }
+        });
+    }
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { setLanguage(btn.dataset.lang); });
+    });
 
-        // Counter animation
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseInt(el.dataset.target);
-                    if (!target) return;
-                    let current = 0;
-                    const increment = target / 20;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            el.textContent = target;
-                            clearInterval(timer);
-                        } else {
-                            el.textContent = Math.floor(current);
-                        }
-                    }, 50);
-                    counterObserver.unobserve(el);
+    // ===========================================
+    // SCROLL-TO-TOP
+    // ===========================================
+    var scrollTopBtn = document.getElementById('scrollTop');
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', function() {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+
+    // ===========================================
+    // ACTIVE NAV ON SCROLL
+    // ===========================================
+    var navLinks = document.querySelectorAll('.nav-link[data-section]');
+    window.addEventListener('scroll', function() {
+        var current = '';
+        navLinks.forEach(function(link) {
+            var el = document.getElementById(link.getAttribute('data-section'));
+            if (el && el.offsetTop <= window.scrollY + 120) {
+                current = link.getAttribute('data-section');
+            }
+        });
+        navLinks.forEach(function(link) {
+            link.classList.toggle('active', link.getAttribute('data-section') === current);
+        });
+    }, { passive: true });
+
+    // ===========================================
+    // SEARCH FILTER
+    // ===========================================
+    document.getElementById('searchInput').addEventListener('input', function() {
+        var q = this.value.toLowerCase().trim();
+        document.querySelectorAll('.section, .download-section').forEach(function(sec) {
+            if (!q) { sec.classList.remove('hidden-by-search'); return; }
+            var match = (sec.getAttribute('data-search') || '').toLowerCase().indexOf(q) !== -1
+                     || sec.textContent.toLowerCase().indexOf(q) !== -1;
+            sec.classList.toggle('hidden-by-search', !match);
+        });
+    });
+
+    // ===========================================
+    // SMOOTH NAV SCROLL
+    // ===========================================
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                var offset = 60;
+                var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===========================================
+    // REVEAL ON SCROLL
+    // ===========================================
+    var revealElements = document.querySelectorAll('.reveal');
+    var revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(function(el) { revealObserver.observe(el); });
+
+    // ===========================================
+    // STAT COUNTER ANIMATION
+    // ===========================================
+    function animateCounters() {
+        document.querySelectorAll('.hero-stat strong').forEach(function(el) {
+            var text = el.textContent.trim();
+            if (text.includes('K') || text.includes('+')) return;
+            var target = parseInt(text);
+            if (isNaN(target)) return;
+            var current = 0;
+            var step = Math.max(1, Math.floor(target / 25));
+            var interval = setInterval(function() {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
                 }
-            });
-        }, { threshold: 0.5 });
+                el.textContent = current;
+            }, 50);
+        });
+    }
 
-        document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
-    </script>
+    var heroObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                animateCounters();
+                heroObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    var heroEl = document.querySelector('.hero');
+    if (heroEl) heroObserver.observe(heroEl);
+
+})();
+</script>
 </body>
 </html>
