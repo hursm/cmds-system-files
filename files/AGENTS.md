@@ -7,7 +7,7 @@ description: Technical guide for non-Claude AI coding agents (Gemini CLI, Codex,
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-04-11T14:16
+date modified: 2026-04-18T15:40
 tags:
   - CMDS
   - system
@@ -32,7 +32,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md`
+> **🔄 Last Updated: 2026-04-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -60,6 +60,15 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 |-------------|---------|-----------|
 | Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
 | Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
+
+### Public Deployment
+- **Web**: https://system.cmdspace.work (5 system files + rules + ZIP download)
+- **Hosting**: Vercel — team `johnfkoo951's projects`, project **`cmds-system-files-v2`** (Project ID: `prj_CDfy1Qhc2WmxI2nj76w0EJv3zq8h`)
+- **DNS**: Cloudflare (`cmdspace.work` zone) — A record `system → 76.76.21.21`, proxy OFF
+- **DEV source folder**: `/Users/yohankoo/DEV/cmds-system-files/`
+- **Deploy command** (from DEV folder): `vercel deploy --prod --yes`
+- **GitHub repo**: https://github.com/johnfkoo951/cmds-system-files — code backup only, **not connected to Vercel auto-deploy**
+- Details & sync skill: see `[[CLAUDE.md]]` → "📦 System Files Deployment" section
 
 ---
 

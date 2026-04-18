@@ -7,7 +7,7 @@ description: Claude Code specific technical implementation guide. Defines file c
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-04-14T22:16
+date modified: 2026-04-18T15:40
 tags:
   - CMDS
   - system
@@ -34,7 +34,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) | Web: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-04-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -140,6 +140,95 @@ Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Cla
 - 새 Mac 에서 수동 설정하는 법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션 참조.
 
 **주의**: Obsidian Sync 가 symlink 자체를 실체 폴더로 복제해버리는 경우가 있다. 새 Mac 에서 처음 볼트를 받으면 `.claude/` 가 일반 폴더일 수 있으니, **각 Mac 마다 symlink 를 수동으로 재설정** 해야 한다.
+
+### 📦 System Files Deployment (system.cmdspace.work)
+
+**5개 시스템 파일(CLAUDE, AGENTS, CMDS, HQ, Guide)** 은 `system.cmdspace.work` 에 공개 배포됩니다. 배포 스택/경로/명령은 아래와 같습니다.
+
+#### 배포 스택
+
+| 레이어 | 서비스 | 설정 |
+|--------|--------|------|
+| **DNS** | Cloudflare | `cmdspace.work` (Free tier) · Account: `Cmdspace.contact@gmail.com` |
+| **DNS Record** | Cloudflare | `system` → A `76.76.21.21` · Proxy **OFF** (DNS only) |
+| **Hosting** | Vercel | Team: `johnfkoo951's projects` (Hobby) · Project: **`cmds-system-files-v2`** |
+| **Project ID** | Vercel | `prj_CDfy1Qhc2WmxI2nj76w0EJv3zq8h` |
+| **Domain binding** | Vercel | `system.cmdspace.work` + `files.cmdspace.work` (같은 프로젝트) |
+| **Git Integration** | — | ❌ 없음 (CLI 수동 배포만) |
+
+> **왜 `-v2`?**: Vercel 프로젝트 이름의 일련번호. 1차 시도 프로젝트 `cmds-system-files` 는 도메인 미연결 상태로 orphaned. 2차로 생성한 `cmds-system-files-v2` 가 현행. **시스템 파일 콘텐츠 버전(v4.2)과는 무관**.
+
+#### 배포 소스 폴더 (DEV)
+
+**`/Users/yohankoo/DEV/cmds-system-files/`** 가 배포 소스입니다. 구조:
+
+```
+/Users/yohankoo/DEV/cmds-system-files/
+├── index.html                    ← 메인 웹페이지 (Brutalist Edition)
+├── README.md                     ← GitHub 리드미
+├── CHANGELOG.md                  ← 버전 이력
+├── .vercel/project.json          ← Vercel 링크 (gitignored)
+├── files/                        ← 다운로드 배포본
+│   ├── CLAUDE.md, AGENTS.md, CMDS.md, CMDS-Guide.md, CMDS-Head-Quarter.md
+│   ├── CMDS-System-Files.zip     ← 위 5개 + rules/ 번들
+│   └── rules/ (7개 .md)          ← .claude/rules/ 미러
+└── rules/ (7개 .md)              ← 레포 루트에도 복사본
+```
+
+#### 동기화 플로우 (볼트 → 프로덕션)
+
+```
+[볼트 원본]                                         [GitHub]
+ CLAUDE.md              ┐                           johnfkoo951/cmds-system-files
+ AGENTS.md              │                                    ↑
+ CMDS.md                │ system-docs-updater 스킬     git push (선택, 백업용)
+ 🏛 CMDS Guide.md       │ (복사 + ZIP 재생성)                │
+ 🏛 CMDS Head Quarter.md│                                    │
+ .claude/rules/*.md (7) │                            [DEV]   │
+                        └─→ /Users/yohankoo/DEV/cmds-system-files/
+                                    │
+                                    │ vercel deploy --prod --yes
+                                    ↓
+                             [Vercel] cmds-system-files-v2
+                                    │
+                                    │ 도메인 바인딩
+                                    ↓
+                             system.cmdspace.work  (Cloudflare DNS A → Vercel IP)
+```
+
+#### 배포 명령 (최소)
+
+```bash
+cd /Users/yohankoo/DEV/cmds-system-files
+vercel deploy --prod --yes
+```
+
+→ `system.cmdspace.work` 에 즉시 반영 (캐시 갱신 포함).
+
+#### 새 Mac 에서 배포 권한 확보
+
+DEV 폴더가 Vercel 프로젝트에 링크돼 있지 않다면 (`.vercel/` 없음) 한 번만 실행:
+
+```bash
+cd /Users/yohankoo/DEV/cmds-system-files
+vercel link --project cmds-system-files-v2 --yes
+```
+
+#### 전체 흐름 자동화 (system-docs-updater 스킬)
+
+```
+볼트 파일 수정
+  ↓
+"sync system files 배포" 또는 skill 호출
+  ↓
+스킬이 5개 MD + 7개 rules 을 DEV/ 에 복사
+  ↓
+ZIP 재생성 (DEV/files/CMDS-System-Files.zip)
+  ↓
+vercel deploy --prod  (수동으로 실행)
+```
+
+자세한 스킬 동작은 `system-docs-updater` 참조.
 
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above

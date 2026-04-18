@@ -26,6 +26,45 @@
 70. Outputs/                    # Final deliverables (최종 산출물)
 80. References/                 # Reference materials (참조 자료)
 90. Settings/                   # System settings and templates
+├── 94. Agent Settings/         # AI agent configs (원본, Obsidian Sync 동기화)
+│   └── claude/                 # .claude/ 원본 → symlink로 연결
+│       ├── agents/
+│       ├── commands/
+│       ├── rules/
+│       └── skills/
+```
+
+## Symbolic Link: .claude/ ↔ 94. Agent Settings/
+
+`.claude/`는 숨김 폴더라 Obsidian Sync 대상이 아닙니다.
+원본 파일은 `90. Settings/94. Agent Settings/claude/`에 두고, `.claude/`에서 symbolic link로 연결합니다.
+
+```
+.claude/
+├── agents   → symlink → 90. Settings/94. Agent Settings/claude/agents
+├── commands → symlink → 90. Settings/94. Agent Settings/claude/commands
+├── rules    → symlink → 90. Settings/94. Agent Settings/claude/rules
+├── skills   → symlink → 90. Settings/94. Agent Settings/claude/skills
+├── sessions/          (로컬 전용, 링크 안 함)
+├── settings.json      (로컬 전용, 링크 안 함)
+└── settings.local.json (로컬 전용, 링크 안 함)
+```
+
+### 새 머신에서 수동 설정
+
+```bash
+cd <vault-path>/.claude
+mv agents agents_backup && mv rules rules_backup
+mv skills skills_backup && mv commands commands_backup
+
+ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/agents" agents
+ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/rules" rules
+ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/skills" skills
+ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/commands" commands
+
+# 확인 후 백업 삭제
+ls -l  # l로 시작하면 symlink
+rm -rf agents_backup rules_backup skills_backup commands_backup
 ```
 
 ## CMDS Categories (100-900)

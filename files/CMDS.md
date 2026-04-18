@@ -7,7 +7,7 @@ description: Context and philosophy guide for all LLM assistants working with th
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-04-13T13:49
+date modified: 2026-04-18T15:40
 tags:
   - CMDS
   - system
@@ -31,7 +31,7 @@ changelog:
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> 	**🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md`
+> 	**🔄 Last Updated: 2026-04-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -123,6 +123,15 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 - AI coding agent outputs are separated by environment subfolders under `00. Inbox/03. AI Agent/`:
 	- `03-1. Claude Code (MBP)` / `03-2. Claude Code (Studio)` — Claude Code
 	- `03-3. OpenClaw (MBP)` / `03-4. OpenClaw (Studio)` — OpenClaw
+
+### Public Deployment of System Files
+The 5 core system files (plus 7 shared rules) are published at **https://system.cmdspace.work** so that LLM agents and human collaborators can reference them without vault access.
+
+- **Hosting**: Vercel project `cmds-system-files-v2` (team `johnfkoo951's projects`)
+- **DNS**: Cloudflare (`cmdspace.work`) — A record `system → 76.76.21.21`
+- **Deploy source**: `/Users/yohankoo/DEV/cmds-system-files/` (manual `vercel deploy --prod`)
+- **GitHub**: https://github.com/johnfkoo951/cmds-system-files (code backup, not auto-deployed)
+- For technical deploy flow, see [[CLAUDE.md]] → "📦 System Files Deployment" section
 
 ---
 

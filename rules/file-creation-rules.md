@@ -36,3 +36,9 @@ When creating projects with multiple related files:
 ```
 
 **Never** scatter related project files directly in subfolder root.
+
+## Exception: Video Projects (Remotion / heavy deps)
+
+Video projects with `node_modules` or large render artifacts MUST go to `/Users/yohankoo/DEV/video-projects/<name>/` instead of the vault. Only context/progress MD files stay in the vault.
+
+See `video-project-workflow.md` for full rule.
