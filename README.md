@@ -10,12 +10,26 @@
 
 CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 10,000+ notes. This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
 
-## What's New in v3.0
+## What's New in v4.2 (2026-04-15)
 
-- **Shared Rules** (`.claude/rules/`): 5 common rule files shared via `@include` between CLAUDE.md and AGENTS.md, eliminating 60% duplication
-- **9 Architecture Patterns**: precedence, STATIC/DYNAMIC markers, @include, Essential (Post-Compact), agent scoping, memory-type, token-estimate, changelog, shared rules
-- **Changelog**: Version history tracking across all system files
-- **Enhanced Frontmatter**: `precedence`, `memory-type`, `required-for`, `optional-for`, `token-estimate`, `changelog` fields
+- **CMDS Process Command Suite** — 8 slash commands aligned with Connect / Merge / Develop / Share
+	- **Stage commands**: `/connect`, `/merge`, `/develop`, `/share`
+	- **Cross-cutting utilities**: `/inbox` (router), `/lint`, `/query`, `/status`
+- **Design principles**:
+	- `/inbox` is router-only (scans 9 inbox subfolders, routes via `AskUserQuestion`)
+	- `/share` is orchestrator-only (delegates to existing skills — `thebetter-writer`, `markdown-slides`, etc.)
+	- `/query` results classify into CMDS categories — no separate folder
+- **10 new camelCase frontmatter fields**: `mergePurpose`, `sourceNotes`, `mainVaultRelated`, `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`, `sourceInbox`
+
+## Previous Highlights
+
+- **v4.1** (2026-04-07) — `description` field (English, LLM relevance hint) added as required property; 7 required properties total
+- **v4.0** (2026-04-01) — Shared rules (`.claude/rules/`) via `@include`; 9 architecture patterns; enhanced frontmatter (`precedence`, `memory-type`, `token-estimate`, etc.)
+- **v3.0** (2026-03-15) — Structured YAML frontmatter; share system with placeholder rules
+- **v2.0** (2026-01-20) — 5-file architecture (CLAUDE.md, AGENTS.md, CMDS.md, CMDS Guide, CMDS Head Quarter)
+- **v1.0** (2025-10-01) — Initial system files
+
+See [CHANGELOG.md](CHANGELOG.md) for full history.
 
 ## Repository Structure
 
@@ -29,11 +43,13 @@ files/
 └── CMDS-System-Files.zip  # All files bundled
 
 rules/
-├── indentation-rules.md      # YAML 2-spaces / Markdown TAB
-├── frontmatter-standard.md   # Required 6 properties + format
-├── file-creation-rules.md    # Output path, naming, project folders
-├── wikilink-rules.md         # Obsidian wikilink syntax + YAML quoting
-└── directory-structure.md    # Vault folder structure + CMDS categories
+├── indentation-rules.md        # YAML 2-spaces / Markdown TAB
+├── frontmatter-standard.md     # 7 required properties + format
+├── file-creation-rules.md      # Output path, naming, project folders
+├── wikilink-rules.md           # Obsidian wikilink syntax + YAML quoting
+├── directory-structure.md      # Vault folder structure + CMDS categories
+├── mermaid-rules.md            # Mermaid diagram quoting rules (Obsidian)
+└── video-project-workflow.md   # Remotion / video project placement rules
 
 CHANGELOG.md               # Version history
 ```
@@ -103,8 +119,10 @@ Connect → Merge → Develop → Share
 | Metric | Value |
 |--------|-------|
 | Core System Files | 5 |
-| Shared Rules | 5 |
+| Shared Rules | 7 |
+| Slash Commands (CMDS Process) | 8 |
 | Architecture Patterns | 9 |
+| Required Frontmatter Properties | 7 |
 | CMDS Categories | 9 (100-900) |
 | Subcategories | 91 |
 | Vault Notes | 10,000+ |
@@ -129,4 +147,4 @@ All intellectual property rights belong to CMDSPACE.
 
 ---
 
-Last Updated: 2026-04-01
+Last Updated: 2026-04-15 · v4.2
