@@ -18,6 +18,84 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.3 — 2026-04-19 (Visual Identity + Web Redesign)
+
+**트리거**: 사용자 요청 — "시스템 파일 페이지를 새로운 웹 스타일로 리빌딩 하려 해" + 공식 CMDS 로고 에셋 6종 정식 등록 + OG 이미지 시스템 정비.
+
+### 신규 페이지 · 구조 개편
+
+- **랜딩 + 문서 분리**: `/` (마케팅 랜딩) · `/docs/` (기술 문서) · `/index-brutalist.html` (구버전 아카이브)
+- **Editorial Documentation 스타일** 신규 구축 (Apple SF Pro × CMDS Green × Stripe docs 영감)
+  - 3컬럼 레이아웃 (사이드바 · 본문 · TOC)
+  - marked.js 로 MD 인라인 렌더 + YAML frontmatter 추출 표시
+  - ⌘K Command Palette 전역 검색 (titles + file paths + fulltext + 하이라이팅)
+  - 코드블록 progressive disclosure copy 버튼 (opacity 0.4 → pre:hover 0.85 → btn:hover 1)
+  - KO/EN 토글 · Light/Dark 토글 · scroll spy · 자동 TOC · 더블클릭 스크롤 상/하단 토글
+
+### 신규 에셋
+
+- **공식 로고 6종 정식 등록** (`/assets/logos/`)
+  - `cmds-logo-round.png` — 파비콘 · 헤더 brand mark (28px)
+  - `cmds-logo-black.png` / `cmds-logo-white.png` — 아이콘 only
+  - `cmds-logo-typo-black.png` / `cmds-logo-typo-white.png` — 로고 + 타이포 lockup
+  - `cmds-typo-white.png` — 타이포 only
+- **OG 이미지 시스템** (`/assets/og/`)
+  - `og-landing.png` (1200×630, 라이트 녹색 그라디언트)
+  - `og-docs.png` (1200×630, 다크 핑크 그라디언트)
+  - `templates/*.html` 재생성용 HTML 템플릿
+- **자동 빌드 스크립트** — `/scripts/build-og.sh` (Chrome headless 로 HTML → PNG 변환)
+
+### CMDS Color System v2.0 → v2.5 대폭 확장
+
+기존 v1.0 에서 2.5 로 5단계 진화 (볼트 `50. Assets/51. Brand/CMDS Color System.md`):
+
+- **v2.0** — CI/BI 분리, 라이트/다크 토큰, Obsidian 그래프 팔레트, Apple 타이포 스택
+- **v2.1** — Copy Button Progressive Disclosure, CSS Specificity 주의, Interaction Patterns (더블클릭 스크롤), Component Recipes
+- **v2.2** — `.accent-word` 클래스 확정 (인라인 style 금지), Full-Bleed CTA 다크 핑크 그라디언트, Cross-Page Navigation
+- **v2.3** — 공식 로고 에셋 6종 등록, Logo Usage Rules
+- **v2.4** — 히어로 상단 로고 기본 사용 안 함 결정 (헤더 + 하단 lockup 으로 분산)
+- **v2.5** — OG 이미지 시스템 정식 등록 (1200×630 규격, 메타 17종 체크리스트, 자동 생성 스크립트)
+
+### CI/BI 디자인 결정 기록
+
+- **Brand mark (로고)** — 테마 무관 `#134538` CMDS Dark Green 고정 (CI)
+- **Primary CTA 버튼**:
+  - 라이트: `#134538` + `#fff` 흰 글씨
+  - 다크: **`#E985A2` CMDS Pink** + `#0b0f0d` 어두운 글씨
+  - hover: `#1a5d4b` (green-hover) / `#D16C8A` (pink-dark)
+- **Accent highlights** — 라이트=녹색 · 다크=핑크 자동 전환 (`.accent-word` 클래스)
+- **Full-Bleed CTA 블록** — 라이트 녹색 그라디언트 / 다크 핑크 그라디언트
+
+### 시스템 파일 업데이트
+
+- **CLAUDE.md** — "📦 System Files Deployment" 섹션 신설 (Vercel · Cloudflare · DEV 폴더 · 배포 명령)
+- **AGENTS.md** — "Public Deployment" 간결 요약 + CLAUDE.md 참조
+- **CMDS.md** — "Public Deployment of System Files" 철학 수준 언급
+- `date modified` 모두 2026-04-19
+
+### 인프라 · 배포 명확화
+
+- **Vercel 프로젝트 "cmds-system-files-v2"** 의 "v2" 는 인프라 세팅의 2차 시도 (v1 orphaned) — 시스템 파일 콘텐츠 버전 v4.x 와 **무관**
+- DEV 폴더 `/Users/yohankoo/DEV/cmds-system-files/` 가 **배포 소스 폴더** 로 확정
+- 배포 명령: `cd /DEV/cmds-system-files && vercel deploy --prod --yes`
+- GitHub `johnfkoo951/cmds-system-files` 는 코드 히스토리 백업 (Vercel 자동 배포 연결 없음, 수동 배포)
+- 도메인: Cloudflare DNS (`system.cmdspace.work` A record → `76.76.21.21` Vercel)
+
+### 사용성 개선
+
+- **Cross-Page Navigation** — docs 헤더에 "Home" + "GitHub" inline nav (랜딩 ↔ 문서 왕복)
+- **더블클릭 빈 공간 → 스크롤 토글** — 상단 절반: 최하단 이동 · 하단 절반: 최상단 이동
+- **KO/EN 토글 + Light/Dark 토글** — localStorage 저장, 시스템 다크모드 자동 감지
+- **파비콘** — inline SVG `§` → 실제 라운드 로고 PNG 로 교체
+
+### 공개 안내문
+
+- 볼트 `70. Outputs/71. Published/2026-04-19-CMDS System Files 공개 안내문.md` 신설
+- 6가지 버전: SNS 긴 (한/영) · 카카오톡 짧은 (한/영) · 카카오톡 3분할 (한/영)
+- "Fork the architecture. Keep the philosophy." CMDSPACE 공식 tagline 확정
+
+---
+
 ## v4.2 — 2026-04-15 (CMDS Process Command Suite)
 
 **트리거**: 사용자 지시 — "cmds 프로세스에 맞게 connect merge develop share 로 하면 어떨까? inbox 명령어는 인박스 파악하는데 쓰고 c m d s 명령어들 통해서 각각 프로세스에 맞게 구조화하는 것이 중요할듯."
